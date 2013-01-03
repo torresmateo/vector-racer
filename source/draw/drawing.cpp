@@ -1,5 +1,43 @@
 
 
+void tube(GLfloat radius, GLfloat segment_length) {
+    glPolygonMode(GL_BACK, GL_NONE);
+    glPolygonMode(GL_FRONT, GL_FILL);
+    
+    glPushMatrix(); {
+        GLfloat z1 = 0.0;
+        GLfloat z2 = segment_length;
+        
+        GLfloat y_offset = 0.0;
+        GLfloat y_change = 0.00;
+        
+        int i = 0;
+        int j = 0;
+        for (j = 0; j < 20; j++) {
+            glPushMatrix(); {
+                glBegin(GL_TRIANGLE_STRIP); {
+                    for (i = 360; i >= 0; i--) {
+                        GLfloat theta = i * PI/180;
+                        GLfloat x = radius * cos(theta);
+                        GLfloat y = radius * sin(theta) + y_offset;
+                        
+                        glVertex3f(x, y, z1);
+                        glVertex3f(x, y, z2);
+                    }
+                } glEnd();
+            } glPopMatrix();
+            
+            // attach the front of the next segment to the back of the previous
+            z1 = z2;
+            z2 += segment_length;
+            
+            // make some other adjustments
+            y_offset += y_change;
+        }
+    } glPopMatrix();
+}
+
+
 void drawCar(){
 	Vector3D auxVec(gCAM_DIR);
 	// double tempAngle;
@@ -29,29 +67,25 @@ void drawCar(){
 *************************************************************/
 void drawScene() {
 	// Draw ground
-	glColor3f(0.8f, 0.8f, 0.8f);
-	// glBegin(GL_QUADS);
-		// glVertex3f(-100.0f, 0.0f, -100.0f);
-		// glVertex3f(-100.0f, 0.0f,  100.0f);
-		// glVertex3f( 100.0f, 0.0f,  100.0f);
-		// glVertex3f( 100.0f, 0.0f, -100.0f);
-	// glEnd();
-	
-	// Draw 36 SnowMen
-	// for(int i = -3; i < 3; i++)
-		// for(int j=-3; j < 3; j++) {
-			// glPushMatrix();
-			// glTranslatef(i*10.0f, 0.0f, j * 10.0f);
-			// drawSnowMan();
-			// glPopMatrix();
-		// }
-	
-	// drawCar();
-	
-	glBegin(GL_POLYGON);
-		GLUquadricObj *obj = gluNewQuadric();
-		gluCylinder(obj, 1, 1, 3, 30, 30);
+/*	glColor3f(0.8f, 0.8f, 0.8f);
+	glBegin(GL_QUADS);
+		glVertex3f(-100.0f, 0.0f, -100.0f);
+		glVertex3f(-100.0f, 0.0f,  100.0f);
+		glVertex3f( 100.0f, 0.0f,  100.0f);
+		glVertex3f( 100.0f, 0.0f, -100.0f);
 	glEnd();
+*//*
+	// Draw 36 SnowMen
+	for(int i = -3; i < 3; i++)
+		for(int j=-3; j < 3; j++) {
+			glPushMatrix();
+			glTranslatef(i*10.0f, 0.0f, j * 10.0f);
+			drawSnowMan();
+			glPopMatrix();
+		}
+*/
+	tube(1.0,3.0);
+	drawCar();
 }
 
 /************************************************************

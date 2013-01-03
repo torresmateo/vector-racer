@@ -42,13 +42,15 @@ char gFPS_STRING[50];
 
 // estructura para control de teclas presionadas
 struct keysPressed {
-	bool Q;
-	bool W;
-	bool E;
-	bool A;
-	bool S;
-	bool D;
-	bool ESC;
+	bool Q; //cambiar posicion del auto (izquierda)
+	bool W; //avanzar en profundidad camara
+	bool E; //cambiar posicion del auto (derecha)
+	bool A; //movimiento lateral camara (izq)
+	bool S; //retroceder en profuncidad camara
+	bool D; //movimiento lateral de camara (derecha)
+    bool Z; //shift vertical arriba (camara)
+    bool C; //shift vertical abajo (camara)
+	bool ESC; //salir
 	// contador de teclas presionadas.
 	// puede usarse como booleano para 
 	// saber si alguna tecla esta presionada.
