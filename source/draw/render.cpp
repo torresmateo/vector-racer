@@ -36,9 +36,10 @@ void printVariables(){
 	);
 	shift += 25;
 	
+	stringToPrint = "gDEBUG: " + gDEBUG;
 	renderBitmapStringProjection( 
 		15, gSCREEN.getH()-shift, 0,
-		gDEBUG.c_str()
+		stringToPrint.c_str()
 	);
 }
 
@@ -72,15 +73,15 @@ void display(void) {
 	
 	// preparacion para impresion en pantalla
 	setOrthographicProjection();
-	glPushMatrix();
-	glLoadIdentity();
-	glColor3f(BLUE);
-	
-	// imprime datos relevantes
-	printVariables();
-	
-	// fin de impresion en pantalla
-	glPopMatrix();
+		glPushMatrix();
+		glLoadIdentity();
+		glColor3f(BLUE);
+		
+		// imprime datos relevantes
+		printVariables();
+		
+		// fin de impresion en pantalla
+		glPopMatrix();
 	restorePerspectiveProjection();
 	
 	// Cambio de buffer
