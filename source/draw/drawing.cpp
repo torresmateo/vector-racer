@@ -30,23 +30,28 @@ void drawCar(){
 void drawScene() {
 	// Draw ground
 	glColor3f(0.8f, 0.8f, 0.8f);
-	glBegin(GL_QUADS);
-		glVertex3f(-100.0f, 0.0f, -100.0f);
-		glVertex3f(-100.0f, 0.0f,  100.0f);
-		glVertex3f( 100.0f, 0.0f,  100.0f);
-		glVertex3f( 100.0f, 0.0f, -100.0f);
-	glEnd();
-
-	// Draw 36 SnowMen
-	for(int i = -3; i < 3; i++)
-		for(int j=-3; j < 3; j++) {
-			glPushMatrix();
-			glTranslatef(i*10.0f, 0.0f, j * 10.0f);
-			drawSnowMan();
-			glPopMatrix();
-		}
+	// glBegin(GL_QUADS);
+		// glVertex3f(-100.0f, 0.0f, -100.0f);
+		// glVertex3f(-100.0f, 0.0f,  100.0f);
+		// glVertex3f( 100.0f, 0.0f,  100.0f);
+		// glVertex3f( 100.0f, 0.0f, -100.0f);
+	// glEnd();
 	
-	drawCar();
+	// Draw 36 SnowMen
+	// for(int i = -3; i < 3; i++)
+		// for(int j=-3; j < 3; j++) {
+			// glPushMatrix();
+			// glTranslatef(i*10.0f, 0.0f, j * 10.0f);
+			// drawSnowMan();
+			// glPopMatrix();
+		// }
+	
+	// drawCar();
+	
+	glBegin(GL_POLYGON);
+		GLUquadricObj *obj = gluNewQuadric();
+		gluCylinder(obj, 1, 1, 3, 30, 30);
+	glEnd();
 }
 
 /************************************************************
