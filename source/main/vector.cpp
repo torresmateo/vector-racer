@@ -130,7 +130,7 @@ class Vector3D {
 		}
 		
 		Vector3D operator *( double c ) { // producto con escalar
-			Vector3D tempVec( x*c, y*c, z*c);
+			Vector3D tempVec( this->x*c, this->y*c, this->z*c);
 			return tempVec;
 		}
 		
@@ -147,6 +147,38 @@ class Vector3D {
 			this->z -= otherVec.z;
 			return *this;
 		}
+		
+		Vector3D getNormalizedVector(){
+			float norm = sqrt(pow(this->x,2) + pow(this->y,2) + pow(this->z,2));
+			Vector3D resultVector(this->x/norm,this->y/norm,this->z/norm);
+			return resultVector;
+		}
+		
+		Vector3D getUnitaryPerpendicularVector(){
+			int a = 0,b = 0,c = 0;
+			if(this->z != 0){
+				a = b = 1;
+				c = -(this->x + this->y)/this->z;
+			}else if(this->y != 0){
+				a = c = 1;
+				b = -(this->x + this->z)/this->y;
+			}else if(this->x != 0){
+				b = c = 1;
+				a = -(this->y + this->z)/this->x;
+			}
+		
+			Vector3D resultVector(a,b,c);
+			return resultVector.getNormalizedVector();
+		}
+		
+		static Vector3D crossMultiply(Vector3D u, Vector3D v){
+			float a = u.getY()*v.getZ() - u.getZ()*v.getY();
+			float b = u.getZ()*v.getX() - u.getX()*v.getZ();
+			float c = u.getX()*v.getY() - u.getY()*v.getX();
+			Vector3D resultVector(a,b,c);
+			return resultVector;
+		}
+		
 };
 
 

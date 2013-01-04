@@ -1,7 +1,7 @@
 
 
 // position of the camera
-Vector3D gCAM_POS(0.0f,1.0f,5.0f);
+Vector3D gCAM_POS(0.0f,0.0f,5.0f);
 // actual vector representing the camera's direction
 Vector3D gCAM_DIR(0.0f,0.0f,1.0f);
 // punto a mirar por la camara
@@ -63,10 +63,26 @@ struct keysPressed {
 string gDEBUG;
 
 
+//de Mateo BORRAR despues de las pruebas
 
+GLfloat rtri;   //Angle for the Triangle (NEW)
+GLfloat rquad;  //Rotation Angle for the Quad (new) 
 
+bool light;
+bool lp;
+bool fp;
 
+GLfloat xrot;
+GLfloat yrot;
+GLfloat xspeed;
+GLfloat yspeed;
+GLfloat z=-0.5f;
 
+GLfloat LightAmbient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
+GLfloat LightDiffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f }; 
+GLfloat LightPosition[]= { 0.0f, 0.0f, 2.0f, 1.0f };  
+GLuint  filter;                                 // Which Filter To Use
+GLuint  texture[3];                             // Storage for 3 textures
 
 
 
