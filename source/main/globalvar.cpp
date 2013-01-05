@@ -1,9 +1,9 @@
 
 
 // position of the camera
-Vector3D gCAM_POS(0.0f,0.0f,5.0f);
+Vector3D gCAM_POS(0.0f,0.0f,0.0f);
 // actual vector representing the camera's direction
-Vector3D gCAM_DIR(0.0f,0.0f,1.0f);
+Vector3D gCAM_DIR(1.0f,0.0f,0.0f);
 // punto a mirar por la camara
 Vector3D gCAM_LOOK_AT(gCAM_POS+gCAM_DIR);
 // velocidad de giro de la camara

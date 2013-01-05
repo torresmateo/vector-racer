@@ -92,7 +92,7 @@ void drawCar(){
 
 
 
-void drawCircle(float radius, Vector3D axis, float centerOffset){
+void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D translationVector){
 	
 	
 	int i;
@@ -116,32 +116,7 @@ void drawCircle(float radius, Vector3D axis, float centerOffset){
 	//printf("\n==========================\n");
 	glPushMatrix(); 
     		//glTranslatef(centerVector.getX(), centerVector.getY(), centerVector.getZ());
-		
-		
-		/*glColor3f(1.0f,1.0f,1.0f);
-		glBegin(GL_LINE_STRIP); 
-			//glVertex3f(centerVector.getX(), centerVector.getY(), centerVector.getZ());
-			glVertex3f(0.0f, 0.0f, 0.0f);
-			glVertex3f(centerVector.getX(), centerVector.getY(), centerVector.getZ());
-		glEnd();
-		glColor3f(YELLOW);
-		glBegin(GL_LINE_STRIP); 
-			//glVertex3f(centerVector.getX(), centerVector.getY(), centerVector.getZ());
-			glVertex3f(0.0f, 0.0f, 0.0f);
-			glVertex3f(a.getX(), a.getY(), a.getZ());
-		glEnd();
-		glColor3f(ORANGE);
-		glBegin(GL_LINE_STRIP); 
-			//glVertex3f(centerVector.getX(), centerVector.getY(), centerVector.getZ());
-			glVertex3f(0.0f, 0.0f, 0.0f);
-			glVertex3f(b.getX(), b.getY(), b.getZ());
-		glEnd();
-		glColor3f(GREEN);
-		glBegin(GL_LINE_STRIP); 
-			glVertex3f(0.0f, 0.0f, 0.0f);
-			glVertex3f(axis.getX(), axis.getY(), axis.getZ());
-		glEnd();
-		*/
+
 		glColor3f(RED);
 		
     		glBegin(GL_LINE_STRIP); 
@@ -151,7 +126,7 @@ void drawCircle(float radius, Vector3D axis, float centerOffset){
 				GLfloat y = centerVector.getY() + radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY();
 				GLfloat z = centerVector.getZ() + radius*cos(theta)*a.getZ() + radius*sin(theta)*b.getZ();
 				//printf("%f,%f,%f\n",x,y,z);				
-				glVertex3f(x, y, z);
+				glVertex3f(x + translationVector.getX(), y + translationVector.getY(), z + translationVector.getZ());
 			}
 		glEnd();
 		
@@ -186,18 +161,121 @@ void drawScene() {
 
 	drawCartesianAxis();
 
-	//glLoadIdentity();	
-
+	//xrot+=1.0f;
+	//glRotatef(xrot,1.0f,0.0f, 0.0f);
+		
+	
+	
 	glColor3f(1.0f,0.0f,0.0f);
 	Vector3D xAxis(1.0f,0.0f,0.0f);
 	Vector3D yAxis(0.0f,1.0f,0.0f);
 	Vector3D zAxis(0.0f,0.0f,1.0f);
+	
+	Vector3D origin(0.0f,0.0f,0.0f);
 	//drawCircle(3.0f,xAxis,3.0f);
 	//drawCircle(3.0f,yAxis,3.0f);
 	//drawCircle(3.0f,zAxis,3.0f);
-	for(float i=0.0f;i<30.0f;i++){
-		drawCircle(3.0f,zAxis,i);
+	float radius = 0.3f;
+	float step = 0.07f;
+/*	gCAM_POS += xAxis*0.0005f;
+	gCAM_DIR.rotateYH( 1.0f*0.0005f );
+*/	
+	for(int i=0;i<180;i++){
+	
+		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
+
+		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
+		//gCAM_DIR.rotateXZ( gCAM_ROTATE_SPEED );
+	
+		
+		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
+		
+		
+		
+		glTranslatef(step ,0.0f, 0.0f);
+	
+	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
+		drawCircle(radius,xAxis,0.0f,origin);
+	
 	}
+	for(int i=0;i<180;i++){
+	
+		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
+
+		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
+		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
+		glTranslatef(step ,0.0f, 0.0f);
+	
+	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
+		drawCircle(radius,xAxis,0.0f,origin);
+	
+	}
+	
+	
+	for(int i=0;i<180;i++){
+	
+		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
+
+		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
+		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
+		glTranslatef(step ,0.0f, 0.0f);
+	
+	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
+		drawCircle(radius,xAxis,0.0f,origin);
+	
+	}
+
+
+	for(int i=0;i<180;i++){
+	
+		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
+
+		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
+		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
+		glTranslatef(step ,0.0f, 0.0f);
+	
+	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
+		drawCircle(radius,xAxis,0.0f,origin);
+	
+	}
+	for(int i=0;i<180;i++){
+	
+		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
+
+		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
+		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
+		glTranslatef(step ,0.0f, 0.0f);
+	
+	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
+		drawCircle(radius,xAxis,0.0f,origin);
+	
+	}
+	
+	for(int i=0;i<180;i++){
+	
+		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
+
+		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
+		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
+		glTranslatef(step ,0.0f, 0.0f);
+	
+	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
+		drawCircle(radius,xAxis,0.0f,origin);
+	
+	}
+
+//	drawCircle(3.0f,zAxis,5.0f,xAxis);
+		
+	/*
+	for(float i=0.0f;i<30.0f;i++){
+		drawCircle(3.0f,zAxis,i,origin);
+		origin.setX(zAxis.getX());
+		origin.setY(zAxis.getY());
+		origin.setZ(zAxis.getZ());
+		zAxis.setX(zAxis.getX()*sin(6*PI/180));
+		zAxis.setY(zAxis.getY()*sin(6*PI/180));
+		zAxis.setZ(zAxis.getZ()*sin(6*PI/180));
+	}*/
 	//drawCartesianAxis();
 
 }
