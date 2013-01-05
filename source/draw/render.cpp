@@ -75,7 +75,7 @@ void display(void) {
 	setOrthographicProjection();
 		glPushMatrix();
 		glLoadIdentity();
-		glColor3f(BLUE);
+		glColor3f(GREEN);
 		
 		// imprime datos relevantes
 		printVariables();
