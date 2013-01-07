@@ -47,6 +47,41 @@ void customCylinder(
 			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
 			/**/glEnd();
 			
+			/**/glColor3f(GREEN);
+			/**/glBegin(GL_LINE_STRIP); 
+			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
+			/**//**/glVertex3f(
+				posCenterEnd.getX()+normalEnd.getX(),
+				posCenterEnd.getY()+normalEnd.getY(),
+				posCenterEnd.getZ()+normalEnd.getZ()
+				);
+			/**/glEnd();
+			
+			a = normalEnd.getUnitaryPerpendicularVector();
+			b = Vector3D::crossMultiply(normalEnd,a).getNormalizedVector();
+			
+			/**/glColor3f(RED);
+			/**/glBegin(GL_LINE_STRIP); 
+			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
+			/**//**/glVertex3f(
+				posCenterEnd.getX()+a.getX(),
+				posCenterEnd.getY()+a.getY(),
+				posCenterEnd.getZ()+a.getZ()
+				);
+			/**/glEnd();
+			
+			/**/glColor3f(RED);
+			/**/glBegin(GL_LINE_STRIP); 
+			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
+			/**//**/glVertex3f(
+				posCenterEnd.getX()+b.getX(),
+				posCenterEnd.getY()+b.getY(),
+				posCenterEnd.getZ()+b.getZ()
+				);
+			/**/glEnd();
+			
+			gDEBUG = a.toString();
+			
 			glColor3f(BLUE);
 			glBegin(GL_QUAD_STRIP);{
 				for (int i = 0; i <= 360; i+=18) {
@@ -56,9 +91,6 @@ void customCylinder(
 					z = 0;
 					
 					glVertex3f(x, y, z);
-					
-					a = normalEnd.getUnitaryPerpendicularVector();
-					b = Vector3D::crossMultiply(normalEnd,a).getNormalizedVector();
 					
 					x = radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX() + posCenterEnd.getX();
 					y = radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY() + posCenterEnd.getY();
@@ -217,7 +249,7 @@ void drawScene() {
 		1.0, 
 		aux1, aux2,
 		aux3, aux4,
-		15
+		4
 	);
 	
 	

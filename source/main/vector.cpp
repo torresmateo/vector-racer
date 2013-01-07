@@ -160,7 +160,7 @@ class Vector3D {
 		}
 		
 		Vector3D getUnitaryPerpendicularVector(){
-			int a = 0,b = 0,c = 0;
+			float a = 0,b = 0,c = 0;
 			if(this->z != 0){
 				a = b = 1;
 				c = -(this->x + this->y)/this->z;
