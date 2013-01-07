@@ -253,7 +253,7 @@ void drawScene() {
 	);
 	
 	
-	/*
+	
 	glColor3f(1.0f,0.0f,0.0f);
 	Vector3D xAxis(1.0f,0.0f,0.0f);
 	Vector3D yAxis(0.0f,1.0f,0.0f);
