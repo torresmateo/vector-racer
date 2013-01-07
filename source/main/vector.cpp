@@ -154,6 +154,11 @@ class Vector3D {
 			return resultVector;
 		}
 		
+		Vector3D setNormalized(){
+			*this = this->getNormalizedVector();
+			return *this;
+		}
+		
 		Vector3D getUnitaryPerpendicularVector(){
 			int a = 0,b = 0,c = 0;
 			if(this->z != 0){
