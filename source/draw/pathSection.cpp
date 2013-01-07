@@ -3,7 +3,7 @@
 
 
 //seters
-void PathSection::setRadius( Vector3D newRadius ){ this->radius = newRadius; }
+void PathSection::setRadius( float newRadius ){ this->radius = newRadius; }
 
 void PathSection::setPositionIni( Vector3D newPosition ){ this->positionIni = newPosition; }
 void PathSection::setNormalIni( Vector3D newNormal ){ this->normalIni = newNormal; }
@@ -39,3 +39,21 @@ void PathSection::updateOrthogonalVectors(){
 	this->updateOrthogonalVectorsIni();
 	this->updateOrthogonalVectorsEnd();
 }
+
+
+Vector3D PathSection::getPointAtDegree(Vector3D axis, Vector3D orthogonal1, Vector3D orthogonal2, float degree){
+	float theta = degree*PI/180.0f;
+	GLfloat x = axis.getX() + radius*cos(theta)*orthogonal1.getX() + radius*sin(theta)*orthogonal2.getX();
+	GLfloat y = axis.getY() + radius*cos(theta)*orthogonal1.getY() + radius*sin(theta)*orthogonal2.getY();
+	GLfloat z = axis.getZ() + radius*cos(theta)*orthogonal1.getZ() + radius*sin(theta)*orthogonal2.getZ();
+	return Vector3D(x, y, z);
+}
+
+Vector3D PathSection::getPointAtDegreeIni(float degree){
+	return getPointAtDegree(normalIni, aIni, bIni, degree);
+}
+
+Vector3D PathSection::getPointAtDegreeEnd(float degree){
+	return getPointAtDegree(normalEnd, aEnd, bEnd, degree);
+}
+

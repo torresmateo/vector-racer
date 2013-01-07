@@ -65,21 +65,9 @@ class PathSection {
 		void updateOrthogonalVectorsIni();
 		void updateOrthogonalVectorsEnd();
 		
-		Vector3D getPointAtDegree(Vector3D axis, Vector3D orthogonal1, Vector3D orthogonal2, float degree){
-			float theta = degree*PI/180.0f;
-			GLfloat x = axis.getX() + radius*cos(theta)*orthogonal1.getX() + radius*sin(theta)*orthogonal2.getX();
-			GLfloat y = axis.getY() + radius*cos(theta)*orthogonal1.getY() + radius*sin(theta)*orthogonal2.getY();
-			GLfloat z = axis.getZ() + radius*cos(theta)*orthogonal1.getZ() + radius*sin(theta)*orthogonal2.getZ();
-			return Vector3D(x, y, z);
-		}
-		
-		Vector3D getPointAtDegreeIni(float degree){
-			return getPointAtDegree(normalIni,degree);
-		}
-		
-		Vector3D getPointAtDegreeEnd(float degree){
-			return getPointAtDegree(normalEnd,degree);
-		}
+		Vector3D getPointAtDegree(Vector3D axis, Vector3D orthogonal1, Vector3D orthogonal2, float degree);
+		Vector3D getPointAtDegreeIni(float degree);
+		Vector3D getPointAtDegreeEnd(float degree);
 		
 		
 };

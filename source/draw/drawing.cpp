@@ -175,30 +175,12 @@ void drawCar(){
 
 
 void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D translationVector){
-	
-	
 	int i;
-	//glLoadIdentity();
 	Vector3D centerVector = axis.getNormalizedVector()*centerOffset;
 	Vector3D a = axis.getNormalizedVector().getUnitaryPerpendicularVector();
 	Vector3D b = Vector3D::crossMultiply(axis.getNormalizedVector(),a).getNormalizedVector();
-	/*
-	int aa = a.getY()*axis.getZ() - a.getZ()*axis.getY();
-	int bb = a.getZ()*axis.getX() - a.getX()*axis.getZ();
-	int c = a.getX()*axis.getY() - a.getY()*axis.getX();
-	printf("%f,%f,%f\n",aa, bb, c);				
-	
-	Vector3D b(aa,bb,c);
-				
-	printf("%f,%f,%f\n",a.getX(), a.getY(), a.getZ());				
-	printf("%f,%f,%f\n",axis.getX(), axis.getY(), axis.getZ());				
-	printf("%f,%f,%f\n",b.getX(), b.getY(), b.getZ());				
-	*/						
-				
-	//printf("\n==========================\n");
 	glPushMatrix(); 
-    		//glTranslatef(centerVector.getX(), centerVector.getY(), centerVector.getZ());
-
+    	
 		glColor3f(RED);
 		
     		glBegin(GL_LINE_STRIP); 
@@ -207,18 +189,10 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 				GLfloat x = centerVector.getX() + radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX();
 				GLfloat y = centerVector.getY() + radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY();
 				GLfloat z = centerVector.getZ() + radius*cos(theta)*a.getZ() + radius*sin(theta)*b.getZ();
-				//printf("%f,%f,%f\n",x,y,z);				
 				glVertex3f(x + translationVector.getX(), y + translationVector.getY(), z + translationVector.getZ());
 			}
 		glEnd();
-		
-		//glutSolidTorus  ( 0.01f, 1.51f, 60, 60 );
-	
-		
-		
 	glPopMatrix();
-	//printf("\n==========================\n");
-	
 }
 
 /************************************************************
@@ -228,24 +202,7 @@ void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glColor3f(1.0f,0.0f,0.0f);
-	/*
-	GLfloat angulo;
-	int i; 
-	glBegin(GL_LINE_STRIP);
-	for (i=0; i<=360; i+=3)
-	{
-		  angulo = (GLfloat)i*3.14159f/180.0f; // grados a radianes
-		  glVertex3f(cos(angulo), sin(angulo), 0.0f);
-	}
-	glEnd();
-	*/
-	//glLoadIdentity();	
-
 	drawCartesianAxis();
-
-	//xrot+=1.0f;
-	//glRotatef(xrot,1.0f,0.0f, 0.0f);
-		
 	
 	// Vector3D aux1(1,2,3);
 	// Vector3D aux2(1,0.5,1);
