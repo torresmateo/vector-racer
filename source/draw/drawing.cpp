@@ -279,27 +279,21 @@ void drawScene() {
 		glTranslatef(step ,0.0f, 0.0f);
 		drawCircle(radius,xAxis,0.0f,origin);
 	}
-	
-	
 	for(int i=0;i<180;i+=5){
 		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
 		glTranslatef(step ,0.0f, 0.0f);
 		drawCircle(radius,xAxis,0.0f,origin);
 	}
-
-
 	for(int i=0;i<180;i+=5){
 		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
 		glTranslatef(step ,0.0f, 0.0f);
 		drawCircle(radius,xAxis,0.0f,origin);
-	
 	}
 	for(int i=0;i<180;i+=5){
 		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
 		glTranslatef(step ,0.0f, 0.0f);
 		drawCircle(radius,xAxis,0.0f,origin);
 	}
-	
 	for(int i=0;i<180;i+=5){
 		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
 		glTranslatef(step ,0.0f, 0.0f);
