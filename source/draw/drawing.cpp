@@ -221,88 +221,42 @@ void drawScene() {
 /*	gCAM_POS += xAxis*0.0005f;
 	gCAM_DIR.rotateYH( 1.0f*0.0005f );
 */	
-	for(int i=0;i<180;i+=3){
-	
-		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
-
+	for(int i=0;i<180;i+=5){
 		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
-		//gCAM_DIR.rotateXZ( gCAM_ROTATE_SPEED );
-	
-		
-		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
-		
-		
-		
 		glTranslatef(step ,0.0f, 0.0f);
-	
-	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
 		drawCircle(radius,xAxis,0.0f,origin);
 	
 	}
-	for(int i=0;i<180;i+=3){
-	
-		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
-
+	for(int i=0;i<180;i+=5){
 		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
-		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
 		glTranslatef(step ,0.0f, 0.0f);
-	
-	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
 		drawCircle(radius,xAxis,0.0f,origin);
-	
 	}
 	
 	
-	for(int i=0;i<180;i+=3){
-	
-		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
-
+	for(int i=0;i<180;i+=5){
 		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
-		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
 		glTranslatef(step ,0.0f, 0.0f);
-	
-	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
 		drawCircle(radius,xAxis,0.0f,origin);
-	
 	}
 
 
-	for(int i=0;i<180;i+=3){
-	
-		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
-
+	for(int i=0;i<180;i+=5){
 		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
-		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
 		glTranslatef(step ,0.0f, 0.0f);
-	
-	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
 		drawCircle(radius,xAxis,0.0f,origin);
 	
 	}
-	for(int i=0;i<180;i+=3){
-	
-		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
-
+	for(int i=0;i<180;i+=5){
 		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
-		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
 		glTranslatef(step ,0.0f, 0.0f);
-	
-	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
 		drawCircle(radius,xAxis,0.0f,origin);
-	
 	}
 	
-	for(int i=0;i<180;i+=3){
-	
-		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
-
+	for(int i=0;i<180;i+=5){
 		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
-		glColor3f(i%3/3.0f,(i+1)%3/3.0f,(i+2)%3/3.0f);
 		glTranslatef(step ,0.0f, 0.0f);
-	
-	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
 		drawCircle(radius,xAxis,0.0f,origin);
-	
 	}
 
 //	drawCircle(3.0f,zAxis,5.0f,xAxis);
