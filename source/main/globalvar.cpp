@@ -61,6 +61,7 @@ struct keysPressed {
 
 // variable para impresion de debug
 string gDEBUG;
+GLfloat gFLOAT_DEBUG = 0;
 
 
 //de Mateo BORRAR despues de las pruebas

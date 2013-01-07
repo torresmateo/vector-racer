@@ -54,18 +54,16 @@ void customCylinder(
 					x = radius * cos(theta);
 					y = radius * sin(theta);
 					z = 0;
-					gDEBUG=doubleToStr(x);
-					gDEBUG += ", ";
 					
 					glVertex3f(x, y, z);
 					
 					a = normalEnd.getUnitaryPerpendicularVector();
-					b = Vector3D::crossMultiply(normalEnd,a);
+					b = Vector3D::crossMultiply(normalEnd,a).getNormalizedVector();
 					
 					x = radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX() + posCenterEnd.getX();
 					y = radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY() + posCenterEnd.getY();
 					z = radius*cos(theta)*a.getZ() + radius*sin(theta)*b.getZ() + posCenterEnd.getZ();
-					gDEBUG += doubleToStr(x);
+					
 					glVertex3f(x, y, z);	
 				}
 			}glEnd();
@@ -255,14 +253,14 @@ void drawScene() {
 	// Vector3D aux4(-0.1,-0.1,1);
 	Vector3D aux1(0,0,0);
 	Vector3D aux2(0,0,0);
-	Vector3D aux3(0,0,5);
-	Vector3D aux4(-0.0,0,0);
+	Vector3D aux3(0,0,3);
+	Vector3D aux4(gFLOAT_DEBUG,0,1);
 	
 	customCylinder(
 		1.0, 
 		aux1, aux2,
 		aux3, aux4,
-		4
+		15
 	);
 	
 	
