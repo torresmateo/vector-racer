@@ -1,10 +1,11 @@
 
 
 
-void customCylinder(GLfloat radius, 
-					Vector3D posCenterIni, Vector3D normalIni, 
-					Vector3D posCenterEnd, Vector3D normalEnd 
-					) {
+void customCylinder(
+		GLfloat radius, 
+		Vector3D posCenterIni, Vector3D normalIni, 
+		Vector3D posCenterEnd, Vector3D normalEnd 
+	) {
 	
     glPolygonMode(GL_BACK, GL_FILL);
     glPolygonMode(GL_FRONT, GL_LINE);
@@ -13,13 +14,51 @@ void customCylinder(GLfloat radius,
 	
     glPushMatrix();{
 		
-		glTranslatef(GET_TRIPLET(posCenterIni));
-		// aux1 = cross product entre normalIni y Vector3D aux2(0,0,1);
-		// glRotatef(
-			// RADIANS_TO_DEGREES(HALF_PI/2),
-			// GET_TRIPLET(aux1)
-		// );
 		
+		
+		
+		
+		
+		glTranslatef(GET_TRIPLET(posCenterIni));
+		
+		
+    	/******/glColor3f(RED);
+		/******/glBegin(GL_LINE_STRIP); 
+		/******//******/glVertex3f(0.0f, 0.0f, 0.0f);
+		/******//******/glVertex3f(0.0f, 0.0f, 1.0f);
+		/******/glEnd();
+		
+		
+		
+    	/******/glColor3f(GREEN);
+		/******/glBegin(GL_LINE_STRIP); 
+		/******//******/glVertex3f(0.0f, 0.0f, 0.0f);
+		/******//******/glVertex3f(GET_TRIPLET(normalIni));
+		/******/glEnd();
+		
+		
+		
+		
+		// aux1 = cross product entre normalIni y Vector3D aux2(0,0,1);
+		Vector3D rotateAxis(0,0,1);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni.getNormalizedVector());
+		
+		
+		/******/glColor3f(BLUE);
+		/******/glBegin(GL_LINE_STRIP); 
+		/******//******/glVertex3f(0.0f, 0.0f, 0.0f);
+		/******//******/glVertex3f(GET_TRIPLET(rotateAxis));
+		/******/glEnd();
+	
+		DEBUG(rotateAxis.getMag());
+		DEBUG(RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+		
+		
+		glRotatef(
+			RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
+			GET_TRIPLET(rotateAxis)
+		);
+			glColor3f(BLUE);
 			glBegin(GL_QUAD_STRIP);{
 				for (int i = 0; i <= 360; i+=18) {
 					GLfloat theta = i * PI/180;
@@ -28,9 +67,8 @@ void customCylinder(GLfloat radius,
 				
 					glVertex3f(x, y, 0);
 					
-					/*
-					   calculos para el siguiente punto
-					*/ GLfloat z2 = 1.0;
+					//	calculos para el siguiente punto
+					GLfloat z2 = 1.0;
 					
 					glVertex3f(x, y, z2);
 					
@@ -80,19 +118,19 @@ void tube(GLfloat radius, GLfloat segment_length) {
 
 void drawCartesianAxis(){
 	glPushMatrix(); 
-    		glColor3f(RED);
+    	glColor3f(RED);
 		glBegin(GL_LINE_STRIP); 
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(10.0f, 0.0f, 0.0f);
 		glEnd();
-		glColor3f(GREEN);
 		
+		glColor3f(GREEN);
 		glBegin(GL_LINE_STRIP); 
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 10.0f, 0.0f);
 		glEnd();
-		glColor3f(BLUE);
 		
+		glColor3f(BLUE);
 		glBegin(GL_LINE_STRIP); 
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 0.0f, 10.0f);
@@ -206,7 +244,21 @@ void drawScene() {
 	//glRotatef(xrot,1.0f,0.0f, 0.0f);
 		
 	
+	Vector3D aux1(1,2,3);
+	Vector3D aux2(1,0.5,1);
+	Vector3D aux3(0,0,2);
+	Vector3D aux4(0,0,0);
 	
+	aux2 = aux2*5;
+	
+	customCylinder(
+		1.0, 
+		aux1, aux2,
+		aux3, aux4
+	);
+	
+	
+	/*
 	glColor3f(1.0f,0.0f,0.0f);
 	Vector3D xAxis(1.0f,0.0f,0.0f);
 	Vector3D yAxis(0.0f,1.0f,0.0f);
@@ -218,9 +270,9 @@ void drawScene() {
 	//drawCircle(3.0f,zAxis,3.0f);
 	float radius = 0.3f;
 	float step = 0.07f;
-/*	gCAM_POS += xAxis*0.0005f;
-	gCAM_DIR.rotateYH( 1.0f*0.0005f );
-*/	
+	//gCAM_POS += xAxis*0.0005f;
+	//gCAM_DIR.rotateYH( 1.0f*0.0005f );
+
 	for(int i=0;i<180;i+=3){
 	
 		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
@@ -303,7 +355,7 @@ void drawScene() {
 	//	drawCircle(3.0f,Vector3D(cos(angulo), sin(angulo), 0.0f),0.0f,Vector3D(0.0f,0.0f,0.0f));
 		drawCircle(radius,xAxis,0.0f,origin);
 	
-	}
+	}*/
 
 //	drawCircle(3.0f,zAxis,5.0f,xAxis);
 		
