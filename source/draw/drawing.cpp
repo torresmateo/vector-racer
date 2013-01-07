@@ -1,5 +1,46 @@
 
 
+
+void customCylinder(GLfloat radius, 
+					Vector3D posCenterIni, Vector3D normalIni, 
+					Vector3D posCenterEnd, Vector3D normalEnd 
+					) {
+	
+    glPolygonMode(GL_BACK, GL_FILL);
+    glPolygonMode(GL_FRONT, GL_LINE);
+    
+	
+	
+    glPushMatrix();{
+		
+		glTranslatef(GET_TRIPLET(posCenterIni));
+		// aux1 = cross product entre normalIni y Vector3D aux2(0,0,1);
+		// glRotatef(
+			// RADIANS_TO_DEGREES(HALF_PI/2),
+			// GET_TRIPLET(aux1)
+		// );
+		
+			glBegin(GL_QUAD_STRIP);{
+				for (int i = 0; i <= 360; i+=18) {
+					GLfloat theta = i * PI/180;
+					GLfloat x = radius * cos(theta);
+					GLfloat y = radius * sin(theta);
+				
+					glVertex3f(x, y, 0);
+					
+					/*
+					   calculos para el siguiente punto
+					*/ GLfloat z2 = 1.0;
+					
+					glVertex3f(x, y, z2);
+					
+				}
+			}glEnd();
+		
+		
+    }glPopMatrix();
+}
+
 void tube(GLfloat radius, GLfloat segment_length) {
     glPolygonMode(GL_BACK, GL_LINE);
    // glPolygonMode(GL_FRONT, GL_LINE);
@@ -16,7 +57,7 @@ void tube(GLfloat radius, GLfloat segment_length) {
         for (j = 0; j < 20; j++) {
             glPushMatrix(); {
                 glBegin(GL_TRIANGLE_STRIP); {
-                    for (i = 360; i >= 0; i--) {
+                    for (i = 360; i >= 0; i-=18) {
                         GLfloat theta = i * PI/180;
                         GLfloat x = radius * cos(theta);
                         GLfloat y = radius * sin(theta) + y_offset;
@@ -120,7 +161,7 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 		glColor3f(RED);
 		
     		glBegin(GL_LINE_STRIP); 
-			for (i = 360; i >= 0; i-=5) {
+			for (i = 360; i >= 0; i-=18) {
 				GLfloat theta = i * PI/180;
 				GLfloat x = centerVector.getX() + radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX();
 				GLfloat y = centerVector.getY() + radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY();
@@ -180,7 +221,7 @@ void drawScene() {
 /*	gCAM_POS += xAxis*0.0005f;
 	gCAM_DIR.rotateYH( 1.0f*0.0005f );
 */	
-	for(int i=0;i<180;i++){
+	for(int i=0;i<180;i+=3){
 	
 		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
 
@@ -198,7 +239,7 @@ void drawScene() {
 		drawCircle(radius,xAxis,0.0f,origin);
 	
 	}
-	for(int i=0;i<180;i++){
+	for(int i=0;i<180;i+=3){
 	
 		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
 
@@ -212,7 +253,7 @@ void drawScene() {
 	}
 	
 	
-	for(int i=0;i<180;i++){
+	for(int i=0;i<180;i+=3){
 	
 		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
 
@@ -226,7 +267,7 @@ void drawScene() {
 	}
 
 
-	for(int i=0;i<180;i++){
+	for(int i=0;i<180;i+=3){
 	
 		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
 
@@ -238,7 +279,7 @@ void drawScene() {
 		drawCircle(radius,xAxis,0.0f,origin);
 	
 	}
-	for(int i=0;i<180;i++){
+	for(int i=0;i<180;i+=3){
 	
 		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
 
@@ -251,7 +292,7 @@ void drawScene() {
 	
 	}
 	
-	for(int i=0;i<180;i++){
+	for(int i=0;i<180;i+=3){
 	
 		 // glVertex3f(cos(angulo), sin(angulo), 0.0f);
 
