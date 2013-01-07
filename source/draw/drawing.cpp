@@ -4,73 +4,83 @@
 void customCylinder(
 		GLfloat radius, 
 		Vector3D posCenterIni, Vector3D normalIni, 
-		Vector3D posCenterEnd, Vector3D normalEnd 
+		Vector3D posCenterEnd, Vector3D normalEnd,
+		int numSegment
 	) {
 	
     glPolygonMode(GL_BACK, GL_FILL);
     glPolygonMode(GL_FRONT, GL_LINE);
     
+	GLfloat x, y, z, theta;
+	Vector3D centerVector, a, b;
+	
+	if( normalIni.getX() == 0 and normalIni.getY() == 0 and normalIni.getZ() == 0 )
+		normalIni.setZ(1);
+	else
+		normalIni.setNormalized();
+	
+	if( normalEnd.getX() == 0 and normalEnd.getY() == 0 and normalEnd.getZ() == 0 )
+		normalEnd.setZ(1);
+	else
+		normalEnd.setNormalized();
+	
+	
 	
 	
     glPushMatrix();{
 		
 		glTranslatef(GET_TRIPLET(posCenterIni));
-		
-		
-    	/******/glColor3f(RED);
-		/******/glBegin(GL_LINE_STRIP); 
-		/******//******/glVertex3f(0.0f, 0.0f, 0.0f);
-		/******//******/glVertex3f(0.0f, 0.0f, 1.0f);
-		/******/glEnd();
-		
-		
-		
-    	/******/glColor3f(GREEN);
-		/******/glBegin(GL_LINE_STRIP); 
-		/******//******/glVertex3f(0.0f, 0.0f, 0.0f);
-		/******//******/glVertex3f(GET_TRIPLET(normalIni));
-		/******/glEnd();
-		
-		
-		
-		
-		// aux1 = cross product entre normalIni y Vector3D aux2(0,0,1);
+			
 		Vector3D rotateAxis(0,0,1);
-		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni.getNormalizedVector());
-		
-		
-		/******/glColor3f(BLUE);
-		/******/glBegin(GL_LINE_STRIP); 
-		/******//******/glVertex3f(0.0f, 0.0f, 0.0f);
-		/******//******/glVertex3f(GET_TRIPLET(rotateAxis));
-		/******/glEnd();
-	
-		DEBUG(rotateAxis.getMag());
-		DEBUG(RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
-		
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni);
 		
 		glRotatef(
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
 			GET_TRIPLET(rotateAxis)
 		);
+		
+		for(int j=0; j<numSegment; j++){
+			
+			/**/glColor3f(RED);
+			/**/glBegin(GL_LINE_STRIP); 
+			/**//**/glVertex3f(0,0,0);
+			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
+			/**/glEnd();
+			
 			glColor3f(BLUE);
 			glBegin(GL_QUAD_STRIP);{
 				for (int i = 0; i <= 360; i+=18) {
-					GLfloat theta = i * PI/180;
-					GLfloat x = radius * cos(theta);
-					GLfloat y = radius * sin(theta);
-				
-					glVertex3f(x, y, 0);
+					theta = i * PI/180;
+					x = radius * cos(theta);
+					y = radius * sin(theta);
+					z = 0;
+					gDEBUG=doubleToStr(x);
+					gDEBUG += ", ";
 					
-					//	calculos para el siguiente punto
-					GLfloat z2 = 1.0;
+					glVertex3f(x, y, z);
+					theta = (i-45) * PI/180;
+					a = normalEnd.getUnitaryPerpendicularVector();
+					b = Vector3D::crossMultiply(normalEnd,a);
 					
-					glVertex3f(x, y, z2);
-					
+					x = radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX() + posCenterEnd.getX();
+					y = radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY() + posCenterEnd.getY();
+					z = radius*cos(theta)*a.getZ() + radius*sin(theta)*b.getZ() + posCenterEnd.getZ();
+					gDEBUG += doubleToStr(x);
+					glVertex3f(x, y, z);	
 				}
 			}glEnd();
-		
-		
+			
+			glTranslatef(GET_TRIPLET(posCenterEnd));
+			
+			Vector3D rotateAxis(0,0,1);
+			rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
+			
+			glRotatef(
+				RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
+				GET_TRIPLET(rotateAxis)
+			);
+			
+		}
     }glPopMatrix();
 }
 
@@ -241,19 +251,18 @@ void drawScene() {
 	
 	Vector3D aux1(1,2,3);
 	Vector3D aux2(1,0.5,1);
-	Vector3D aux3(0,0,2);
-	Vector3D aux4(0,0,0);
-	
-	aux2 = aux2*5;
+	Vector3D aux3(-0.2,0,1);
+	Vector3D aux4(-0.1,-0.1,1);
 	
 	customCylinder(
 		1.0, 
 		aux1, aux2,
-		aux3, aux4
+		aux3, aux4,
+		50
 	);
 	
 	
-	
+	/*
 	glColor3f(1.0f,0.0f,0.0f);
 	Vector3D xAxis(1.0f,0.0f,0.0f);
 	Vector3D yAxis(0.0f,1.0f,0.0f);
@@ -265,9 +274,9 @@ void drawScene() {
 	//drawCircle(3.0f,zAxis,3.0f);
 	float radius = 0.3f;
 	float step = 0.07f;
-/*	gCAM_POS += xAxis*0.0005f;
-	gCAM_DIR.rotateYH( 1.0f*0.0005f );
-*/	
+	//gCAM_POS += xAxis*0.0005f;
+	//gCAM_DIR.rotateYH( 1.0f*0.0005f );
+	
 	for(int i=0;i<180;i+=5){
 		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
 		glTranslatef(step ,0.0f, 0.0f);
@@ -299,7 +308,7 @@ void drawScene() {
 		glTranslatef(step ,0.0f, 0.0f);
 		drawCircle(radius,xAxis,0.0f,origin);
 	}
-
+*/
 //	drawCircle(3.0f,zAxis,5.0f,xAxis);
 		
 	/*
