@@ -8,7 +8,7 @@ void customCylinder(
 		int numSegment
 	) {
 	
-    glPolygonMode(GL_BACK, GL_FILL);
+    glPolygonMode(GL_BACK, GL_LINE);
     glPolygonMode(GL_FRONT, GL_LINE);
     
 	GLfloat x, y, z, theta;
@@ -58,7 +58,7 @@ void customCylinder(
 					gDEBUG += ", ";
 					
 					glVertex3f(x, y, z);
-					theta = (i-45) * PI/180;
+					
 					a = normalEnd.getUnitaryPerpendicularVector();
 					b = Vector3D::crossMultiply(normalEnd,a);
 					
@@ -249,16 +249,20 @@ void drawScene() {
 	//glRotatef(xrot,1.0f,0.0f, 0.0f);
 		
 	
-	Vector3D aux1(1,2,3);
-	Vector3D aux2(1,0.5,1);
-	Vector3D aux3(-0.2,0,1);
-	Vector3D aux4(-0.1,-0.1,1);
+	// Vector3D aux1(1,2,3);
+	// Vector3D aux2(1,0.5,1);
+	// Vector3D aux3(-0.2,0,1);
+	// Vector3D aux4(-0.1,-0.1,1);
+	Vector3D aux1(0,0,0);
+	Vector3D aux2(0,0,0);
+	Vector3D aux3(0,0,5);
+	Vector3D aux4(-0.0,0,0);
 	
 	customCylinder(
 		1.0, 
 		aux1, aux2,
 		aux3, aux4,
-		50
+		4
 	);
 	
 	
