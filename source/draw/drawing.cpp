@@ -42,6 +42,41 @@ void customCylinder(PathSection section) {
 			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
 			/**/glEnd();
 			
+			/**/glColor3f(GREEN);
+			/**/glBegin(GL_LINE_STRIP); 
+			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
+			/**//**/glVertex3f(
+				posCenterEnd.getX()+normalEnd.getX(),
+				posCenterEnd.getY()+normalEnd.getY(),
+				posCenterEnd.getZ()+normalEnd.getZ()
+				);
+			/**/glEnd();
+			
+			a = normalEnd.getUnitaryPerpendicularVector();
+			b = Vector3D::crossMultiply(normalEnd,a).getNormalizedVector();
+			
+			/**/glColor3f(RED);
+			/**/glBegin(GL_LINE_STRIP); 
+			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
+			/**//**/glVertex3f(
+				posCenterEnd.getX()+a.getX(),
+				posCenterEnd.getY()+a.getY(),
+				posCenterEnd.getZ()+a.getZ()
+				);
+			/**/glEnd();
+			
+			/**/glColor3f(RED);
+			/**/glBegin(GL_LINE_STRIP); 
+			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
+			/**//**/glVertex3f(
+				posCenterEnd.getX()+b.getX(),
+				posCenterEnd.getY()+b.getY(),
+				posCenterEnd.getZ()+b.getZ()
+				);
+			/**/glEnd();
+			
+			gDEBUG = a.toString();
+			
 			glColor3f(BLUE);
 			glBegin(GL_QUAD_STRIP);{
 				for (int i = 0; i <= 360; i+=18) {
@@ -49,18 +84,13 @@ void customCylinder(PathSection section) {
 					x = radius * cos(theta);
 					y = radius * sin(theta);
 					z = 0;
-					gDEBUG=doubleToStr(x);
-					gDEBUG += ", ";
 					
 					glVertex3f(x, y, z);
-					
-					a = normalEnd.getUnitaryPerpendicularVector();
-					b = Vector3D::crossMultiply(normalEnd,a);
 					
 					x = radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX() + posCenterEnd.getX();
 					y = radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY() + posCenterEnd.getY();
 					z = radius*cos(theta)*a.getZ() + radius*sin(theta)*b.getZ() + posCenterEnd.getZ();
-					gDEBUG += doubleToStr(x);
+					
 					glVertex3f(x, y, z);	
 				}
 			}glEnd();
@@ -206,11 +236,10 @@ void drawScene() {
 	// Vector3D aux2(1,0.5,1);
 	// Vector3D aux3(-0.2,0,1);
 	// Vector3D aux4(-0.1,-0.1,1);
-	Vector3D aux1(0.0f,0.0f,0.0f);
-	Vector3D aux2(0.0f,0.0f,0.0f);
-	Vector3D aux3(0.0f,0.0f,5.0f);
-	Vector3D aux4(-0.0,0,0);
-			
+	Vector3D aux1(0,0,0);
+	Vector3D aux2(0,0,0);
+	Vector3D aux3(0,0,3);
+	Vector3D aux4(gFLOAT_DEBUG,0,1);
 	
 	PathSection seccion(	1.0, 
 		aux1, aux2,

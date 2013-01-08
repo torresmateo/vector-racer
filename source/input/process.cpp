@@ -6,6 +6,7 @@ void processInput() {
 	
 		if( gKEY.Q ){
 			gCAR_LATERAL_SHIFT += 0.08f;
+			gFLOAT_DEBUG -= 0.01;
 		}
 		
 		if( gKEY.W ){
@@ -14,6 +15,7 @@ void processInput() {
 		
 		if( gKEY.E ){
 			gCAR_LATERAL_SHIFT -= 0.08f;
+			gFLOAT_DEBUG += 0.01;
 		}
 		
 		if( gKEY.A ){
