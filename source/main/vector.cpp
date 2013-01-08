@@ -167,19 +167,12 @@ class Vector3D {
 		}
 		
 		Vector3D getUnitaryPerpendicularVector(){
-			float a = 0.0f,b = 0.0f,c = 0.0f;
-			if(this->z != 0){
-				a = b = 1.0f;
-				c = -(this->x + this->y)/this->z;
-			}else if(this->y != 0){
-				a = c = 1.0f;
-				b = -(this->x + this->z)/this->y;
-			}else if(this->x != 0){
-				b = c = 1.0f;
-				a = -(this->y + this->z)/this->x;
-			}
+			float x0 = 0, y0 = 0, z0 = 0;			
+			x0 = 0;
+			y0 = this->z;
+			z0 = -(this->y);
 		
-			Vector3D resultVector(a,b,c);
+			Vector3D resultVector(x0,y0,z0);
 			return resultVector.getNormalizedVector();
 		}
 		
