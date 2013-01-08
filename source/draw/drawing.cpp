@@ -231,6 +231,7 @@ void drawScene() {
 		Vector3D normal = seccion.getNormalEnd();
 		if(gFLOAT_DEBUG <= -1.0f){
 			gFLOAT_DEBUG = 0.0f;
+			gFLOAT_DEBUGy = 0.0f;
 			//gPATH_POS = translateVertex(gPATH_POS,translation*-1);
 			//gPATH_POS = translation;
 			gPATH_NORMAL = normal;
@@ -242,7 +243,7 @@ void drawScene() {
 				GET_TRIPLET(rotateAxis)
 			);*/
 		}
-		glTranslatef(GET_TRIPLET(gPATH_POS));
+		//glTranslatef(GET_TRIPLET(gPATH_POS));
 			
 		gFLOAT_DEBUG -= 0.002f;
 		gFLOAT_DEBUGy -= 0.002f;
