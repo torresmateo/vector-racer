@@ -39,64 +39,47 @@ void customCylinder(PathSection section) {
 		
 		for(int j=0; j<numSegment; j++){
 			
-			/**/glColor3f(RED);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(0,0,0);
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**/glEnd();
 			
-			/**/glColor3f(GREEN);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**//**/glVertex3f(
+			/*
+			glColor3f(RED);
+			glBegin(GL_LINE_STRIP); 
+				glVertex3f(0,0,0);
+				glVertex3f(GET_TRIPLET(posCenterEnd));
+			glEnd();
+			
+			glColor3f(GREEN);
+			glBegin(GL_LINE_STRIP); 
+			glVertex3f(GET_TRIPLET(posCenterEnd));
+			glVertex3f(
 				posCenterEnd.getX()+normalEnd.getX(),
 				posCenterEnd.getY()+normalEnd.getY(),
 				posCenterEnd.getZ()+normalEnd.getZ()
 				);
-			/**/glEnd();
+			glEnd();
 			
 			a = normalEnd.getUnitaryPerpendicularVector();
 			b = Vector3D::crossMultiply(a,normalEnd).getNormalizedVector();
 			
-			/**/glColor3f(GREEN);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**//**/glVertex3f(
+			glColor3f(GREEN);
+			glBegin(GL_LINE_STRIP); 
+			glVertex3f(GET_TRIPLET(posCenterEnd));
+			glVertex3f(
 				posCenterEnd.getX()+a.getX(),
 				posCenterEnd.getY()+a.getY(),
 				posCenterEnd.getZ()+a.getZ()
 				);
-			/**/glEnd();
+			glEnd();
 			
-			/**/glColor3f(RED);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**//**/glVertex3f(
+			glColor3f(RED);
+			glBegin(GL_LINE_STRIP); 
+			glVertex3f(GET_TRIPLET(posCenterEnd));
+			glVertex3f(
 				posCenterEnd.getX()+b.getX(),
 				posCenterEnd.getY()+b.getY(),
 				posCenterEnd.getZ()+b.getZ()
 				);
-			/**/glEnd();
-			
-			
-			glColor3f(BLUE);
-			glBegin(GL_QUAD_STRIP);{
-				for (int i = 0; i <= 180; i+=18) {
-					theta = i * PI/180;
-					x = radius * cos(theta);
-					y = radius * sin(theta);
-					z = 0;
-					
-					glVertex3f(x, y, z);
-					
-					x = radius*cos(theta)*b.getX() + radius*sin(theta)*a.getX() + posCenterEnd.getX();
-					y = radius*cos(theta)*b.getY() + radius*sin(theta)*a.getY() + posCenterEnd.getY();
-					z = radius*cos(theta)*b.getZ() + radius*sin(theta)*a.getZ() + posCenterEnd.getZ();
-					
-					glVertex3f(x, y, z);	
-				}
-			}glEnd();
-			
+			glEnd();
+			*/
 			glColor3f(RED);
 			glBegin(GL_QUAD_STRIP);{
 				for (int i = 0; i <= 360; i+=18) {
@@ -106,17 +89,16 @@ void customCylinder(PathSection section) {
 					z = 0;
 					
 					glVertex3f(x, y, z);
+					
 					aux1 = Vector3D(x,y,z);
 					
-					//Vector3D rotateAxis(0,0,1);
-					
-					aux1 = translateVertex(aux1,posCenterEnd);
 					Vector3D rotateAxis(0,0,1);
 					rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
 					
 					aux1 = rotateVertex(aux1,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+					aux1 = translateVertex(aux1,posCenterEnd);
 					
-					glVertex3f(aux1.getX(), aux1.getY(), aux1.getZ());	
+					glVertex3f(GET_TRIPLET(aux1));	
 				}
 			}glEnd();
 			
@@ -226,15 +208,27 @@ void drawScene() {
 	Vector3D aux1(0,0,0);
 	Vector3D aux2(0,0,0);
 	Vector3D aux3(0,0,3);
-	Vector3D aux4(gFLOAT_DEBUG,0.2,1);
+	Vector3D aux4(gFLOAT_DEBUG,gFLOAT_DEBUGy,1);
 	
 	PathSection seccion(	1.0, 
 		aux1, aux2,
 		aux3, aux4,
-		10
+		1
 	);
 	customCylinder(seccion);
-	/*customCylinderOld(	1.0, 
+	glTranslatef(GET_TRIPLET(seccion.getPositionEnd()));
+	
+	Vector3D rotateAxis(0,0,1);
+	rotateAxis = Vector3D::crossMultiply(rotateAxis,seccion.getNormalEnd());
+	
+	glRotatef(
+		RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
+		GET_TRIPLET(rotateAxis)
+	);
+	
+	customCylinder(seccion);
+	//customCylinder(seccion);
+		/*customCylinderOld(	1.0, 
 		aux1, aux2,
 		aux3, aux4,
 		4

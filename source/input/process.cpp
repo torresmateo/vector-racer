@@ -44,6 +44,15 @@ void processInput() {
 			gCAM_POS += auxCamDir*gCAM_TRASNLATE_SPEED;
 		}
 		
+		
+		if( gKEY.Z ){
+			gFLOAT_DEBUGy += 0.005;
+		}
+		if( gKEY.C ){
+			gFLOAT_DEBUGy -= 0.005;
+		}
+		
+		
 		if( gKEY.ESC ){
 			exit(0);
 		}

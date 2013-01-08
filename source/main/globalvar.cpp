@@ -48,8 +48,8 @@ struct keysPressed {
 	bool A; //movimiento lateral camara (izq)
 	bool S; //retroceder en profuncidad camara
 	bool D; //movimiento lateral de camara (derecha)
-    bool Z; //shift vertical arriba (camara)
-    bool C; //shift vertical abajo (camara)
+    bool Z; //modifica la curva de forma vertical hacia arriba
+    bool C; //modifica la curva de forma vertical hacia abajo
 	bool ESC; //salir
 	// contador de teclas presionadas.
 	// puede usarse como booleano para 
@@ -62,6 +62,8 @@ struct keysPressed {
 // variable para impresion de debug
 string gDEBUG;
 GLfloat gFLOAT_DEBUG = 0;
+GLfloat gFLOAT_DEBUGy = 0;
+GLfloat gFLOAT_DEBUGz = 0;
 
 Path gTUNNEL_PATH;
 PathSection gCURRENT_PATH_SECTION;
