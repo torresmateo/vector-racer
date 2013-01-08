@@ -61,6 +61,7 @@ struct keysPressed {
 
 // variable para impresion de debug
 string gDEBUG;
+GLfloat gFLOAT_DEBUG = 0;
 
 Path gTUNNEL_PATH;
 PathSection gCURRENT_PATH_SECTION;
