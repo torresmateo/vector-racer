@@ -11,6 +11,8 @@ void pressNormalKey(unsigned char key, int mouseX, int mouseY) {
 		case 'a': gKEY.A = true; gKEY.PRESSED++; break;
 		case 's': gKEY.S = true; gKEY.PRESSED++; break;
 		case 'd': gKEY.D = true; gKEY.PRESSED++; break;
+		case 'z': gKEY.Z = true; gKEY.PRESSED++; break;
+		case 'c': gKEY.C = true; gKEY.PRESSED++; break;
 		case 27 : gKEY.ESC = true; gKEY.PRESSED++; break;
 	}
 }
@@ -31,6 +33,8 @@ void releaseNormalKey(unsigned char key, int mouseX, int mouseY) {
 		case 'a': gKEY.A = false; gKEY.PRESSED--; break;
 		case 's': gKEY.S = false; gKEY.PRESSED--; break;
 		case 'd': gKEY.D = false; gKEY.PRESSED--; break;
+		case 'z': gKEY.Z = false; gKEY.PRESSED--; break;
+		case 'c': gKEY.C = false; gKEY.PRESSED--; break;
 		case 27 : gKEY.ESC = false; gKEY.PRESSED--; break;
 	}
 }
