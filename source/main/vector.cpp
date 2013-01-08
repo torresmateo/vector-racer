@@ -148,6 +148,13 @@ class Vector3D {
 			return *this;
 		}
 		
+		Vector3D operator =( Vector3D otherVec ) {
+			this->x = otherVec.x;
+			this->y = otherVec.y;
+			this->z = otherVec.z;
+			return *this;
+		}
+		
 		Vector3D getNormalizedVector(){
 			float norm = sqrt(pow(this->x,2) + pow(this->y,2) + pow(this->z,2));
 			Vector3D resultVector(this->x/norm,this->y/norm,this->z/norm);
@@ -160,15 +167,15 @@ class Vector3D {
 		}
 		
 		Vector3D getUnitaryPerpendicularVector(){
-			int a = 0,b = 0,c = 0;
+			float a = 0.0f,b = 0.0f,c = 0.0f;
 			if(this->z != 0){
-				a = b = 1;
+				a = b = 1.0f;
 				c = -(this->x + this->y)/this->z;
 			}else if(this->y != 0){
-				a = c = 1;
+				a = c = 1.0f;
 				b = -(this->x + this->z)/this->y;
 			}else if(this->x != 0){
-				b = c = 1;
+				b = c = 1.0f;
 				a = -(this->y + this->z)/this->x;
 			}
 		

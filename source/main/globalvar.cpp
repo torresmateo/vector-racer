@@ -62,6 +62,11 @@ struct keysPressed {
 // variable para impresion de debug
 string gDEBUG;
 
+Path gTUNNEL_PATH;
+PathSection gCURRENT_PATH_SECTION;
+
+
+
 
 //de Mateo BORRAR despues de las pruebas
 

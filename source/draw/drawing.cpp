@@ -1,18 +1,16 @@
-
-
-
-void customCylinder(
-		GLfloat radius, 
-		Vector3D posCenterIni, Vector3D normalIni, 
-		Vector3D posCenterEnd, Vector3D normalEnd,
-		int numSegment
-	) {
+void customCylinder(PathSection section) {
 	
     glPolygonMode(GL_BACK, GL_LINE);
     glPolygonMode(GL_FRONT, GL_LINE);
     
 	GLfloat x, y, z, theta;
 	Vector3D centerVector, a, b;
+	Vector3D posCenterIni = section.getPositionIni();
+	Vector3D normalIni = section.getNormalIni();
+	Vector3D posCenterEnd = section.getPositionEnd();
+	Vector3D normalEnd = section.getNormalEnd();
+	float radius = section.getRadius();
+	int numSegment = section.getNumberOfSegments();
 	
 	if( normalIni.getX() == 0 and normalIni.getY() == 0 and normalIni.getZ() == 0 )
 		normalIni.setZ(1);
@@ -24,10 +22,7 @@ void customCylinder(
 	else
 		normalEnd.setNormalized();
 	
-	
-	
-	
-    glPushMatrix();{
+	glPushMatrix();{
 		
 		glTranslatef(GET_TRIPLET(posCenterIni));
 			
@@ -83,6 +78,7 @@ void customCylinder(
 		}
     }glPopMatrix();
 }
+
 
 void tube(GLfloat radius, GLfloat segment_length) {
     glPolygonMode(GL_BACK, GL_LINE);
@@ -210,18 +206,23 @@ void drawScene() {
 	// Vector3D aux2(1,0.5,1);
 	// Vector3D aux3(-0.2,0,1);
 	// Vector3D aux4(-0.1,-0.1,1);
-	Vector3D aux1(0,0,0);
-	Vector3D aux2(0,0,0);
-	Vector3D aux3(0,0,5);
+	Vector3D aux1(0.0f,0.0f,0.0f);
+	Vector3D aux2(0.0f,0.0f,0.0f);
+	Vector3D aux3(0.0f,0.0f,5.0f);
 	Vector3D aux4(-0.0,0,0);
+			
 	
-	customCylinder(
-		1.0, 
+	PathSection seccion(	1.0, 
 		aux1, aux2,
 		aux3, aux4,
 		4
 	);
-	
+	customCylinder(seccion);
+	/*customCylinderOld(	1.0, 
+		aux1, aux2,
+		aux3, aux4,
+		4
+	);*/
 	
 	/*
 	glColor3f(1.0f,0.0f,0.0f);

@@ -13,12 +13,14 @@ void PathSection::setNormalEnd( Vector3D newNormal ){ this->normalEnd = newNorma
 
 //geters
 float PathSection::getRadius(){ return this->radius; }
+int PathSection::getNumberOfSegments(){ return this->numberOfSegments; }
+		
 
 Vector3D PathSection::getPositionIni(){ return this->positionIni; }
-Vector3D PathSection::getOrientationIni(){ return this->normalIni; }
+Vector3D PathSection::getNormalIni(){ return this->normalIni; }
 
 Vector3D PathSection::getPositionEnd(){ return this->positionEnd; }
-Vector3D PathSection::getOrientationEnd(){ return this->normalEnd; }
+Vector3D PathSection::getNormalEnd(){ return this->normalEnd; }
 
 
 

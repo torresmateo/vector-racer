@@ -3,6 +3,7 @@
 class PathSection {
 	
 	float radius;
+	int numberOfSegments;
 	
 	Vector3D positionIni;
 	Vector3D normalIni;
@@ -21,6 +22,8 @@ class PathSection {
 		
 		PathSection() {
 			radius = 1.0f;
+			
+			numberOfSegments = 1;
 		
 			positionIni = Vector3D(0.0f,0.0f,0.0f);
 			normalIni = Vector3D(0.0f,0.0f,1.0f);;
@@ -31,19 +34,24 @@ class PathSection {
 			this->updateOrthogonalVectors();
 		}
 		
-		PathSection(float radius, Vector3D positionIni, Vector3D normalIni, Vector3D positionEnd, Vector3D normalEnd ) {
+		PathSection(float radius, Vector3D positionIni, Vector3D normalIni, Vector3D positionEnd, Vector3D normalEnd, int numberOfSegments ) {
 			this->radius = radius;
 			
 			this->positionIni = positionIni;
 			this->normalIni = normalIni;
-			this->positionEnd = positionIni;
-			this->normalEnd = normalIni;
+
+			this->positionEnd = positionEnd;
+			this->normalEnd = normalEnd;
+
+			this->numberOfSegments = numberOfSegments;
 
 			this->updateOrthogonalVectors();
 		}
 		
 		//seters
-		void setRadius(float radius);
+		void setRadius(float newRadius);
+		void setNumberOfSegments(int newNumberOfSegments);
+		
 		
 		void setPositionIni( Vector3D newPosition );
 		void setNormalIni( Vector3D newOrientation );
@@ -53,12 +61,13 @@ class PathSection {
 		
 		//geters
 		float getRadius();
+		int getNumberOfSegments();
 		
 		Vector3D getPositionIni();
-		Vector3D getOrientationIni();
+		Vector3D getNormalIni();
 		
 		Vector3D getPositionEnd();
-		Vector3D getOrientationEnd();
+		Vector3D getNormalEnd();
 		
 		//utils
 		void updateOrthogonalVectors();
