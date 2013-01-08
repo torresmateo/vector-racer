@@ -53,9 +53,9 @@ void customCylinder(PathSection section) {
 			/**/glEnd();
 			
 			a = normalEnd.getUnitaryPerpendicularVector();
-			b = Vector3D::crossMultiply(normalEnd,a).getNormalizedVector();
+			b = Vector3D::crossMultiply(a,normalEnd).getNormalizedVector();
 			
-			/**/glColor3f(RED);
+			/**/glColor3f(GREEN);
 			/**/glBegin(GL_LINE_STRIP); 
 			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
 			/**//**/glVertex3f(
@@ -75,7 +75,6 @@ void customCylinder(PathSection section) {
 				);
 			/**/glEnd();
 			
-			gDEBUG = a.toString();
 			
 			glColor3f(BLUE);
 			glBegin(GL_QUAD_STRIP);{
@@ -87,9 +86,9 @@ void customCylinder(PathSection section) {
 					
 					glVertex3f(x, y, z);
 					
-					x = radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX() + posCenterEnd.getX();
-					y = radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY() + posCenterEnd.getY();
-					z = radius*cos(theta)*a.getZ() + radius*sin(theta)*b.getZ() + posCenterEnd.getZ();
+					x = radius*cos(theta)*b.getX() + radius*sin(theta)*a.getX() + posCenterEnd.getX();
+					y = radius*cos(theta)*b.getY() + radius*sin(theta)*a.getY() + posCenterEnd.getY();
+					z = radius*cos(theta)*b.getZ() + radius*sin(theta)*a.getZ() + posCenterEnd.getZ();
 					
 					glVertex3f(x, y, z);	
 				}
@@ -110,42 +109,6 @@ void customCylinder(PathSection section) {
 }
 
 
-void tube(GLfloat radius, GLfloat segment_length) {
-    glPolygonMode(GL_BACK, GL_LINE);
-   // glPolygonMode(GL_FRONT, GL_LINE);
-    
-    glPushMatrix(); {
-        GLfloat z1 = 0.0;
-        GLfloat z2 = segment_length;
-        
-        GLfloat y_offset = 0.0;
-        GLfloat y_change = 0.00;
-        
-        int i = 0;
-        int j = 0;
-        for (j = 0; j < 20; j++) {
-            glPushMatrix(); {
-                glBegin(GL_TRIANGLE_STRIP); {
-                    for (i = 360; i >= 0; i-=18) {
-                        GLfloat theta = i * PI/180;
-                        GLfloat x = radius * cos(theta);
-                        GLfloat y = radius * sin(theta) + y_offset;
-                        
-                        glVertex3f(x, y, z1);
-                        glVertex3f(x, y, z2);
-                    }
-                } glEnd();
-            } glPopMatrix();
-            
-            // attach the front of the next segment to the back of the previous
-            z1 = z2;
-            z2 += segment_length;
-            
-            // make some other adjustments
-            y_offset += y_change;
-        }
-    } glPopMatrix();
-}
 
 void drawCartesianAxis(){
 	glPushMatrix(); 
@@ -200,8 +163,6 @@ void drawCar(){
 }
 
 
-
-
 void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D translationVector){
 	int i;
 	Vector3D centerVector = axis.getNormalizedVector()*centerOffset;
@@ -239,12 +200,12 @@ void drawScene() {
 	Vector3D aux1(0,0,0);
 	Vector3D aux2(0,0,0);
 	Vector3D aux3(0,0,3);
-	Vector3D aux4(gFLOAT_DEBUG,0,1);
+	Vector3D aux4(gFLOAT_DEBUG,0.2,1);
 	
 	PathSection seccion(	1.0, 
 		aux1, aux2,
 		aux3, aux4,
-		4
+		10
 	);
 	customCylinder(seccion);
 	/*customCylinderOld(	1.0, 
