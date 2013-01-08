@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
 	glutMouseFunc(mouseClick);
 	glutMotionFunc(mouseActiveMove);
 	
+	
 	// OpenGL init
 	glShadeModel(GL_SMOOTH);
 	//glEnable(GL_CULL_FACE);

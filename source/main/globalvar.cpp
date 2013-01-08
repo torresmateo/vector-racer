@@ -18,11 +18,18 @@ double gCAR_LATERAL_SHIFT = 0;
 // width and height of the window
 Vector2D gSCREEN; 
 
-
-
 // ultima posicion del mouse
 Vector2D gMOUSE(-1,-1); 
 
+Vector3D gPATH_POS(0.0f,0.0f,0.0f);
+Vector3D gPATH_NORMAL(0.0f,0.0f,1.0f);
+
+
+//modelview
+GLfloat gMODEL_VIEW_MATRIX[16] = { 	1.0f, 0.0f, 0.0f, 0.0f,
+                						0.0f, 1.0f, 0.0f, 0.0f,
+                						0.0f, 0.0f, 1.0f, 0.0f,
+                						0.0f, 0.0f, 0.0f, 1.0f };
 
 
 

@@ -22,7 +22,19 @@ void customCylinder(PathSection section) {
 	else
 		normalEnd.setNormalized();
 	
-	glPushMatrix();{
+		
+	/*glGetFloatv(GL_MODELVIEW_MATRIX, gMODEL_VIEW_MATRIX);
+    		for(int i = 0; i<16; i++){
+    			printf("%f,",gMODEL_VIEW_MATRIX[i]);
+    			if((i+1)%4 == 0)
+    				printf("\n");
+    		
+    		}
+    		printf("\n\n");
+	*/
+	//glPushMatrix();{
+		
+		glMultMatrixf(gMODEL_VIEW_MATRIX);
 		
 		glTranslatef(GET_TRIPLET(posCenterIni));
 			
@@ -38,10 +50,7 @@ void customCylinder(PathSection section) {
 		
 		
 		for(int j=0; j<numSegment; j++){
-			
-			
-			/*
-			glColor3f(RED);
+			/*glColor3f(RED);
 			glBegin(GL_LINE_STRIP); 
 				glVertex3f(0,0,0);
 				glVertex3f(GET_TRIPLET(posCenterEnd));
@@ -78,8 +87,7 @@ void customCylinder(PathSection section) {
 				posCenterEnd.getY()+b.getY(),
 				posCenterEnd.getZ()+b.getZ()
 				);
-			glEnd();
-			*/
+			glEnd();*/
 			glColor3f(RED);
 			glBegin(GL_QUAD_STRIP);{
 				for (int i = 0; i <= 360; i+=18) {
@@ -113,7 +121,7 @@ void customCylinder(PathSection section) {
 			);
 			
 		}
-    }glPopMatrix();
+	//}glPopMatrix();
 }
 
 
@@ -206,27 +214,68 @@ void drawScene() {
 	// Vector3D aux3(-0.2,0,1);
 	// Vector3D aux4(-0.1,-0.1,1);
 	Vector3D aux1(0,0,0);
-	Vector3D aux2(0,0,0);
+	Vector3D aux2(0,0,1);
 	Vector3D aux3(0,0,3);
-	Vector3D aux4(gFLOAT_DEBUG,gFLOAT_DEBUGy,1);
+	Vector3D aux4(0.1f,0.2f,1);
+	
+	
+	
+	
+	Vector3D aux5(0,0,0);
+	Vector3D aux6(0,0,1);
+	Vector3D aux7(0,0,5);
+	Vector3D aux8(0.1f,0,1.1f);
 	
 	PathSection seccion(	1.0, 
 		aux1, aux2,
 		aux3, aux4,
-		1
+		2
 	);
-	customCylinder(seccion);
-	glTranslatef(GET_TRIPLET(seccion.getPositionEnd()));
-	
-	Vector3D rotateAxis(0,0,1);
-	rotateAxis = Vector3D::crossMultiply(rotateAxis,seccion.getNormalEnd());
-	
-	glRotatef(
-		RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
-		GET_TRIPLET(rotateAxis)
+	PathSection seccion2(	1.0, 
+		aux5, aux6,
+		aux7, aux8,
+		3
 	);
 	
-	customCylinder(seccion);
+	glPushMatrix();{
+	
+	
+		
+		Vector3D translation = seccion.getPositionEnd();
+		Vector3D normal = seccion.getNormalEnd();
+		if(gFLOAT_DEBUG <= -1.0f)
+			gFLOAT_DEBUG = 0.0f;
+		gFLOAT_DEBUG -= 0.002f;
+		gFLOAT_DEBUGy -= 0.002f;
+		gDEBUG = doubleToStr(gFLOAT_DEBUG);
+		translation = translation * gFLOAT_DEBUG;
+		Vector3D rotateAxis(0,0,1);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normal);
+		//gPATH_NORMAL = rotateVertex(aux1,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+					
+			
+					
+			
+			
+		glRotatef(
+			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gFLOAT_DEBUG,
+			GET_TRIPLET(rotateAxis)
+		);
+		//glTranslatef(GET_TRIPLET(gPATH_POS));
+		glTranslatef(GET_TRIPLET(translation));
+		gPATH_POS = translateVertex(gPATH_POS,translation * -1);
+		
+		glPushMatrix();{
+			customCylinder(seccion);
+			customCylinder(seccion);
+			customCylinder(seccion);
+			customCylinder(seccion);
+			customCylinder(seccion);
+			customCylinder(seccion);
+		//	customCylinder(seccion2);
+		}glPopMatrix();
+	}glPopMatrix();
+	//customCylinder(seccion2);
 	//customCylinder(seccion);
 		/*customCylinderOld(	1.0, 
 		aux1, aux2,
