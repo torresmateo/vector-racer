@@ -9,7 +9,7 @@ Vector3D gCAM_LOOK_AT(gCAM_POS+gCAM_DIR);
 // velocidad de giro de la camara
 double gCAM_ROTATE_SPEED = 0.01f;
 // velocidad de translado de la camara
-double gCAM_TRASNLATE_SPEED = 0.01f;
+double gCAM_TRASNLATE_SPEED = 0.05f;
 
 // Posicion del automovil
 Vector3D gCAR_POS( gCAM_POS + gCAM_DIR*1.0f );
