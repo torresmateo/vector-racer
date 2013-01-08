@@ -22,6 +22,7 @@ using namespace std;
 #include "main/define.cpp"
 #include "main/prototype.cpp"
 #include "main/vector.cpp"
+#include "main/matrix3.cpp"
 #include "draw/pathSection.cpp"
 #include "draw/path.cpp"
 #include "main/globalvar.cpp"

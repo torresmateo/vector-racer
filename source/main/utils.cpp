@@ -1,7 +1,42 @@
 
 
+/************************************************************
+	matrices de transformación
+*************************************************************/
 
+Vector3D rotateVertex(Vector3D vertex, Vector3D axis, float degrees){
+	float rad = degrees * (PI/180);	
+	axis.setNormalized();
+	
+	float x = axis.getX();	
+	float y = axis.getY();
+	float z = axis.getZ();
 
+	Matrix3 identity(1.0f,0.0f,0.0f,
+					 0.0f,1.0f,0.0f,
+					 0.0f,0.0f,1.0f);
+	Matrix3 aaT = Matrix3(	x*x, x*y, x*z,
+							x*y, y*y, y*z,
+							x*z, y*z, z*z);
+
+	Matrix3 aStar = Matrix3(	0.0f, -z		,  y		,
+							z	, 0.0f	, -x		,
+							-y	, x		, 0.0f	);
+	Matrix3 aux1 = Matrix3::scalarMultiply(identity, cos(rad));
+	//printf("(%f),%f,%f,%f\n\n",1-cos(rad),GET_TRIPLET(aux1.getRow1()));
+	Matrix3 aux2 = Matrix3::scalarMultiply(aaT, (1-cos(rad)));
+	Matrix3 aux3 = Matrix3::scalarMultiply(aStar, sin(rad));
+	
+	aux1+=aux2;
+	aux1+=aux3;
+	
+	return aux1*=vertex;
+	
+}
+
+Vector3D translateVertex(Vector3D vertex, Vector3D translationPoint){
+	return vertex+=translationPoint;
+}
 
 /************************************************************
 	calculo de frame rate
