@@ -34,6 +34,9 @@ void customCylinder(PathSection section) {
 			GET_TRIPLET(rotateAxis)
 		);
 		
+		Vector3D aux1;
+		
+		
 		for(int j=0; j<numSegment; j++){
 			
 			/**/glColor3f(RED);
@@ -78,7 +81,7 @@ void customCylinder(PathSection section) {
 			
 			glColor3f(BLUE);
 			glBegin(GL_QUAD_STRIP);{
-				for (int i = 0; i <= 360; i+=18) {
+				for (int i = 0; i <= 180; i+=18) {
 					theta = i * PI/180;
 					x = radius * cos(theta);
 					y = radius * sin(theta);
@@ -91,6 +94,29 @@ void customCylinder(PathSection section) {
 					z = radius*cos(theta)*b.getZ() + radius*sin(theta)*a.getZ() + posCenterEnd.getZ();
 					
 					glVertex3f(x, y, z);	
+				}
+			}glEnd();
+			
+			glColor3f(RED);
+			glBegin(GL_QUAD_STRIP);{
+				for (int i = 0; i <= 360; i+=18) {
+					theta = i * PI/180;
+					x = radius * cos(theta);
+					y = radius * sin(theta);
+					z = 0;
+					
+					glVertex3f(x, y, z);
+					aux1 = Vector3D(x,y,z);
+					
+					//Vector3D rotateAxis(0,0,1);
+					
+					aux1 = translateVertex(aux1,posCenterEnd);
+					Vector3D rotateAxis(0,0,1);
+					rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
+					
+					aux1 = rotateVertex(aux1,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+					
+					glVertex3f(aux1.getX(), aux1.getY(), aux1.getZ());	
 				}
 			}glEnd();
 			
