@@ -270,37 +270,7 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	glColor3f(1.0f,0.0f,0.0f);
 	drawCartesianAxis();
-	
-	// Vector3D aux1(1,2,3);
-	// Vector3D aux2(1,0.5,1);
-	// Vector3D aux3(-0.2,0,1);
-	// Vector3D aux4(-0.1,-0.1,1);
-	Vector3D aux1(0,0,0);
-	Vector3D aux2(0,0,1);
-	Vector3D aux3(0,0,2);
-	Vector3D aux4(0,-1,1);
-	
-	
-	
-	
-	Vector3D aux5(0,0,0);
-	Vector3D aux6(0,0,1);
-	Vector3D aux7(0,0,5);
-	Vector3D aux8(0.1f,0,1.1f);
-	
-	PathSection seccion(	1.0, 
-		aux1, aux2,
-		aux3, aux4,
-		1
-	);
-	PathSection seccion2(	1.0, 
-		aux5, aux6,
-		aux7, aux8,
-		3
-	);
-	
 	glPushMatrix();{
 	
 	
@@ -310,9 +280,7 @@ void drawScene() {
 		
 		//glTranslatef(GET_TRIPLET(gPATH_POS));
 		
-		for(unsigned int i = 0; i < gTUNNEL_PATH.getIndex(); i++){
-			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
-		}
+		
 		
 		
 		if(gFLOAT_DEBUG <= -1.0f){
@@ -335,8 +303,12 @@ void drawScene() {
 			GET_TRIPLET(rotateAxis)
 		);
 		
+		
 		glTranslatef(GET_TRIPLET(translation));
 		
+		for(int i = gTUNNEL_PATH.getIndex(); i > 0; i--){
+			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
+		}
 		
 			
 		
@@ -345,78 +317,8 @@ void drawScene() {
 			for(int i = 0; i < gTUNNEL_PATH.getListSize(); i++){
 				customCylinder(gTUNNEL_PATH.getSectionAt(i));
 			}
-		//	customCylinder(seccion2);
 		}glPopMatrix();
 	}glPopMatrix();
-	//customCylinder(seccion2);
-	//customCylinder(seccion);
-		/*customCylinderOld(	1.0, 
-		aux1, aux2,
-		aux3, aux4,
-		4
-	);*/
-	
-	/*
-	glColor3f(1.0f,0.0f,0.0f);
-	Vector3D xAxis(1.0f,0.0f,0.0f);
-	Vector3D yAxis(0.0f,1.0f,0.0f);
-	Vector3D zAxis(0.0f,0.0f,1.0f);
-	
-	Vector3D origin(0.0f,0.0f,0.0f);
-	//drawCircle(3.0f,xAxis,3.0f);
-	//drawCircle(3.0f,yAxis,3.0f);
-	//drawCircle(3.0f,zAxis,3.0f);
-	float radius = 0.3f;
-	float step = 0.07f;
-	//gCAM_POS += xAxis*0.0005f;
-	//gCAM_DIR.rotateYH( 1.0f*0.0005f );
-	
-	for(int i=0;i<180;i+=5){
-		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-*/
-//	drawCircle(3.0f,zAxis,5.0f,xAxis);
-		
-	/*
-	for(float i=0.0f;i<30.0f;i++){
-		drawCircle(3.0f,zAxis,i,origin);
-		origin.setX(zAxis.getX());
-		origin.setY(zAxis.getY());
-		origin.setZ(zAxis.getZ());
-		zAxis.setX(zAxis.getX()*sin(6*PI/180));
-		zAxis.setY(zAxis.getY()*sin(6*PI/180));
-		zAxis.setZ(zAxis.getZ()*sin(6*PI/180));
-	}*/
-	//drawCartesianAxis();
-
 }
 
 /************************************************************

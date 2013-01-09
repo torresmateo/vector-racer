@@ -97,8 +97,8 @@ void loadPath(){
 	
 	Vector3D aux5(0,0,0);
 	Vector3D aux6(0,0,1);
-	Vector3D aux7(0,0,5);
-	Vector3D aux8(0.1f,0,1.1f);
+	Vector3D aux7(0,0,3);
+	Vector3D aux8(1,0,1);
 	
 	PathSection seccion(	1.0, 
 		aux1, aux2,
@@ -116,6 +116,10 @@ void loadPath(){
 	gTUNNEL_PATH.pushSection(seccion);
 	gTUNNEL_PATH.pushSection(seccion);
 	gTUNNEL_PATH.pushSection(seccion2);
+	gTUNNEL_PATH.pushSection(seccion2);
+	gTUNNEL_PATH.pushSection(seccion2);
+	/*gTUNNEL_PATH.pushSection(seccion2);
+	gTUNNEL_PATH.pushSection(seccion2);*/
 }
 
 
