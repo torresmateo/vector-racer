@@ -85,7 +85,38 @@ string doubleToStr(double num) {
 }
 
 
+void loadPath(){
 
+	Vector3D aux1(0,0,0);
+	Vector3D aux2(0,0,1);
+	Vector3D aux3(0,0,3);
+	Vector3D aux4(0,-0.1f,1);
+	
+	
+	
+	
+	Vector3D aux5(0,0,0);
+	Vector3D aux6(0,0,1);
+	Vector3D aux7(0,0,5);
+	Vector3D aux8(0.1f,0,1.1f);
+	
+	PathSection seccion(	1.0, 
+		aux1, aux2,
+		aux3, aux4,
+		1
+	);
+	PathSection seccion2(	1.0, 
+		aux5, aux6,
+		aux7, aux8,
+		1
+	);
+
+	gTUNNEL_PATH.pushSection(seccion);
+	gTUNNEL_PATH.pushSection(seccion);
+	gTUNNEL_PATH.pushSection(seccion);
+	gTUNNEL_PATH.pushSection(seccion);
+	gTUNNEL_PATH.pushSection(seccion2);
+}
 
 
 

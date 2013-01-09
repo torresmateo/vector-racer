@@ -110,7 +110,85 @@ void customCylinder(PathSection section) {
 	}
 }
 
-
+void customCylinderTransformations(PathSection section){
+    
+	Vector3D centerVector, a, b;
+	Vector3D posCenterIni = section.getPositionIni();
+	Vector3D normalIni = section.getNormalIni()/* * -1*/;
+	Vector3D posCenterEnd = section.getPositionEnd()/* * -1*/;
+	Vector3D normalEnd = section.getNormalEnd()/* * -1*/;
+	int numSegment = section.getNumberOfSegments();
+	
+	if( normalIni.getX() == 0 and normalIni.getY() == 0 and normalIni.getZ() == 0 )
+		normalIni.setZ(1);
+	else
+		normalIni.setNormalized();
+	
+	if( normalEnd.getX() == 0 and normalEnd.getY() == 0 and normalEnd.getZ() == 0 )
+		normalEnd.setZ(1);
+	else
+		normalEnd.setNormalized();
+	
+	
+	glColor3f(GREEN);
+	glBegin(GL_LINE_STRIP); 
+		glVertex3f(0,0,0);
+		glVertex3f(GET_TRIPLET(posCenterEnd));
+	glEnd();
+	
+	glColor3f(BLUE);
+	glBegin(GL_LINE_STRIP); 
+		glVertex3f(GET_TRIPLET(posCenterEnd));
+		Vector3D aux = normalEnd;
+		aux += posCenterEnd;
+		glVertex3f(GET_TRIPLET(aux));
+	glEnd();
+	
+	
+	Vector3D rotateAxis(0,0,1);
+	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni);
+	
+	glTranslatef(GET_TRIPLET(posCenterIni));
+	
+	glRotatef(
+		RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
+		GET_TRIPLET(rotateAxis)
+	);
+	
+	
+	
+	for(int j=0; j<numSegment; j++){
+		
+		
+		Vector3D rotateAxis(0,0,1);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
+		
+		glRotatef(
+			RADIANS_TO_DEGREES(-asin(rotateAxis.getMag())),
+			GET_TRIPLET(rotateAxis)
+		);
+		Vector3D aux = posCenterEnd * -1;
+		glTranslatef(GET_TRIPLET(aux));
+		
+	}
+	
+	
+	glColor3f(YELLOW);
+	glBegin(GL_LINE_STRIP); 
+		glVertex3f(0,0,0);
+		glVertex3f(GET_TRIPLET(posCenterEnd));
+	glEnd();
+	
+	glColor3f(ORANGE);
+	glBegin(GL_LINE_STRIP); 
+		glVertex3f(GET_TRIPLET(posCenterEnd));
+		aux = normalEnd;
+		aux += posCenterEnd;
+		glVertex3f(GET_TRIPLET(aux));
+	glEnd();
+	
+	
+}
 
 void drawCartesianAxis(){
 	glPushMatrix(); 
@@ -201,8 +279,8 @@ void drawScene() {
 	// Vector3D aux4(-0.1,-0.1,1);
 	Vector3D aux1(0,0,0);
 	Vector3D aux2(0,0,1);
-	Vector3D aux3(0,0,3);
-	Vector3D aux4(0.1f,0.2f,1);
+	Vector3D aux3(0,0,2);
+	Vector3D aux4(0,-1,1);
 	
 	
 	
@@ -215,7 +293,7 @@ void drawScene() {
 	PathSection seccion(	1.0, 
 		aux1, aux2,
 		aux3, aux4,
-		2
+		1
 	);
 	PathSection seccion2(	1.0, 
 		aux5, aux6,
@@ -227,51 +305,46 @@ void drawScene() {
 	
 	
 		
-		Vector3D translation = seccion.getPositionEnd();
-		Vector3D normal = seccion.getNormalEnd();
+		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
+		Vector3D normal = gTUNNEL_PATH.getCurrentSection().getNormalEnd();
+		
+		//glTranslatef(GET_TRIPLET(gPATH_POS));
+		
+		for(unsigned int i = 0; i < gTUNNEL_PATH.getIndex(); i++){
+			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
+		}
+		
+		
 		if(gFLOAT_DEBUG <= -1.0f){
+			gTUNNEL_PATH.nextSection	();
 			gFLOAT_DEBUG = 0.0f;
 			gFLOAT_DEBUGy = 0.0f;
-			//gPATH_POS = translateVertex(gPATH_POS,translation*-1);
-			//gPATH_POS = translation;
-			gPATH_NORMAL = normal;
-			//glTranslatef(GET_TRIPLET(gPATH_POS));
-			Vector3D rotateAxis(0,0,1);
-			rotateAxis = Vector3D::crossMultiply(rotateAxis,normal);
-			/*glRotatef(
-				RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
-				GET_TRIPLET(rotateAxis)
-			);*/
 		}
-		//glTranslatef(GET_TRIPLET(gPATH_POS));
-			
+		
+		
 		gFLOAT_DEBUG -= 0.002f;
 		gFLOAT_DEBUGy -= 0.002f;
 		gDEBUG = doubleToStr(gFLOAT_DEBUG);
+		
 		translation = translation * gFLOAT_DEBUG;
+		
 		Vector3D rotateAxis(0,0,1);
 		rotateAxis = Vector3D::crossMultiply(rotateAxis,normal);
-		//gPATH_NORMAL = rotateVertex(aux1,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
-					
-			
-					
-			
-			
 		glRotatef(
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gFLOAT_DEBUGy,
 			GET_TRIPLET(rotateAxis)
 		);
-		//glTranslatef(GET_TRIPLET(gPATH_POS));
+		
 		glTranslatef(GET_TRIPLET(translation));
-		//gPATH_POS = translateVertex(gPATH_POS,translation * -1);
+		
+		
+			
+		
 		
 		glPushMatrix();{
-			customCylinder(seccion);
-			customCylinder(seccion);
-			customCylinder(seccion);
-			customCylinder(seccion);
-			customCylinder(seccion);
-			customCylinder(seccion);
+			for(int i = 0; i < gTUNNEL_PATH.getListSize(); i++){
+				customCylinder(gTUNNEL_PATH.getSectionAt(i));
+			}
 		//	customCylinder(seccion2);
 		}glPopMatrix();
 	}glPopMatrix();
