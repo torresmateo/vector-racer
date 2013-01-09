@@ -30,6 +30,9 @@ int main(int argc, char **argv) {
 	//glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	
+	
+	loadPath();
+	
 	// enter GLUT event processing cycle
 	glutMainLoop();
 	
