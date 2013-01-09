@@ -101,7 +101,6 @@ void customCylinder(PathSection section) {
 		
 		Vector3D rotateAxis(0,0,1);
 		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
-		
 		glRotatef(
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
 			GET_TRIPLET(rotateAxis)
@@ -146,7 +145,7 @@ void customCylinderTransformations(PathSection section){
 	*/
 	
 	Vector3D rotateAxis(0,0,1);
-	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni);
+	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni.getNormalizedVector());
 	
 	glTranslatef(GET_TRIPLET(posCenterIni));
 	
@@ -161,7 +160,7 @@ void customCylinderTransformations(PathSection section){
 		
 		
 		Vector3D rotateAxis(0,0,1);
-		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd.getNormalizedVector());
 		
 		glRotatef(
 			RADIANS_TO_DEGREES(-asin(rotateAxis.getMag())),
@@ -306,7 +305,7 @@ void drawScene() {
 		translation = translation * gFLOAT_DEBUG;
 		
 		Vector3D rotateAxis(0,0,1);
-		rotateAxis = Vector3D::crossMultiply(rotateAxis,normal);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normal.getNormalizedVector());
 		glRotatef(
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gFLOAT_DEBUG,
 			GET_TRIPLET(rotateAxis)
