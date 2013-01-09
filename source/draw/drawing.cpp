@@ -129,7 +129,7 @@ void customCylinderTransformations(PathSection section){
 	else
 		normalEnd.setNormalized();
 	
-	
+	/*
 	glColor3f(GREEN);
 	glBegin(GL_LINE_STRIP); 
 		glVertex3f(0,0,0);
@@ -143,7 +143,7 @@ void customCylinderTransformations(PathSection section){
 		aux += posCenterEnd;
 		glVertex3f(GET_TRIPLET(aux));
 	glEnd();
-	
+	*/
 	
 	Vector3D rotateAxis(0,0,1);
 	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni);
@@ -171,7 +171,7 @@ void customCylinderTransformations(PathSection section){
 		glTranslatef(GET_TRIPLET(aux));
 		
 	}
-	
+	/*
 	
 	glColor3f(YELLOW);
 	glBegin(GL_LINE_STRIP); 
@@ -186,7 +186,7 @@ void customCylinderTransformations(PathSection section){
 		aux += posCenterEnd;
 		glVertex3f(GET_TRIPLET(aux));
 	glEnd();
-	
+	*/
 	
 }
 
@@ -203,13 +203,13 @@ void drawCartesianAxis(){
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 10.0f, 0.0f);
 		glEnd();
-		
+		/*
 		glColor3f(BLUE);
 		glBegin(GL_LINE_STRIP); 
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 0.0f, 10.0f);
 		glEnd();
-		
+		*/
 		//glutSolidTorus  ( 0.01f, 1.51f, 60, 60 );
 	
 		
@@ -275,23 +275,32 @@ void drawScene() {
 	
 	
 		
-		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
-		Vector3D normal = gTUNNEL_PATH.getCurrentSection().getNormalEnd();
-		
-		//glTranslatef(GET_TRIPLET(gPATH_POS));
-		
-		
-		
 		
 		if(gFLOAT_DEBUG <= -1.0f){
 			gTUNNEL_PATH.nextSection	();
 			gFLOAT_DEBUG = 0.0f;
 			gFLOAT_DEBUGy = 0.0f;
 		}
+		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
+		Vector3D normal = gTUNNEL_PATH.getCurrentSection().getNormalEnd();
+		
+		glColor3f(YELLOW);
+		glBegin(GL_LINE_STRIP); 
+			glVertex3f(0,0,0);
+			glVertex3f(GET_TRIPLET(translation));
+		glEnd();
+	
+		glColor3f(ORANGE);
+		glBegin(GL_LINE_STRIP); 
+			glVertex3f(GET_TRIPLET(translation));
+			Vector3D aux = normal;
+			aux += translation;
+			glVertex3f(GET_TRIPLET(aux));
+		glEnd();
 		
 		
 		gFLOAT_DEBUG -= 0.002f;
-		gFLOAT_DEBUGy -= 0.002f;
+		//gFLOAT_DEBUGy -= 0.002f;
 		gDEBUG = doubleToStr(gFLOAT_DEBUG);
 		
 		translation = translation * gFLOAT_DEBUG;
@@ -299,14 +308,17 @@ void drawScene() {
 		Vector3D rotateAxis(0,0,1);
 		rotateAxis = Vector3D::crossMultiply(rotateAxis,normal);
 		glRotatef(
-			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gFLOAT_DEBUGy,
+			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gFLOAT_DEBUG,
 			GET_TRIPLET(rotateAxis)
 		);
 		
 		
 		glTranslatef(GET_TRIPLET(translation));
 		
-		for(int i = gTUNNEL_PATH.getIndex(); i > 0; i--){
+		
+		
+		
+		for(int i = gTUNNEL_PATH.getIndex() - 1; i >= 0; i--){
 			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
 		}
 		
