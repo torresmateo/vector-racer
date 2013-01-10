@@ -216,7 +216,7 @@ void drawScene() {
 			if(gTUNNEL_PATH.getCurrentUnusedSegments() > 1)						//queda algún segmento para consumir?
 				gTUNNEL_PATH.consumeSegment();									//consumimos un segmento
 			else{																//sino
-			//	gTUNNEL_PATH.pushSection(gTUNNEL_PATH.getCurrentSection());		//volvemos a agregar el segmento actual a la cola
+				gTUNNEL_PATH.pushSection(gTUNNEL_PATH.getCurrentSection());		//volvemos a agregar el segmento actual a la cola
 				gTUNNEL_PATH.nextSection();										//avanzamos a la siguiente sección (borrando el segmento actual)
 			}
 			gFLOAT_DEBUG = 0.0f;
@@ -239,7 +239,7 @@ void drawScene() {
 		}	
 		
 		//se transforma el Model View gradualmente para el segmento actual
-		gFLOAT_DEBUG -= 0.10f;
+		gFLOAT_DEBUG -= 0.310f;
 		
 		translation = translation * gFLOAT_DEBUG;
 	
