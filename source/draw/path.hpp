@@ -61,7 +61,8 @@ class Path {
 		}
 		
 		void nextSection(){//circularidad
-			//sectionList.erase(sectionList.begin());
+			sectionList.erase(sectionList.begin());
+			index--;
 			if(index >= sectionList.size()){
 				index = 0;
 			}else{

@@ -116,31 +116,18 @@ PathSection torusSection(float innerRadius, float outerRadius, unsigned int ring
 
 void loadPath(){
 
-	Vector3D aux1(0,0,0);
-	Vector3D aux2(0,0,1);
-	Vector3D aux3(0,0,0.5f);
-	Vector3D aux4(0,-0.1f,1);
-	
-	
-	
-	
-	Vector3D aux5(0,0,0);
-	Vector3D aux6(0,0,1);
-	Vector3D aux7(0,0,0.5f);
-	Vector3D aux8(0.1f,0.1f,1);
-	
-	int rings = 50;
-	float sectionAngle = 45.0f;
-	PathSection seccion (torusSection(0.5f, 10.0f,rings, sectionAngle, 0.0f));
-	PathSection seccion2(torusSection(0.5f, 10.0f,rings, sectionAngle, 180.0f));
-	PathSection seccion3(torusSection(0.5f, 10.0f,rings, sectionAngle, 45.0f));
-	PathSection seccion4(torusSection(0.5f, 10.0f,rings, sectionAngle, -45.0f));
+	int rings = 120;
+	float sectionAngle = 60.0f;
+	PathSection seccion (torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
+	PathSection seccion2(torusSection(0.5f, 30.0f,rings, sectionAngle, 90.0f));
+	PathSection seccion3(torusSection(0.5f, 40.0f,rings, sectionAngle, 45.0f));
+	PathSection seccion4(torusSection(0.5f, 30.0f,rings, sectionAngle, -45.0f));
 	
 
 	gTUNNEL_PATH.pushSection(seccion);
-	gTUNNEL_PATH.pushSection(seccion2);
+	//gTUNNEL_PATH.pushSection(seccion2);
 	gTUNNEL_PATH.pushSection(seccion3);
-	gTUNNEL_PATH.pushSection(seccion4);
+	//gTUNNEL_PATH.pushSection(seccion4);
 }
 
 
