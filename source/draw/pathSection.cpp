@@ -4,6 +4,8 @@
 
 //seters
 void PathSection::setRadius( float newRadius ){ this->radius = newRadius; }
+void PathSection::setNumberOfSegments(int newNumberOfSegments){ this->numberOfSegments = newNumberOfSegments; }
+		
 
 void PathSection::setPositionIni( Vector3D newPosition ){ this->positionIni = newPosition; }
 void PathSection::setNormalIni( Vector3D newNormal ){ this->normalIni = newNormal; }

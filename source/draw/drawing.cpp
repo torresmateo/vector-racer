@@ -22,62 +22,20 @@ void customCylinder(PathSection section) {
 	else
 		normalEnd.setNormalized();
 	
-		
 	glTranslatef(GET_TRIPLET(posCenterIni));
 		
 	Vector3D rotateAxis(0,0,1);
 	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni);
-	
 	glRotatef(
 		RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
 		GET_TRIPLET(rotateAxis)
 	);
 	
 	Vector3D aux;
-	
-	
 	for(int j=0; j<numSegment; j++){
-		/*glColor3f(RED);
-		glBegin(GL_LINE_STRIP); 
-			glVertex3f(0,0,0);
-			glVertex3f(GET_TRIPLET(posCenterEnd));
-		glEnd();
-		
-		glColor3f(GREEN);
-		glBegin(GL_LINE_STRIP); 
-		glVertex3f(GET_TRIPLET(posCenterEnd));
-		glVertex3f(
-			posCenterEnd.getX()+normalEnd.getX(),
-			posCenterEnd.getY()+normalEnd.getY(),
-			posCenterEnd.getZ()+normalEnd.getZ()
-			);
-		glEnd();
-		
-		a = normalEnd.getUnitaryPerpendicularVector();
-		b = Vector3D::crossMultiply(a,normalEnd).getNormalizedVector();
-		
-		glColor3f(GREEN);
-		glBegin(GL_LINE_STRIP); 
-		glVertex3f(GET_TRIPLET(posCenterEnd));
-		glVertex3f(
-			posCenterEnd.getX()+a.getX(),
-			posCenterEnd.getY()+a.getY(),
-			posCenterEnd.getZ()+a.getZ()
-			);
-		glEnd();
-		
-		glColor3f(RED);
-		glBegin(GL_LINE_STRIP); 
-		glVertex3f(GET_TRIPLET(posCenterEnd));
-		glVertex3f(
-			posCenterEnd.getX()+b.getX(),
-			posCenterEnd.getY()+b.getY(),
-			posCenterEnd.getZ()+b.getZ()
-			);
-		glEnd();*/
 		glColor3f(RED);
 		glBegin(GL_QUAD_STRIP);{
-			for (int i = 0; i <= 360; i+=18) {
+			for (int i = -36; i <= 216; i+=18) {
 				theta = i * PI/180;
 				x = radius * cos(theta);
 				y = radius * sin(theta);
@@ -95,6 +53,24 @@ void customCylinder(PathSection section) {
 				
 				glVertex3f(GET_TRIPLET(aux));	
 			}
+			int i = -36;
+			theta = i * PI/180;
+			x = radius * cos(theta);
+			y = radius * sin(theta);
+			z = 0;
+			
+			glVertex3f(x, y, z);
+			
+			aux = Vector3D(x,y,z);
+			
+			Vector3D rotateAxis(0,0,1);
+			rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
+			
+			aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+			aux = translateVertex(aux,posCenterEnd);
+			
+			glVertex3f(GET_TRIPLET(aux));	
+			
 		}glEnd();
 		
 		glTranslatef(GET_TRIPLET(posCenterEnd));
@@ -105,7 +81,6 @@ void customCylinder(PathSection section) {
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
 			GET_TRIPLET(rotateAxis)
 		);
-		
 	}
 }
 
@@ -128,22 +103,6 @@ void customCylinderTransformations(PathSection section){
 	else
 		normalEnd.setNormalized();
 	
-	/*
-	glColor3f(GREEN);
-	glBegin(GL_LINE_STRIP); 
-		glVertex3f(0,0,0);
-		glVertex3f(GET_TRIPLET(posCenterEnd));
-	glEnd();
-	
-	glColor3f(BLUE);
-	glBegin(GL_LINE_STRIP); 
-		glVertex3f(GET_TRIPLET(posCenterEnd));
-		Vector3D aux = normalEnd;
-		aux += posCenterEnd;
-		glVertex3f(GET_TRIPLET(aux));
-	glEnd();
-	*/
-	
 	Vector3D rotateAxis(0,0,1);
 	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni.getNormalizedVector());
 	
@@ -153,8 +112,6 @@ void customCylinderTransformations(PathSection section){
 		RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
 		GET_TRIPLET(rotateAxis)
 	);
-	
-	
 	
 	for(int j=0; j<numSegment; j++){
 		
@@ -170,23 +127,6 @@ void customCylinderTransformations(PathSection section){
 		glTranslatef(GET_TRIPLET(aux));
 		
 	}
-	/*
-	
-	glColor3f(YELLOW);
-	glBegin(GL_LINE_STRIP); 
-		glVertex3f(0,0,0);
-		glVertex3f(GET_TRIPLET(posCenterEnd));
-	glEnd();
-	
-	glColor3f(ORANGE);
-	glBegin(GL_LINE_STRIP); 
-		glVertex3f(GET_TRIPLET(posCenterEnd));
-		aux = normalEnd;
-		aux += posCenterEnd;
-		glVertex3f(GET_TRIPLET(aux));
-	glEnd();
-	*/
-	
 }
 
 void drawCartesianAxis(){
@@ -271,29 +211,45 @@ void drawScene() {
 	drawCartesianAxis();
 	glPushMatrix();{
 	
-		if(gFLOAT_DEBUG <= -1.0f){
-			gTUNNEL_PATH.nextSection();
+		if(gFLOAT_DEBUG <= -1.0f){//se termina la transformación del Model View para el segmento actual
+			
+			if(gTUNNEL_PATH.getCurrentUnusedSegments() > 1)						//queda algún segmento para consumir?
+				gTUNNEL_PATH.consumeSegment();									//consumimos un segmento
+			else{																//sino
+			//	gTUNNEL_PATH.pushSection(gTUNNEL_PATH.getCurrentSection());		//volvemos a agregar el segmento actual a la cola
+				gTUNNEL_PATH.nextSection();										//avanzamos a la siguiente sección (borrando el segmento actual)
+			}
 			gFLOAT_DEBUG = 0.0f;
 			gFLOAT_DEBUGy = 0.0f;
 		}
+		
 		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
 		Vector3D normal = gTUNNEL_PATH.getCurrentSection().getNormalEnd();
-		
-		gFLOAT_DEBUG -= 0.009f;
-		//gFLOAT_DEBUGy -= 0.002f;
-		gDEBUG = doubleToStr(gFLOAT_DEBUG);
-		
-		translation = translation * gFLOAT_DEBUG;
-		
 		Vector3D rotateAxis(0,0,1);
 		rotateAxis = Vector3D::crossMultiply(rotateAxis,normal.getNormalizedVector());
+	
+		//se transforma el Model View para cada segmento consumido de la seccion actual		
+		for(int i = 0; i < (gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()) ; i++){
+			glRotatef(
+				RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*-1,
+				GET_TRIPLET(rotateAxis)
+			); 	
+			glTranslatef(GET_TRIPLET((translation * -1)));
+			DEBUG((gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()));
+		}	
+		
+		//se transforma el Model View gradualmente para el segmento actual
+		gFLOAT_DEBUG -= 0.10f;
+		
+		translation = translation * gFLOAT_DEBUG;
+	
 		glRotatef(
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gFLOAT_DEBUG,
 			GET_TRIPLET(rotateAxis)
 		);
-		
+	
 		glTranslatef(GET_TRIPLET(translation));
-		
+
 		for(int i = gTUNNEL_PATH.getIndex() - 1; i >= 0; i--){
 			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
 		}
