@@ -31,7 +31,7 @@ class PathSection {
 			positionEnd = Vector3D(0.0f,0.0f,1.0f);
 			normalEnd = Vector3D(0.0f,0.0f,1.0f);;
 			
-			this->updateOrthogonalVectors();
+			// this->updateOrthogonalVectors();
 		}
 		
 		PathSection(float radius, Vector3D positionIni, Vector3D normalIni, Vector3D positionEnd, Vector3D normalEnd, int numberOfSegments ) {
@@ -45,7 +45,7 @@ class PathSection {
 
 			this->numberOfSegments = numberOfSegments;
 
-			this->updateOrthogonalVectors();
+			// this->updateOrthogonalVectors();
 		}
 		
 		//seters
