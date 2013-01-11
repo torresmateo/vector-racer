@@ -6,6 +6,10 @@
 
 Vector3D rotateVertex(Vector3D vertex, Vector3D axis, float degrees){
 	float rad = degrees * (PI/180);	
+	
+	if(axis.getX()==0 and axis.getY()==0 and axis.getZ()==0 )
+		return vertex;
+		
 	axis.setNormalized();
 	
 	float x = axis.getX();	
@@ -31,7 +35,6 @@ Vector3D rotateVertex(Vector3D vertex, Vector3D axis, float degrees){
 	aux1+=aux3;
 	
 	return aux1*=vertex;
-	
 }
 
 Vector3D translateVertex(Vector3D vertex, Vector3D translationPoint){
@@ -116,18 +119,42 @@ PathSection torusSection(float innerRadius, float outerRadius, unsigned int ring
 
 void loadPath(){
 
-	int rings = 120;
-	float sectionAngle = 60.0f;
-	PathSection seccion (torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
-	PathSection seccion2(torusSection(0.5f, 30.0f,rings, sectionAngle, 90.0f));
-	PathSection seccion3(torusSection(0.5f, 40.0f,rings, sectionAngle, 45.0f));
-	PathSection seccion4(torusSection(0.5f, 30.0f,rings, sectionAngle, -45.0f));
+	int rings = 84;
+	float sectionAngle = 60.160568f;
+	float outerRadius = 40.0f;
 	
-
-	gTUNNEL_PATH.pushSection(seccion);
-	//gTUNNEL_PATH.pushSection(seccion2);
-	gTUNNEL_PATH.pushSection(seccion3);
-	//gTUNNEL_PATH.pushSection(seccion4);
+	int ringsDownCase = 84;
+	float sectionAngleDownCase = 24.064227;
+	float outerRadiusDownCase = 100.0f;
+	
+	float torusOrientation = 0.0f;
+	
+	// PathSection seccion(torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
+	// PathSection seccion2(torusSection(0.5f, 100.0f,ringsDownCase, sectionAngleDownCase, 90.0f));
+	// PathSection seccion3(torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
+	// PathSection seccion4(torusSection(0.5f, 80.0f,rings, sectionAngle, 90.0f));
+	
+	PathSection auxPath;
+	auxPath.setRadius(0.5f);
+	Vector3D auxPositionEnd(0.0f,0.0f,0.5f);
+	auxPath.setPositionEnd(auxPositionEnd);
+	auxPath.setNumberOfSegments(84);
+	
+	gCURVES[0] = auxPath;
+	
+	for(int i = 1; i<9; i++){
+		if( 0 < torusOrientation and torusOrientation < 180 )
+			gCURVES[i] = torusSection(0.5f, outerRadiusDownCase, ringsDownCase, sectionAngleDownCase, torusOrientation);
+		else
+			gCURVES[i] = torusSection(0.5f, outerRadius, rings, sectionAngle, torusOrientation);
+		torusOrientation += 45;
+	}
+	
+	gTUNNEL_PATH.pushSection(gCURVES[0]);
+	gTUNNEL_PATH.pushSection(gCURVES[rand()%8 + 1]);
+	gTUNNEL_PATH.pushSection(gCURVES[rand()%8 + 1]);
+	
+	
 }
 
 //OBJ LOADER

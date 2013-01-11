@@ -47,7 +47,7 @@ void customCylinder(PathSection section) {
 				
 				Vector3D rotateAxis(0,0,1);
 				rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
-				
+				// gDEBUG = rotateAxis.toString();
 				aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
 				aux = translateVertex(aux,posCenterEnd);
 				
@@ -208,7 +208,7 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 
 void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+	int curveI;
 	drawCartesianAxis();
 	
 	//glLoadIdentity();
@@ -222,16 +222,26 @@ void drawScene() {
 	
 	glPushMatrix();{
 	
-		if(gFLOAT_DEBUG <= -1.0f){//se termina la transformación del Model View para el segmento actual
+		if(gSEGMENT_PROGRESS <= -1.0f){//se termina la transformación del Model View para el segmento actual
 			
 			if(gTUNNEL_PATH.getCurrentUnusedSegments() > 1)						//queda algún segmento para consumir?
 				gTUNNEL_PATH.consumeSegment();									//consumimos un segmento
 			else{																//sino
-				gTUNNEL_PATH.pushSection(gTUNNEL_PATH.getCurrentSection());		//volvemos a agregar el segmento actual a la cola
-				gTUNNEL_PATH.nextSection();										//avanzamos a la siguiente sección (borrando el segmento actual)
+				gTUNNEL_PATH.nextSection();
+				//avanzamos a la siguiente sección (borrando el segmento actual)
+				curveI = rand()%9;
+				while( curveI == 0 and gPREV_INDEX_ZERO ){ // verificacion para evitar dos caminos rectos (indice 0) consecutivos
+					curveI = rand()%9;
+				}
+
+				if( curveI == 0 )
+					gPREV_INDEX_ZERO = true;
+				else
+					gPREV_INDEX_ZERO = false;
+
+				gTUNNEL_PATH.pushSection(gCURVES[curveI]);		//volvemos a agregar el segmento actual a la cola
 			}
-			gFLOAT_DEBUG = 0.0f;
-			gFLOAT_DEBUGy = 0.0f;
+			gSEGMENT_PROGRESS = 0.0f;
 		}
 		
 		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
@@ -246,16 +256,16 @@ void drawScene() {
 				GET_TRIPLET(rotateAxis)
 			); 	
 			glTranslatef(GET_TRIPLET((translation * -1)));
-			DEBUG((gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()));
+			//DEBUG((gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()));
 		}	
 		
 		//se transforma el Model View gradualmente para el segmento actual
-		gFLOAT_DEBUG -= 0.310f;
+		gSEGMENT_PROGRESS -= gCAR_SPEED;
 		
-		translation = translation * gFLOAT_DEBUG;
+		translation = translation * gSEGMENT_PROGRESS;
 	
 		glRotatef(
-			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gFLOAT_DEBUG,
+			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gSEGMENT_PROGRESS,
 			GET_TRIPLET(rotateAxis)
 		);
 	

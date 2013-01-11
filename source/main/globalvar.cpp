@@ -24,6 +24,13 @@ Vector2D gMOUSE(-1,-1);
 Vector3D gPATH_POS(0.0f,0.0f,0.0f);
 Vector3D gPATH_NORMAL(0.0f,0.0f,1.0f);
 
+// Curvas predefinidas
+PathSection gCURVES[9];
+
+float gCAR_SPEED = 0.3f;
+float gSEGMENT_PROGRESS = 0.0f;
+
+bool gPREV_INDEX_ZERO = false;
 
 //modelview
 GLfloat gMODEL_VIEW_MATRIX[16] = { 	1.0f, 0.0f, 0.0f, 0.0f,
