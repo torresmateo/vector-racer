@@ -1,5 +1,6 @@
 
 int main(int argc, char **argv) {
+	srand ( time(NULL) );
 	
 	// init GLUT and create window
 	glutInit(&argc, argv);
