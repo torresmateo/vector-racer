@@ -80,6 +80,10 @@ PathSection gCURRENT_PATH_SECTION;
 
 //de Mateo BORRAR despues de las pruebas
 
+int cube;
+
+
+
 GLfloat rtri;   //Angle for the Triangle (NEW)
 GLfloat rquad;  //Rotation Angle for the Quad (new) 
 

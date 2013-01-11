@@ -15,7 +15,10 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
+#include <algorithm>
+#include <cstdio>
 using namespace std;
 
 // includes propios de la aplicacion

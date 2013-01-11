@@ -205,10 +205,21 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 /************************************************************
 	funcion para pintar el escenario
 *************************************************************/
+
 void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	drawCartesianAxis();
+	
+	//glLoadIdentity();
+	glPushMatrix();{
+		//glPolygonMode(GL_FRONT, GL_FILL);
+		//glTranslatef(0.0f,1.5f,3.0f);
+		float scaleFactor = 0.1f;
+		glScalef(scaleFactor,scaleFactor,scaleFactor);
+		glCallList(cube);	//draw the 3D mesh
+	}glPopMatrix();
+	
 	glPushMatrix();{
 	
 		if(gFLOAT_DEBUG <= -1.0f){//se termina la transformación del Model View para el segmento actual
