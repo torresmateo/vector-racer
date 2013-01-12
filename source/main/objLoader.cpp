@@ -156,8 +156,8 @@ int objLoader::load(const char* filename)
 		}else if(coord[i]->c_str()[0] == 'u' && coord[i]->c_str()[1] == 's' && coord[i]->c_str()[2] == 'e'){
 			char tmp[200];
 			sscanf(coord[i]->c_str(),"usemtl %s",tmp);
-			for(unsigned int i = 0 ; i < materials.size(); i++){
-				if(strcmp(materials[i]->name.c_str(),tmp)==0){
+			for(unsigned int a = 0 ; a < materials.size(); a++){
+				if(strcmp(materials[a]->name.c_str(),tmp)==0){
 					curMat = i;
 					break;
 				}
@@ -185,10 +185,10 @@ int objLoader::load(const char* filename)
 			unsigned int texture;
 			bool isMaterial = false;
 			strcpy(filename,"\0");
-			for(unsigned int i=0; i < tmp.size(); i++){
-				if(tmp[i][0] == '#')
+			for(unsigned int j=0; j < tmp.size(); j++){
+				if(tmp[j][0] == '#')
 					continue;
-				if(tmp[i][0] == 'n' && tmp[i][1] == 'e' && tmp[i][2] == 'w'){
+				if(tmp[j][0] == 'n' && tmp[j][1] == 'e' && tmp[j][2] == 'w'){
 					if(isMaterial){
 						if(strcmp(filename,"\0") != 0){
 							materials.push_back(new material(name, alpha, ns, ni, dif, amb, spec, illum, texture));
@@ -198,30 +198,30 @@ int objLoader::load(const char* filename)
 						}
 					}
 					isMaterial = false;
-					sscanf(tmp[i].c_str(),"newmtl %s",name);
-				}else if(tmp[i][0] == 'N' && tmp[i][1] == 's'){
-					sscanf(tmp[i].c_str(),"Ns %f",&ns);
+					sscanf(tmp[j].c_str(),"newmtl %s",name);
+				}else if(tmp[j][0] == 'N' && tmp[j][1] == 's'){
+					sscanf(tmp[j].c_str(),"Ns %f",&ns);
 					isMaterial = true;
-				}else if(tmp[i][0] == 'K' && tmp[i][1] == 'a'){
-					sscanf(tmp[i].c_str(),"Ka %f %f %f",&amb[0],&amb[1],&amb[2]);
+				}else if(tmp[j][0] == 'K' && tmp[j][1] == 'a'){
+					sscanf(tmp[j].c_str(),"Ka %f %f %f",&amb[0],&amb[1],&amb[2]);
 					isMaterial = true;
-				}else if(tmp[i][0] == 'K' && tmp[i][1] == 'd'){
-					sscanf(tmp[i].c_str(),"Ka %f %f %f",&dif[0],&dif[1],&dif[2]);
+				}else if(tmp[j][0] == 'K' && tmp[j][1] == 'd'){
+					sscanf(tmp[j].c_str(),"Ka %f %f %f",&dif[0],&dif[1],&dif[2]);
 					isMaterial = true;
-				}else if(tmp[i][0] == 'K' && tmp[i][1] == 's'){
-					sscanf(tmp[i].c_str(),"Ka %f %f %f",&spec[0],&spec[1],&spec[2]);
+				}else if(tmp[j][0] == 'K' && tmp[j][1] == 's'){
+					sscanf(tmp[j].c_str(),"Ka %f %f %f",&spec[0],&spec[1],&spec[2]);
 					isMaterial = true;
-				}else if(tmp[i][0] == 'N' && tmp[i][1] == 'i'){
-					sscanf(tmp[i].c_str(),"Ni %f",&ni);
+				}else if(tmp[j][0] == 'N' && tmp[j][1] == 'i'){
+					sscanf(tmp[j].c_str(),"Ni %f",&ni);
 					isMaterial = true;
-				}else if(tmp[i][0] == 'd' && tmp[i][1] == ' '){
-					sscanf(tmp[i].c_str(),"d %f",&alpha);
+				}else if(tmp[j][0] == 'd' && tmp[j][1] == ' '){
+					sscanf(tmp[j].c_str(),"d %f",&alpha);
 					isMaterial = true;
-				}else if(tmp[i][0] == 'i' && tmp[i][1] == 'l'){
-					sscanf(tmp[i].c_str(),"illum %d",&illum);
+				}else if(tmp[j][0] == 'i' && tmp[j][1] == 'l'){
+					sscanf(tmp[j].c_str(),"illum %d",&illum);
 					isMaterial = true;
-				}else if(tmp[i][0] == 'm' && tmp[i][1] == 'a'){
-					sscanf(tmp[i].c_str(),"map_Kd %s",filename);
+				}else if(tmp[j][0] == 'm' && tmp[j][1] == 'a'){
+					sscanf(tmp[j].c_str(),"map_Kd %s",filename);
 					texture = loadTexture(filename);
 					isMaterial = true;
 				}
@@ -251,16 +251,36 @@ int objLoader::load(const char* filename)
 	num=glGenLists(1);
 	glNewList(num,GL_COMPILE);
 	int last = -1;
+	printf("aca llega\n");
+	
+	float diffuse[4];
+	float ambient[4];
+	float specular[4];
 	for(unsigned int i=0;i<faces.size();i++)	{
-		if(last != faces[i]->mat && isMaterial){
-			float diffuse[]={materials[faces[i]->mat]->dif[0],materials[faces[i]->mat]->dif[1],materials[faces[i]->mat]->dif[2],1.0};
-			float ambient[]={materials[faces[i]->mat]->amb[0],materials[faces[i]->mat]->amb[1],materials[faces[i]->mat]->amb[2],1.0};
-			float specular[]={materials[faces[i]->mat]->spec[0],materials[faces[i]->mat]->spec[1],materials[faces[i]->mat]->spec[2],1.0};
+		
+		if(last != faces[i]->mat && isMaterial && faces[i]->mat < (int)materials.size()){
+			
+			diffuse[0] = materials[faces[i]->mat]->dif[0];
+			diffuse[1] = materials[faces[i]->mat]->dif[1];
+			diffuse[2] = materials[faces[i]->mat]->dif[2];
+			diffuse[3] = 1.0;
+			
+			ambient[0] = materials[faces[i]->mat]->amb[0];
+			ambient[1] = materials[faces[i]->mat]->amb[1];
+			ambient[2] = materials[faces[i]->mat]->amb[2];
+			ambient[3] = 1.0;
+			
+			specular[0] = materials[faces[i]->mat]->spec[0];
+			specular[1] = materials[faces[i]->mat]->spec[1];
+			specular[2] = materials[faces[i]->mat]->spec[2];
+			specular[3] = 1.0;
+			
 			glMaterialfv(GL_FRONT,GL_DIFFUSE,diffuse);
 			glMaterialfv(GL_FRONT,GL_AMBIENT,ambient);
 			glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 			glMaterialf(GL_FRONT,GL_SHININESS,materials[faces[i]->mat]->ns);
 			last=faces[i]->mat;
+			
 			if(materials[faces[i]->mat]->texture == -1){
 				glDisable(GL_TEXTURE_2D);
 			}else{
@@ -269,9 +289,11 @@ int objLoader::load(const char* filename)
 			}
 			
 		}
+		
 		if(faces[i]->four){
 			glBegin(GL_QUADS);
-				glNormal3f(normals[faces[i]->facenum-1]->x,normals[faces[i]->facenum-1]->y,normals[faces[i]->facenum-1]->z);
+				if(faces[i]->facenum > 0)
+					glNormal3f(normals[faces[i]->facenum-1]->x,normals[faces[i]->facenum-1]->y,normals[faces[i]->facenum-1]->z);
 				glVertex3f(vertex[faces[i]->faces[0]-1]->x,vertex[faces[i]->faces[0]-1]->y,vertex[faces[i]->faces[0]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[1]-1]->x,vertex[faces[i]->faces[1]-1]->y,vertex[faces[i]->faces[1]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[2]-1]->x,vertex[faces[i]->faces[2]-1]->y,vertex[faces[i]->faces[2]-1]->z);
@@ -279,7 +301,8 @@ int objLoader::load(const char* filename)
 			glEnd();
 		}else{
 			glBegin(GL_TRIANGLES);
-				glNormal3f(normals[faces[i]->facenum-1]->x,normals[faces[i]->facenum-1]->y,normals[faces[i]->facenum-1]->z);
+				if(faces[i]->facenum > 0)
+					glNormal3f(normals[faces[i]->facenum-1]->x,normals[faces[i]->facenum-1]->y,normals[faces[i]->facenum-1]->z);
 				glVertex3f(vertex[faces[i]->faces[0]-1]->x,vertex[faces[i]->faces[0]-1]->y,vertex[faces[i]->faces[0]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[1]-1]->x,vertex[faces[i]->faces[1]-1]->y,vertex[faces[i]->faces[1]-1]->z);
 				glVertex3f(vertex[faces[i]->faces[2]-1]->x,vertex[faces[i]->faces[2]-1]->y,vertex[faces[i]->faces[2]-1]->z);
