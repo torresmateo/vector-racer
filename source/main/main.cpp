@@ -1,5 +1,5 @@
 
-
+objLoader obj;
 int main(int argc, char **argv) {
 	srand ( time(NULL) );
 	
@@ -32,16 +32,20 @@ int main(int argc, char **argv) {
 	//glEnable(GL_CULL_FACE);
 	//glEnable(GL_DEPTH_TEST);
 	
-	//system("pwd");
-	// printf("hola");
 	glEnable(GL_DEPTH_TEST);
-	// cube=loadObject("cube.obj");	//load the test.obj file
-	//glEnable(GL_LIGHTING);	//we enable lighting, to make the 3D object to 3D
-	//glEnable(GL_LIGHT0);
-	//float col[]={1.0,1.0,1.0,1.0};	//light color is white
-	//glLightfv(GL_LIGHT0,GL_DIFFUSE,col);
-
-	//cube = loadObject("cube.obj");
+	
+	//system("pwd");
+	
+	
+	//glEnable(GL_LIGHTING);
+    //glEnable(GL_LIGHT0);
+    float col[]={1.0,1.0,1.0,1.0};
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,col);
+	
+	
+	//cube=obj.load("cardassiangalor.obj");	//load the test.obj file
+	cube=obj.load("beetle.obj");	//load the test.obj file
+	
 	loadPath();
 	
 	// enter GLUT event processing cycle

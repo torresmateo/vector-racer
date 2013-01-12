@@ -22,129 +22,111 @@ void customCylinder(PathSection section) {
 	else
 		normalEnd.setNormalized();
 	
-	glPushMatrix();{
+	glTranslatef(GET_TRIPLET(posCenterIni));
 		
-		glTranslatef(GET_TRIPLET(posCenterIni));
+	Vector3D rotateAxis(0,0,1);
+	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni);
+	glRotatef(
+		RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
+		GET_TRIPLET(rotateAxis)
+	);
+	
+	Vector3D aux;
+	for(int j=0; j<numSegment; j++){
+		glColor3f(RED);
+		glBegin(GL_QUAD_STRIP);{
+			for (int i = -36; i <= 216; i+=18) {
+				theta = i * PI/180;
+				x = radius * cos(theta);
+				y = radius * sin(theta);
+				z = 0;
+				
+				glVertex3f(x, y, z);
+				
+				aux = Vector3D(x,y,z);
+				
+				Vector3D rotateAxis(0,0,1);
+				rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
+				// gDEBUG = rotateAxis.toString();
+				aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+				aux = translateVertex(aux,posCenterEnd);
+				
+				glVertex3f(GET_TRIPLET(aux));	
+			}
+			int i = -36;
+			theta = i * PI/180;
+			x = radius * cos(theta);
+			y = radius * sin(theta);
+			z = 0;
 			
-		Vector3D rotateAxis(0,0,1);
-		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni);
-		
-		glRotatef(
-			RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
-			GET_TRIPLET(rotateAxis)
-		);
-		
-		for(int j=0; j<numSegment; j++){
+			glVertex3f(x, y, z);
 			
-			/**/glColor3f(RED);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(0,0,0);
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**/glEnd();
-			
-			/**/glColor3f(GREEN);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**//**/glVertex3f(
-				posCenterEnd.getX()+normalEnd.getX(),
-				posCenterEnd.getY()+normalEnd.getY(),
-				posCenterEnd.getZ()+normalEnd.getZ()
-				);
-			/**/glEnd();
-			
-			a = normalEnd.getUnitaryPerpendicularVector();
-			b = Vector3D::crossMultiply(normalEnd,a).getNormalizedVector();
-			
-			/**/glColor3f(RED);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**//**/glVertex3f(
-				posCenterEnd.getX()+a.getX(),
-				posCenterEnd.getY()+a.getY(),
-				posCenterEnd.getZ()+a.getZ()
-				);
-			/**/glEnd();
-			
-			/**/glColor3f(RED);
-			/**/glBegin(GL_LINE_STRIP); 
-			/**//**/glVertex3f(GET_TRIPLET(posCenterEnd));
-			/**//**/glVertex3f(
-				posCenterEnd.getX()+b.getX(),
-				posCenterEnd.getY()+b.getY(),
-				posCenterEnd.getZ()+b.getZ()
-				);
-			/**/glEnd();
-			
-			gDEBUG = a.toString();
-			
-			glColor3f(BLUE);
-			glBegin(GL_QUAD_STRIP);{
-				for (int i = 0; i <= 360; i+=18) {
-					theta = i * PI/180;
-					x = radius * cos(theta);
-					y = radius * sin(theta);
-					z = 0;
-					
-					glVertex3f(x, y, z);
-					
-					x = radius*cos(theta)*a.getX() + radius*sin(theta)*b.getX() + posCenterEnd.getX();
-					y = radius*cos(theta)*a.getY() + radius*sin(theta)*b.getY() + posCenterEnd.getY();
-					z = radius*cos(theta)*a.getZ() + radius*sin(theta)*b.getZ() + posCenterEnd.getZ();
-					
-					glVertex3f(x, y, z);	
-				}
-			}glEnd();
-			
-			glTranslatef(GET_TRIPLET(posCenterEnd));
+			aux = Vector3D(x,y,z);
 			
 			Vector3D rotateAxis(0,0,1);
 			rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
 			
-			glRotatef(
-				RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
-				GET_TRIPLET(rotateAxis)
-			);
+			aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+			aux = translateVertex(aux,posCenterEnd);
 			
-		}
-    }glPopMatrix();
+			glVertex3f(GET_TRIPLET(aux));	
+			
+		}glEnd();
+		
+		glTranslatef(GET_TRIPLET(posCenterEnd));
+		
+		Vector3D rotateAxis(0,0,1);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
+		glRotatef(
+			RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
+			GET_TRIPLET(rotateAxis)
+		);
+	}
 }
 
-
-void tube(GLfloat radius, GLfloat segment_length) {
-    glPolygonMode(GL_BACK, GL_LINE);
-   // glPolygonMode(GL_FRONT, GL_LINE);
+void customCylinderTransformations(PathSection section){
     
-    glPushMatrix(); {
-        GLfloat z1 = 0.0;
-        GLfloat z2 = segment_length;
-        
-        GLfloat y_offset = 0.0;
-        GLfloat y_change = 0.00;
-        
-        int i = 0;
-        int j = 0;
-        for (j = 0; j < 20; j++) {
-            glPushMatrix(); {
-                glBegin(GL_TRIANGLE_STRIP); {
-                    for (i = 360; i >= 0; i-=18) {
-                        GLfloat theta = i * PI/180;
-                        GLfloat x = radius * cos(theta);
-                        GLfloat y = radius * sin(theta) + y_offset;
-                        
-                        glVertex3f(x, y, z1);
-                        glVertex3f(x, y, z2);
-                    }
-                } glEnd();
-            } glPopMatrix();
-            
-            // attach the front of the next segment to the back of the previous
-            z1 = z2;
-            z2 += segment_length;
-            
-            // make some other adjustments
-            y_offset += y_change;
-        }
-    } glPopMatrix();
+	Vector3D centerVector, a, b;
+	Vector3D posCenterIni = section.getPositionIni();
+	Vector3D normalIni = section.getNormalIni()/* * -1*/;
+	Vector3D posCenterEnd = section.getPositionEnd()/* * -1*/;
+	Vector3D normalEnd = section.getNormalEnd()/* * -1*/;
+	int numSegment = section.getNumberOfSegments();
+	
+	if( normalIni.getX() == 0 and normalIni.getY() == 0 and normalIni.getZ() == 0 )
+		normalIni.setZ(1);
+	else
+		normalIni.setNormalized();
+	
+	if( normalEnd.getX() == 0 and normalEnd.getY() == 0 and normalEnd.getZ() == 0 )
+		normalEnd.setZ(1);
+	else
+		normalEnd.setNormalized();
+	
+	Vector3D rotateAxis(0,0,1);
+	rotateAxis = Vector3D::crossMultiply(rotateAxis,normalIni.getNormalizedVector());
+	
+	glTranslatef(GET_TRIPLET(posCenterIni));
+	
+	glRotatef(
+		RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
+		GET_TRIPLET(rotateAxis)
+	);
+	
+	for(int j=0; j<numSegment; j++){
+		
+		
+		Vector3D rotateAxis(0,0,1);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd.getNormalizedVector());
+		
+		glRotatef(
+			RADIANS_TO_DEGREES(-asin(rotateAxis.getMag())),
+			GET_TRIPLET(rotateAxis)
+		);
+		Vector3D aux = posCenterEnd * -1;
+		glTranslatef(GET_TRIPLET(aux));
+		
+	}
 }
 
 void drawCartesianAxis(){
@@ -166,7 +148,6 @@ void drawCartesianAxis(){
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 0.0f, 10.0f);
 		glEnd();
-		
 		//glutSolidTorus  ( 0.01f, 1.51f, 60, 60 );
 	
 		
@@ -200,8 +181,6 @@ void drawCar(){
 }
 
 
-
-
 void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D translationVector){
 	int i;
 	Vector3D centerVector = axis.getNormalizedVector()*centerOffset;
@@ -226,94 +205,90 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 /************************************************************
 	funcion para pintar el escenario
 *************************************************************/
+
 void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	glColor3f(1.0f,0.0f,0.0f);
+	int curveI;
 	drawCartesianAxis();
 	
-	// Vector3D aux1(1,2,3);
-	// Vector3D aux2(1,0.5,1);
-	// Vector3D aux3(-0.2,0,1);
-	// Vector3D aux4(-0.1,-0.1,1);
-	Vector3D aux1(0,0,0);
-	Vector3D aux2(0,0,0);
-	Vector3D aux3(0,0,3);
-	Vector3D aux4(gFLOAT_DEBUG,0,1);
-	
-	PathSection seccion(	1.0, 
-		aux1, aux2,
-		aux3, aux4,
-		4
-	);
-	customCylinder(seccion);
-	/*customCylinderOld(	1.0, 
-		aux1, aux2,
-		aux3, aux4,
-		4
-	);*/
-	
-	/*
-	glColor3f(1.0f,0.0f,0.0f);
-	Vector3D xAxis(1.0f,0.0f,0.0f);
-	Vector3D yAxis(0.0f,1.0f,0.0f);
-	Vector3D zAxis(0.0f,0.0f,1.0f);
-	
-	Vector3D origin(0.0f,0.0f,0.0f);
-	//drawCircle(3.0f,xAxis,3.0f);
-	//drawCircle(3.0f,yAxis,3.0f);
-	//drawCircle(3.0f,zAxis,3.0f);
-	float radius = 0.3f;
-	float step = 0.07f;
-	//gCAM_POS += xAxis*0.0005f;
-	//gCAM_DIR.rotateYH( 1.0f*0.0005f );
-	
-	for(int i=0;i<180;i+=5){
-		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(1.0f,0.0f, 0.1f, 0.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-	for(int i=0;i<180;i+=5){
-		glRotatef(-1.0f,0.0f, 0.0f, 1.0f);
-		glTranslatef(step ,0.0f, 0.0f);
-		drawCircle(radius,xAxis,0.0f,origin);
-	}
-*/
-//	drawCircle(3.0f,zAxis,5.0f,xAxis);
+	//glLoadIdentity();
+	glPushMatrix();{
+		//glPolygonMode(GL_FRONT, GL_FILL);
+		//glTranslatef(0.0f,1.5f,3.0f);
+		float scaleFactor = 0.01f;
+		glTranslatef(0.0f,-0.05f,0.35f);
+		glScalef(scaleFactor,scaleFactor,scaleFactor);
+		glRotatef(180.0f,0.0f,1.0f,0.0f);
 		
-	/*
-	for(float i=0.0f;i<30.0f;i++){
-		drawCircle(3.0f,zAxis,i,origin);
-		origin.setX(zAxis.getX());
-		origin.setY(zAxis.getY());
-		origin.setZ(zAxis.getZ());
-		zAxis.setX(zAxis.getX()*sin(6*PI/180));
-		zAxis.setY(zAxis.getY()*sin(6*PI/180));
-		zAxis.setZ(zAxis.getZ()*sin(6*PI/180));
-	}*/
-	//drawCartesianAxis();
+		//glTranslatef(0.0,-30.0,-100.0);
+		
+		//float pos[]={-1.0,1.0,-2.0,1.0};
+        //glLightfv(GL_LIGHT0,GL_POSITION,pos);
+        
+		glCallList(cube);	//draw the 3D mesh
+	}glPopMatrix();
+	
+	glPushMatrix();{
+	
+		if(gSEGMENT_PROGRESS <= -1.0f){//se termina la transformación del Model View para el segmento actual
+			
+			if(gTUNNEL_PATH.getCurrentUnusedSegments() > 1)						//queda algún segmento para consumir?
+				gTUNNEL_PATH.consumeSegment();									//consumimos un segmento
+			else{																//sino
+				gTUNNEL_PATH.nextSection();
+				//avanzamos a la siguiente sección (borrando el segmento actual)
+				curveI = rand()%9;
+				while( curveI == 0 and gPREV_INDEX_ZERO ){ // verificacion para evitar dos caminos rectos (indice 0) consecutivos
+					curveI = rand()%9;
+				}
 
+				if( curveI == 0 )
+					gPREV_INDEX_ZERO = true;
+				else
+					gPREV_INDEX_ZERO = false;
+
+				gTUNNEL_PATH.pushSection(gCURVES[curveI]);		//volvemos a agregar el segmento actual a la cola
+			}
+			gSEGMENT_PROGRESS = 0.0f;
+		}
+		
+		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
+		Vector3D normal = gTUNNEL_PATH.getCurrentSection().getNormalEnd();
+		Vector3D rotateAxis(0,0,1);
+		rotateAxis = Vector3D::crossMultiply(rotateAxis,normal.getNormalizedVector());
+	
+		//se transforma el Model View para cada segmento consumido de la seccion actual		
+		for(int i = 0; i < (gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()) ; i++){
+			glRotatef(
+				RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*-1,
+				GET_TRIPLET(rotateAxis)
+			); 	
+			glTranslatef(GET_TRIPLET((translation * -1)));
+			//DEBUG((gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()));
+		}	
+		
+		//se transforma el Model View gradualmente para el segmento actual
+		gSEGMENT_PROGRESS -= gCAR_SPEED;
+		
+		translation = translation * gSEGMENT_PROGRESS;
+	
+		glRotatef(
+			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gSEGMENT_PROGRESS,
+			GET_TRIPLET(rotateAxis)
+		);
+	
+		glTranslatef(GET_TRIPLET(translation));
+
+		for(int i = gTUNNEL_PATH.getIndex() - 1; i >= 0; i--){
+			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
+		}
+		
+		glPushMatrix();{
+			for(int i = 0; i < gTUNNEL_PATH.getListSize(); i++){
+				customCylinder(gTUNNEL_PATH.getSectionAt(i));
+			}
+		}glPopMatrix();
+	}glPopMatrix();
 }
 
 /************************************************************
