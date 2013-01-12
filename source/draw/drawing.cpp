@@ -215,8 +215,16 @@ void drawScene() {
 	glPushMatrix();{
 		//glPolygonMode(GL_FRONT, GL_FILL);
 		//glTranslatef(0.0f,1.5f,3.0f);
-		float scaleFactor = 0.1f;
+		float scaleFactor = 0.01f;
+		glTranslatef(0.0f,-0.05f,0.35f);
 		glScalef(scaleFactor,scaleFactor,scaleFactor);
+		glRotatef(180.0f,0.0f,1.0f,0.0f);
+		
+		//glTranslatef(0.0,-30.0,-100.0);
+		
+		//float pos[]={-1.0,1.0,-2.0,1.0};
+        //glLightfv(GL_LIGHT0,GL_POSITION,pos);
+        
 		glCallList(cube);	//draw the 3D mesh
 	}glPopMatrix();
 	
