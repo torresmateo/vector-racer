@@ -23,7 +23,7 @@ Vector3D rotateVertex(Vector3D vertex, Vector3D axis, float degrees){
 							x*y, y*y, y*z,
 							x*z, y*z, z*z);
 
-	Matrix3 aStar = Matrix3(	0.0f, -z		,  y		,
+	Matrix3 aStar = Matrix3(0.0f, -z		,  y		,
 							z	, 0.0f	, -x		,
 							-y	, x		, 0.0f	);
 	Matrix3 aux1 = Matrix3::scalarMultiply(identity, cos(rad));
@@ -206,7 +206,7 @@ int loadObject(const char* filename)
 		coord.push_back(new std::string(buf));
 	}
 	//go through all of the elements of coord, and decide what kind of element is that
-	for(int i=0;i<coord.size();i++)
+	for(unsigned int i=0;i<coord.size();i++)
 	{
 		if(coord[i]->c_str()[0]=='#')	//if it is a comment (the first character is #)
 			continue;	//we don't care about that
@@ -237,7 +237,7 @@ int loadObject(const char* filename)
 	int num;	//the id for the list
 	num=glGenLists(1);	//generate a uniqe
 	glNewList(num,GL_COMPILE);	//and create it
-	for(int i=0;i<faces.size();i++)	
+	for(unsigned int i=0;i<faces.size();i++)	
 	{
 		if(faces[i]->four)	//if it's a quad draw a quad
 		{
@@ -262,19 +262,24 @@ int loadObject(const char* filename)
 	}
 	glEndList();
 	//delete everything to avoid memory leaks
-	for(int i=0;i<coord.size();i++)
+	for(unsigned int i=0;i<coord.size();i++)
 		delete coord[i];
-	for(int i=0;i<faces.size();i++)
+	for(unsigned int i=0;i<faces.size();i++)
 		delete faces[i];
-	for(int i=0;i<normals.size();i++)
+	for(unsigned int i=0;i<normals.size();i++)
 		delete normals[i];
-	for(int i=0;i<vertex.size();i++)
+	for(unsigned int i=0;i<vertex.size();i++)
 		delete vertex[i];
 	return num;	//return with the id
 }
 
 
-
+float customRand( float limitDown, float limitUp, int decimal) {
+	float e10decimal = pow(10,decimal);
+	int intLimitDown = limitDown * e10decimal;
+	int intLimitUp = limitUp * e10decimal;
+	return (rand()%(intLimitUp-intLimitDown+1) + intLimitDown)/e10decimal;
+}
 
 
 

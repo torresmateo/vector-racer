@@ -9,10 +9,11 @@
 #define BLUE 	0.0f,0.0f,1.0f
 #define YELLOW 	1.0f,1.0f,0.0f
 #define ORANGE 	1.0f,0.5f,0.0f
+#define WHITE 	1.0f,1.0f,1.0f
 
 #define HALF_PI (1.570796326794897)
 #define PI (3.141592653589793)
-
+#define ROAD_LIMIT (0.4f)
 
 
 

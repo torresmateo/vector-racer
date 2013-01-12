@@ -9,11 +9,11 @@ Vector3D gCAM_LOOK_AT(gCAM_POS+gCAM_DIR);
 // velocidad de giro de la camara
 double gCAM_ROTATE_SPEED = 0.01f;
 // velocidad de translado de la camara
-double gCAM_TRASNLATE_SPEED = 0.05f;
+double gCAM_TRASNLATE_SPEED = 0.02f;
 
 // Posicion del automovil
-Vector3D gCAR_POS( gCAM_POS + gCAM_DIR*1.0f );
-double gCAR_LATERAL_SHIFT = 0;
+// Vector3D gCAR_POS( gCAM_POS + gCAM_DIR*1.0f );
+// double gCAR_LATERAL_SHIFT = 0;
 
 // width and height of the window
 Vector2D gSCREEN; 
@@ -27,7 +27,9 @@ Vector3D gPATH_NORMAL(0.0f,0.0f,1.0f);
 // Curvas predefinidas
 PathSection gCURVES[9];
 
-float gCAR_SPEED = 0.3f;
+float gCAR_SPEED = 0.5f;
+Vector3D gCAR_POS(0.0f,-0.25f,0.75f);
+float gCAR_LATERAL_SPEED = 0.03f;
 float gSEGMENT_PROGRESS = 0.0f;
 
 bool gPREV_INDEX_ZERO = false;

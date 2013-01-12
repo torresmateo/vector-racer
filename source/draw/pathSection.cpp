@@ -30,18 +30,28 @@ Vector3D PathSection::getNormalEnd(){ return this->normalEnd; }
 
 //utils
 
-void PathSection::updateOrthogonalVectorsIni(){
-	aIni = normalIni.getNormalizedVector().getUnitaryPerpendicularVector();
-	bIni = Vector3D::crossMultiply(normalIni.getNormalizedVector(),aIni).getNormalizedVector();
-}
-void PathSection::updateOrthogonalVectorsEnd(){
-	aEnd = normalEnd.getNormalizedVector().getUnitaryPerpendicularVector();
-	bEnd = Vector3D::crossMultiply(normalIni.getNormalizedVector(),aEnd).getNormalizedVector();
+bool PathSection::thereIsObstacle(int i) {
+	return obstacles[i]? true : false;
 }
 
-void PathSection::updateOrthogonalVectors(){
-	this->updateOrthogonalVectorsIni();
-	this->updateOrthogonalVectorsEnd();
+bool PathSection::thereIsBlueSphere(int i) {
+	return blueSpheres[i]? true : false;
+}
+
+bool PathSection::thereIsWhiteSphere(int i) {
+	return whiteSpheres[i]? true : false;
+}
+
+Obstacle* PathSection::getObstacle(int i) {
+	return obstacles[i];
+}
+
+BlueSphere* PathSection::getBlueSphere(int i) {
+	return blueSpheres[i];
+}
+
+WhiteSphere* PathSection::getWhiteSphere(int i) {
+	return whiteSpheres[i];
 }
 
 
@@ -53,11 +63,5 @@ Vector3D PathSection::getPointAtDegree(Vector3D axis, Vector3D orthogonal1, Vect
 	return Vector3D(x, y, z);
 }
 
-Vector3D PathSection::getPointAtDegreeIni(float degree){
-	return getPointAtDegree(normalIni, aIni, bIni, degree);
-}
 
-Vector3D PathSection::getPointAtDegreeEnd(float degree){
-	return getPointAtDegree(normalEnd, aEnd, bEnd, degree);
-}
 

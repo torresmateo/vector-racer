@@ -28,7 +28,7 @@ void display(void);
 
 void changeSize(int newWidth, int newHigh);
 
-
+float customRand( float limitDown, float limitUp, int decimal);
 
 
 

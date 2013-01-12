@@ -47,7 +47,7 @@ void customCylinder(PathSection section) {
 				
 				Vector3D rotateAxis(0,0,1);
 				rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
-				// gDEBUG = rotateAxis.toString();
+				
 				aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
 				aux = translateVertex(aux,posCenterEnd);
 				
@@ -72,6 +72,10 @@ void customCylinder(PathSection section) {
 			glVertex3f(GET_TRIPLET(aux));	
 			
 		}glEnd();
+		
+		if(section.thereIsWhiteSphere(j)){
+			section.getWhiteSphere(j)->draw();
+		}
 		
 		glTranslatef(GET_TRIPLET(posCenterEnd));
 		
@@ -157,27 +161,12 @@ void drawCartesianAxis(){
 
 
 void drawCar(){
-	Vector3D auxVec(gCAM_DIR);
-	// double tempAngle;
-	glColor3f(RED);
+	glColor3f(GREEN);
 	
-	// actualizar la posicion del auto
-	gCAR_POS = gCAM_POS + gCAM_DIR*4.0f;
-	gCAR_POS.setY( gCAR_POS.getY()-1.0f );
-	
-	glPushMatrix();
+	glPushMatrix(); {
 		glTranslatef(GET_TRIPLET(gCAR_POS));
-		glRotatef(
-			RADIANS_TO_DEGREES(-gCAM_DIR.getAngleXZ()+HALF_PI),
-			0.0f, 1.0f, 0.0f
-		);
-		glRotatef(
-			RADIANS_TO_DEGREES(gCAM_DIR.getAngleYH()-HALF_PI),
-			1.0f, 0.0f, 0.0f
-		);
-		glTranslatef(gCAR_LATERAL_SHIFT,0.0f,0.0f);
-		glutWireCone(0.08f,0.5f,10,2);
-	glPopMatrix();
+		glutWireCone(0.03f,0.2f,10,2);
+	}glPopMatrix();
 }
 
 
@@ -229,16 +218,18 @@ void drawScene() {
 			else{																//sino
 				gTUNNEL_PATH.nextSection();
 				//avanzamos a la siguiente sección (borrando el segmento actual)
-				curveI = rand()%9;
-				while( curveI == 0 and gPREV_INDEX_ZERO ){ // verificacion para evitar dos caminos rectos (indice 0) consecutivos
+				
+				if(gPREV_INDEX_ZERO){ // verificacion para evitar dos caminos rectos (indice 0) consecutivos
+					curveI = rand()%8 + 1;
+				}else{
 					curveI = rand()%9;
 				}
-
+				
 				if( curveI == 0 )
 					gPREV_INDEX_ZERO = true;
 				else
 					gPREV_INDEX_ZERO = false;
-
+				
 				gTUNNEL_PATH.pushSection(gCURVES[curveI]);		//volvemos a agregar el segmento actual a la cola
 			}
 			gSEGMENT_PROGRESS = 0.0f;
@@ -280,7 +271,10 @@ void drawScene() {
 				customCylinder(gTUNNEL_PATH.getSectionAt(i));
 			}
 		}glPopMatrix();
+		
 	}glPopMatrix();
+	
+	drawCar();
 }
 
 /************************************************************

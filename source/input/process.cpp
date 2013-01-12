@@ -5,7 +5,7 @@ void processInput() {
 	if( gKEY.PRESSED ){
 	
 		if( gKEY.Q ){
-			gCAR_LATERAL_SHIFT += 0.08f;
+			gCAR_POS.setX( gCAR_POS.getX()+gCAR_LATERAL_SPEED);
 			gFLOAT_DEBUG -= 0.005;
 		}
 		
@@ -14,7 +14,7 @@ void processInput() {
 		}
 		
 		if( gKEY.E ){
-			gCAR_LATERAL_SHIFT -= 0.08f;
+			gCAR_POS.setX( gCAR_POS.getX()-gCAR_LATERAL_SPEED);
 			gFLOAT_DEBUG += 0.005;
 		}
 		

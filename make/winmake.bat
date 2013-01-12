@@ -6,7 +6,7 @@ goto dosarg
 :ningunarg
 cls
 g++ -Wall -c -o main.o ..\source\include.cpp -I"C:\Program Files\Common Files\MinGW\freeglut\include"
-g++ -o ..\main.exe main.o -L"C:\Program Files\Common Files\MinGW\freeglut\lib" -lfreeglut -lglu32 -lopengl32 -Wl,--subsystem,windows
+g++ -o ..\main.exe main.o -L"C:\Program Files\Common Files\MinGW\freeglut\lib" -lfreeglut -lglu32 -lopengl32
 goto end
 
 :unarg
