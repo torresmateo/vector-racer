@@ -20,6 +20,7 @@
 #include <string>
 #include <algorithm>
 #include <cstdio>
+#include <vector>
 using namespace std;
 
 // includes propios de la aplicacion
@@ -27,6 +28,8 @@ using namespace std;
 #include "main/prototype.cpp"
 #include "main/vector.cpp"
 #include "main/matrix3.cpp"
+#include "lib/imageloader.cpp"
+#include "main/objLoader.cpp"
 #include "draw/pathSection.cpp"
 #include "draw/path.cpp"
 #include "main/globalvar.cpp"
