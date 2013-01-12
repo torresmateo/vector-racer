@@ -12,6 +12,7 @@
 #include <OpenGL/glu.h>
 #else
 #include <GL/glut.h>
+#include <GL/glext.h>
 #endif
 
 #include <iostream>
@@ -28,6 +29,8 @@ using namespace std;
 #include "main/prototype.cpp"
 #include "main/vector.cpp"
 #include "main/matrix3.cpp"
+#include "lib/imageloader.cpp"
+#include "main/objLoader.cpp"
 #include "draw/obstacle.cpp"
 #include "draw/whiteSphere.cpp"
 #include "draw/blueSphere.cpp"
