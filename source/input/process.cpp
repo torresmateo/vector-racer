@@ -50,6 +50,7 @@ void processInput() {
 		}
 		if( gKEY.C ){
 			gFLOAT_DEBUGy -= 0.005;
+			gCAR_SPEED = 0;
 		}
 		
 		
@@ -59,7 +60,14 @@ void processInput() {
 	}
 }
 
-
+void colisionHandler(){
+	int CurentIndex = gTUNNEL_PATH.getCurrentSegmentsIndex()+2;
+	PathSection currentSection(gTUNNEL_PATH.getCurrentSection());
+	
+	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
+		gDEBUG = "restar vida";
+	}else gDEBUG = " - ";
+}
 
 
 

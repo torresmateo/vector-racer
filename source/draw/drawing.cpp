@@ -165,7 +165,7 @@ void drawCar(){
 	
 	glPushMatrix(); {
 		glTranslatef(GET_TRIPLET(gCAR_POS));
-		glutWireCone(0.03f,0.2f,10,2);
+		glutWireCone(CAR_WIDTH/2.0,CAR_LENGTH,10,2);
 	}glPopMatrix();
 }
 
@@ -282,7 +282,6 @@ void drawScene() {
 		
 	}glPopMatrix();
 	
-	drawCar();
 }
 
 /************************************************************

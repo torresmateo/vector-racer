@@ -43,7 +43,7 @@ class PathSection {
 				else
 					blueSpheres.push_back(NULL);
 					
-				if(i%6==0)
+				if(i%3==0)
 					whiteSpheres.push_back(new WhiteSphere);
 				else
 					whiteSpheres.push_back(NULL);

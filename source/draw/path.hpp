@@ -35,6 +35,10 @@ class Path {
 			return currentUnusedSegments;
 		}
 		
+		int getCurrentSegmentsIndex(){
+			return currentSection.getNumberOfSegments() - currentUnusedSegments;
+		}
+		
 		unsigned int getIndex(){
 			return index;
 		}

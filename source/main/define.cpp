@@ -14,6 +14,10 @@
 #define HALF_PI (1.570796326794897)
 #define PI (3.141592653589793)
 #define ROAD_LIMIT (0.4f)
+#define ROAD_SHIFT_DOWN (0.29f)
+#define CAR_LENGTH (0.2f)
+#define CAR_WIDTH (0.06f)
+
 
 
 

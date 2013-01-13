@@ -10,6 +10,13 @@ class WhiteSphere {
 		}
 		
 		void draw();
+		bool isCollision();
+		
+		float getShift();
+		float getRadius();
+		
+		void setShift( float newShift );
+		void setRadius( float newRadius );
 
 };
 
