@@ -5,8 +5,8 @@ int main(int argc, char **argv) {
 	
 	// init GLUT and create window
 	glutInit(&argc, argv);
-	//glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
+	//glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(550,150);
 	glutInitWindowSize(800,600);
 	glutCreateWindow("Underground Race");
@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
 
 
 
-/*
-	
+
+	/*
 	  GLfloat light_ambient[] = { 0.75, 0.75, 0.75, 1.0 };
     GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
     glEnable (GL_LIGHT0);
     glDepthFunc(GL_LESS);
     glEnable(GL_DEPTH_TEST);
-	
-*/
+	*/
+
 	// OpenGL init
 	//glShadeModel(GL_SMOOTH);
 	//glEnable(GL_CULL_FACE);
@@ -43,13 +43,6 @@ int main(int argc, char **argv) {
 	//system("pwd");
 	
 	
-	// glEnable(GL_LIGHTING);
-    //glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHT0);
-    float col[]={1.0,1.0,1.0,1.0};
-    glLightfv(GL_LIGHT0,GL_DIFFUSE,col);
-	glLightfv(GL_LIGHT0,GL_AMBIENT,col);
-	glLightfv(GL_LIGHT0,GL_SPECULAR,col);
 	
 	cube=obj.load("cardassiangalor.obj");	//load the test.obj file
 	//cube=obj.load("beetle.obj");	//load the test.obj file
