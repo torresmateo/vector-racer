@@ -19,6 +19,8 @@ bool WhiteSphere::isCollision(){
 			( gCAR_POS.getX()+CAR_WIDTH/2.0 > this->shift-this->radius and this->shift+this->radius > gCAR_POS.getX()+CAR_WIDTH/2.0 )
 			or
 			( gCAR_POS.getX()-CAR_WIDTH/2.0 > this->shift-this->radius and this->shift+this->radius > gCAR_POS.getX()-CAR_WIDTH/2.0 )
+			or
+			( gCAR_POS.getX()-CAR_WIDTH/2.0 < this->shift-this->radius and this->shift+this->radius < gCAR_POS.getX()+CAR_WIDTH/2.0 )
 		)
 	)?true:false;
 }

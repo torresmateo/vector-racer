@@ -12,6 +12,10 @@ void drawScene();
 
 void drawSnowMan();
 
+void drawSolidPyramid( float r, float h);
+
+void drawSolidCylinder(GLUquadric* quad, GLdouble base, GLdouble top, GLdouble height, GLint slices, GLint stacks);
+
 void renderBitmapString( float, float, float, void *font, const char *text);
 
 void renderStrokeFontString(float, float, float, void *font, const char *text);
