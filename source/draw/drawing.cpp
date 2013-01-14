@@ -1,7 +1,7 @@
 void customCylinder(PathSection section) {
 	
     glPolygonMode(GL_BACK, GL_LINE);
-    glPolygonMode(GL_FRONT, GL_LINE);
+    glPolygonMode(GL_FRONT, GL_LINE);//GL_FILL
     
 	GLfloat x, y, z, theta;
 	Vector3D centerVector, a, b;
@@ -73,9 +73,16 @@ void customCylinder(PathSection section) {
 			
 		}glEnd();
 		
-		if(section.thereIsWhiteSphere(j)){
+		// Se pintan los objetos en la pista
+		if(section.thereIsWhiteSphere(j))
 			section.getWhiteSphere(j)->draw();
-		}
+		
+		if(section.thereIsBlueSphere(j))
+			section.getBlueSphere(j)->draw();
+			
+		if(section.thereIsObstacle(j))
+			section.getObstacle(j)->draw();
+		
 		
 		glTranslatef(GET_TRIPLET(posCenterEnd));
 		
@@ -133,6 +140,35 @@ void customCylinderTransformations(PathSection section){
 	}
 }
 
+void drawSolidCylinder(GLUquadric* quad, GLdouble base, GLdouble top, GLdouble height, GLint slices, GLint stacks){
+	gluCylinder(quad, base, top, height, slices, stacks);
+	glRotatef(180, 1,0,0);
+	gluDisk(quad, 0.0f, base, slices, 1);
+	glRotatef(180, 1,0,0);
+	glTranslatef(0.0f, 0.0f, height);
+	gluDisk(quad, 0.0f, top, slices, 1);
+	glTranslatef(0.0f, 0.0f, -height);
+}
+
+void drawSolidPyramid( float r, float h){
+	glBegin(GL_TRIANGLE_STRIP);{
+	
+		glVertex3f(    r, 0.0f,   -r );
+		glVertex3f( 0.0f,    h, 0.0f );
+		glVertex3f(   -r, 0.0f,   -r );
+		
+		glVertex3f(  -r , 0.0f,    r );
+		
+		glVertex3f(    r, 0.0f,   -r );
+		
+		glVertex3f(    r, 0.0f,    r );
+		
+		glVertex3f( 0.0f,    h, 0.0f );
+		
+		glVertex3f(  -r , 0.0f,    r );
+	}glEnd();
+}
+	
 void drawCartesianAxis(){
 	glPushMatrix(); 
     	glColor3f(RED);
@@ -215,11 +251,11 @@ void drawScene() {
 		glPolygonMode(GL_FRONT, GL_FILL);
 		//glTranslatef(0.0f,1.5f,3.0f);
 	
-glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-	//glutSolidTeapot(12.0);
+		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+		//glutSolidTeapot(12.0);
 	
 		float scaleFactor = 0.01f;
 		

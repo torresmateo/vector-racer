@@ -46,6 +46,7 @@ void processInput() {
 		
 		
 		if( gKEY.Z ){
+			gCAR_SPEED = 0.03f;
 			gFLOAT_DEBUGy += 0.005;
 		}
 		if( gKEY.C ){
@@ -64,9 +65,25 @@ void colisionHandler(){
 	int CurentIndex = gTUNNEL_PATH.getCurrentSegmentsIndex()+2;
 	PathSection currentSection(gTUNNEL_PATH.getCurrentSection());
 	
+	if(CurentIndex >= currentSection.getNumberOfSegments()){
+		CurentIndex = CurentIndex - (currentSection.getNumberOfSegments());
+		// currentSection = gTUNNEL_PATH.getNextSection();
+		return;
+	}
+	
+	gDEBUG = " -";
+	
 	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
-		gDEBUG = "restar vida";
-	}else gDEBUG = " - ";
+		gDEBUG += " blanco";
+	}
+	
+	if(currentSection.thereIsBlueSphere(CurentIndex) and currentSection.getBlueSphere(CurentIndex)->isCollision()){
+		gDEBUG += " azul";
+	}
+	
+	if(currentSection.thereIsObstacle(CurentIndex) and currentSection.getObstacle(CurentIndex)->isCollision()){
+		gDEBUG += " obstaculo";
+	}
 }
 
 

@@ -28,9 +28,9 @@ Vector3D gPATH_NORMAL(0.0f,0.0f,1.0f);
 PathSection gCURVES[9];
 
 // referentes al vehiculo
-float gCAR_SPEED = 0.03f;
+float gCAR_SPEED = 0.0f;
 Vector3D gCAR_POS(0.0f,-0.25f,0.8f);
-float gCAR_LATERAL_SPEED = 0.02f;
+float gCAR_LATERAL_SPEED = 0.01f;
 float gSEGMENT_PROGRESS = 0.0f;
 
 bool gPREV_INDEX_ZERO = false;
@@ -73,7 +73,6 @@ struct keysPressed {
 	// saber si alguna tecla esta presionada.
 	int PRESSED;
 } gKEY = {false,false,false,false,false,false,false,0};
-
 
 
 // variable para impresion de debug

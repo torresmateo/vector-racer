@@ -5,7 +5,7 @@ class WhiteSphere {
 	
 	public:
 		WhiteSphere(){
-			radius = 0.04f;
+			radius = 0.02f;
 			shift = customRand(-ROAD_LIMIT+radius, ROAD_LIMIT-radius, 3);
 		}
 		
@@ -17,7 +17,6 @@ class WhiteSphere {
 		
 		void setShift( float newShift );
 		void setRadius( float newRadius );
-
 };
 
 
