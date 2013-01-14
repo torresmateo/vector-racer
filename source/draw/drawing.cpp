@@ -232,34 +232,37 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 *************************************************************/
 
 void drawScene() {
+	
+	glEnable(GL_LIGHTING);
+ 	glEnable(GL_LIGHT0);
+	GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
+	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_position[] = { 0.0, 0.0, 1.0, 0.0 };
+	glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv (GL_LIGHT0, GL_POSITION, light_position);
+	
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	int curveI;
 	drawCartesianAxis();
 	
 	
-	float pos[]={0,0,1.0,0.0f};
-    glLightfv(GL_LIGHT0,GL_POSITION,pos);
-	 GLfloat mat_ambient[] = { 0.7f, 0.7f, 0.7f, 1.0f };
- GLfloat mat_diffuse[] = { 0.1f, 0.5f, 0.8f, 1.0f };
- GLfloat mat_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
- GLfloat mat_shininess[] = { 100.0f };
-
 	
 	
+	
+		
+	//glLightfv(GL_LIGHT0,GL_POSITION,pos);
     
 	glPushMatrix();{
 		glPolygonMode(GL_FRONT, GL_FILL);
-		//glTranslatef(0.0f,1.5f,3.0f);
 	
-		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-		glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-		//glutSolidTeapot(12.0);
 	
 		float scaleFactor = 0.01f;
 		
-		glTranslatef(0.0f,-0.05f,0.35f);
+		glTranslatef(0.0f,gFLOAT_DEBUGy,gFLOAT_DEBUG);
 		
 		glScalef(scaleFactor,scaleFactor,scaleFactor);
 		
@@ -267,8 +270,10 @@ void drawScene() {
 		
 		//glTranslatef(0.0,-30.0,-100.0);
 		
-	    
+   
 		glCallList(cube);	//draw the 3D mesh
+		glDisable(GL_LIGHTING);
+    
 	}glPopMatrix();
 	
 	glPushMatrix();{
