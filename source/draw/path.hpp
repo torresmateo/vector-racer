@@ -25,6 +25,10 @@ class Path {
 			return currentSection;
 		}
 		
+		PathSection getNextSection(){
+			return sectionList[index + 1];
+		}
+		
 		PathSection getSectionAt(unsigned int index){
 			if(sectionList.size() > index)
 				return sectionList[index];

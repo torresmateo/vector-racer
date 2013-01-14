@@ -246,6 +246,7 @@ void drawScene() {
     
 	glPushMatrix();{
 		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_FILL);
 	
 	
 		float scaleFactor = 0.01f;
