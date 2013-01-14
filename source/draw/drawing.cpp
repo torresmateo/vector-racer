@@ -233,18 +233,6 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 
 void drawScene() {
 	
-	glEnable(GL_LIGHTING);
- 	glEnable(GL_LIGHT0);
-	GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
-	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat light_position[] = { 0.0, 0.0, 1.0, 0.0 };
-	glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv (GL_LIGHT0, GL_POSITION, light_position);
-	
-	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	int curveI;
 	drawCartesianAxis();
@@ -262,13 +250,28 @@ void drawScene() {
 	
 		float scaleFactor = 0.01f;
 		
-		glTranslatef(0.0f,gFLOAT_DEBUGy,gFLOAT_DEBUG);
+		//glTranslatef(0.0f,gFLOAT_DEBUGy,gFLOAT_DEBUG);
+		glTranslatef(0.0f,-0.05f,0.35f);
+		glEnable(GL_RESCALE_NORMAL);
 		
 		glScalef(scaleFactor,scaleFactor,scaleFactor);
 		
 		glRotatef(180.0f,0.0f,1.0f,0.0f);
 		
 		//glTranslatef(0.0,-30.0,-100.0);
+		
+		GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
+		GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat light_position[] = { 0.0, -10.0, -1.0, -0.5 };
+		glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
+		glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+		glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
+		glLightfv (GL_LIGHT0, GL_POSITION, light_position);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glDepthFunc(GL_LESS);	
+	
 		
    
 		glCallList(cube);	//draw the 3D mesh
