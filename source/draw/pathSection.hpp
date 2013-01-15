@@ -17,6 +17,10 @@ class PathSection {
 	vector<BlueSphere*> blueSpheres;
 	vector<WhiteSphere*> whiteSpheres;
 	
+	void deleteItems();
+	void createItems();
+	void createItems( int segmentsLeftOut );
+	
 	public:
 	
 		//constructors
@@ -33,23 +37,32 @@ class PathSection {
 			normalEnd = Vector3D(0.0f,0.0f,1.0f);
 			
 			for(int i = 0; i<84; i++){
-				if(i%5==0)
-					obstacles.push_back(new Obstacle);
-				else
-					obstacles.push_back(NULL);
-					
-				if(i%7==0)
-					blueSpheres.push_back(new BlueSphere);
-				else
-					blueSpheres.push_back(NULL);
-					
-				if(i%3==0)
-					whiteSpheres.push_back(new WhiteSphere);
-				else
-					whiteSpheres.push_back(NULL);
-				
+				obstacles.push_back(NULL);
+				blueSpheres.push_back(NULL);
+				whiteSpheres.push_back(NULL);
 			}
 			
+			createItems();
+		}
+		
+		PathSection( int segmentsLeftOut ) {
+			radius = 1.0f;
+			
+			numberOfSegments = 1;
+		
+			positionIni = Vector3D(0.0f,0.0f,0.0f);
+			normalIni = Vector3D(0.0f,0.0f,1.0f);
+			
+			positionEnd = Vector3D(0.0f,0.0f,1.0f);
+			normalEnd = Vector3D(0.0f,0.0f,1.0f);
+			
+			for(int i = 0; i<84; i++){
+				obstacles.push_back(NULL);
+				blueSpheres.push_back(NULL);
+				whiteSpheres.push_back(NULL);
+			}
+			
+			createItems( segmentsLeftOut );
 		}
 		
 		PathSection(float radius, Vector3D positionIni, Vector3D normalIni, Vector3D positionEnd, Vector3D normalEnd, int numberOfSegments ) {
@@ -62,8 +75,19 @@ class PathSection {
 			this->normalEnd = normalEnd;
 
 			this->numberOfSegments = numberOfSegments;
-
+			
+			for(int i = 0; i<100; i++){
+				obstacles.push_back(NULL);
+				blueSpheres.push_back(NULL);
+				whiteSpheres.push_back(NULL);
+			}
+			
+			createItems();
 		}
+		
+		// ~PathSection(){cout << "hola??" << endl;
+			// deleteItems();
+		// }
 		
 		//seters
 		void setRadius(float newRadius);
@@ -87,6 +111,7 @@ class PathSection {
 		Vector3D getNormalEnd();
 		
 		//utils
+		void resetItems();
 		bool thereIsObstacle(int i);
 		bool thereIsBlueSphere(int i);
 		bool thereIsWhiteSphere(int i);

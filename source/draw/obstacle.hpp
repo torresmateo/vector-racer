@@ -16,17 +16,17 @@ class Obstacle {
 			int randomInt = (int)customRand(0,99,0);
 			if( randomInt < 60 ){
 				type = PYRAMID;
-				radius = 0.02f;
-				height = 0.08f;
+				radius = 0.035f;
+				height = 0.12f;
 			}else if(randomInt < 60+25){
 				type = CUBE;
-				radius = 0.04f;
-				height = 0.08f;
+				radius = 0.06f;
+				height = radius*2.0;
 			}else{
 				type = CYLINDER;
 				quadric = gluNewQuadric();
-				radius = 0.02f;
-				height = 0.08f;
+				radius = 0.01f;
+				height = 0.18f;
 				// gluQuadricDrawStyle(quadric, GLU_FILL);
 				// gluQuadricOrientation(quadric, GLU_INSIDE);
 			}

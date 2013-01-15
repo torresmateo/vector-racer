@@ -33,7 +33,7 @@ void customCylinder(PathSection section) {
 	
 	Vector3D aux;
 	for(int j=0; j<numSegment; j++){
-		glColor3f(RED);
+		glColor3f(BLUE);
 		glBegin(GL_QUAD_STRIP);{
 			for (int i = -36; i <= 216; i+=18) {
 				theta = i * PI/180;
@@ -197,11 +197,25 @@ void drawCartesianAxis(){
 
 
 void drawCar(){
-	glColor3f(GREEN);
+	glColor3f(WHITE);
+	// glPushMatrix(); {
+		// glTranslatef(GET_TRIPLET(gCAR_POS));
+		// glutWireCone(CAR_WIDTH/2.0,CAR_LENGTH,10,2);
+	// }glPopMatrix();
 	
-	glPushMatrix(); {
-		glTranslatef(GET_TRIPLET(gCAR_POS));
-		glutWireCone(CAR_WIDTH/2.0,CAR_LENGTH,10,2);
+	glPushMatrix();{
+		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_WIDTH/2.0);
+		glutSolidCube(CAR_WIDTH);
+	}glPopMatrix();
+	
+	glPushMatrix();{
+		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_LENGTH-CAR_WIDTH/2.0);
+		glutSolidCube(CAR_WIDTH);
+	}glPopMatrix();
+	
+	glPushMatrix();{
+		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_LENGTH/2.0);
+		glutSolidCube(CAR_WIDTH);
 	}glPopMatrix();
 }
 
@@ -290,20 +304,18 @@ void drawScene() {
 				gTUNNEL_PATH.nextSection();
 				//avanzamos a la siguiente sección (borrando el segmento actual)
 				
-				if(gPREV_INDEX_ZERO){ // verificacion para evitar dos caminos rectos (indice 0) consecutivos
-					curveI = rand()%8 + 1;
-				}else{
+				curveI = rand()%9;
+				while( curveI==gPREV_INDEX[0] or curveI==gPREV_INDEX[1] or curveI==gPREV_INDEX[2] ){
 					curveI = rand()%9;
 				}
+				gPREV_INDEX[0] = gPREV_INDEX[1];
+				gPREV_INDEX[1] = gPREV_INDEX[2];
+				gPREV_INDEX[2] = curveI;
 				
-				if( curveI == 0 )
-					gPREV_INDEX_ZERO = true;
-				else
-					gPREV_INDEX_ZERO = false;
-				
+				gCURVES[curveI].resetItems();
 				gTUNNEL_PATH.pushSection(gCURVES[curveI]);		//volvemos a agregar el segmento actual a la cola
 			}
-			gSEGMENT_PROGRESS = 0.0f;
+			gSEGMENT_PROGRESS = 1 + gSEGMENT_PROGRESS;
 		}
 		
 		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
@@ -325,7 +337,7 @@ void drawScene() {
 		gSEGMENT_PROGRESS -= gCAR_SPEED;
 		
 		translation = translation * gSEGMENT_PROGRESS;
-	
+		
 		glRotatef(
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gSEGMENT_PROGRESS,
 			GET_TRIPLET(rotateAxis)

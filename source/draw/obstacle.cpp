@@ -10,7 +10,7 @@ void Obstacle::draw() {
 			glPushMatrix();{
 				glTranslatef(shift,-0.29f,radius);
 				glRotatef(-90, 1,0,0);
-				drawSolidCylinder(quadric,radius,radius,height,10,1);
+				drawSolidCylinder(quadric,radius,radius,height,8,1);
 			}glPopMatrix();
 		} break;
 		case CUBE: {

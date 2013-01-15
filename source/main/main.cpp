@@ -1,4 +1,10 @@
 
+void timerCB(int millisec) {
+	glutTimerFunc(millisec, timerCB, millisec);
+	gCAR_SPEED += 0.0001; DEBUG(gCAR_SPEED);
+	glutPostRedisplay();
+}
+
 objLoader obj;
 int main(int argc, char **argv) {
 	srand ( time(NULL) );
@@ -62,7 +68,8 @@ int main(int argc, char **argv) {
 	// register callbacks
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
-	glutIdleFunc(display);
+	// glutIdleFunc(display);
+	glutTimerFunc(30,timerCB,30);
 	
 	glutIgnoreKeyRepeat(1);
 	// keyboard register callbacks

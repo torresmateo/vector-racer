@@ -52,6 +52,8 @@ void display(void) {
 	// Maneja input
 	processInput();
 	
+	colisionHandler();
+	
 	// Calculo del frame rate
 	calculateFPS();
 	
@@ -69,7 +71,6 @@ void display(void) {
 	
 	drawCar();
 	
-	colisionHandler();
 	
 	//	==============================
 	//		impresion en pantalla
@@ -117,7 +118,7 @@ void changeSize(int newWidth, int newHigh) {
 	glViewport(0, 0, gSCREEN.getW(), gSCREEN.getH());
 
 	// Set the correct perspective.
-	gluPerspective(45.0f, ratio, 0.01f, 100.0f);
+	gluPerspective(45.0f, ratio, 0.01f, 67.0f);
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);

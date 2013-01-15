@@ -63,5 +63,74 @@ Vector3D PathSection::getPointAtDegree(Vector3D axis, Vector3D orthogonal1, Vect
 	return Vector3D(x, y, z);
 }
 
+void PathSection::deleteItems(){
+	for(int i = 0; i<84; i++){
+		delete obstacles[i];
+		delete blueSpheres[i];
+		delete whiteSpheres[i];
+		obstacles[i] = NULL;
+		blueSpheres[i] = NULL;
+		whiteSpheres[i] = NULL;
+	}
+}
+
+void PathSection::createItems(){
+	for(int i = 0; i<84; i++){
+		if(rand()%100 < 35)
+			obstacles[i] = new Obstacle;
+			
+		if(rand()%1000 < 3){
+			if( obstacles[i] )
+				blueSpheres[i] = new BlueSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
+			else
+				blueSpheres[i] = new BlueSphere();
+		}
+			
+		if(rand()%100 < 2){
+			if( obstacles[i] )
+				whiteSpheres[i] = new WhiteSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
+			else
+				whiteSpheres[i] = new WhiteSphere();
+		}
+	}
+}
+
+void PathSection::createItems( int segmentsLeftOut ){
+	for(int i = segmentsLeftOut; i<84; i++){
+		if(rand()%100 < 35)
+			obstacles[i] = new Obstacle;
+			
+		if(rand()%1000 < 3){
+			if( obstacles[i] )
+				blueSpheres[i] = new BlueSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
+			else
+				blueSpheres[i] = new BlueSphere();
+		}
+			
+		if(rand()%100 < 2){
+			if( obstacles[i] )
+				whiteSpheres[i] = new WhiteSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
+			else
+				whiteSpheres[i] = new WhiteSphere();
+		}
+	}
+}
+
+void PathSection::resetItems(){
+	this->deleteItems();
+	this->createItems();
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
