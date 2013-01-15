@@ -134,7 +134,7 @@ void loadPath(){
 	// PathSection seccion3(torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
 	// PathSection seccion4(torusSection(0.5f, 80.0f,rings, sectionAngle, 90.0f));
 	
-	PathSection auxPath;
+	PathSection auxPath(15);
 	auxPath.setRadius(0.5f);
 	Vector3D auxPositionEnd(0.0f,0.0f,0.5f);
 	auxPath.setPositionEnd(auxPositionEnd);
@@ -149,10 +149,20 @@ void loadPath(){
 			gCURVES[i] = torusSection(0.5f, outerRadius, rings, sectionAngle, torusOrientation);
 		torusOrientation += 45;
 	}
+	int index = 0;
+	gPREV_INDEX[0] = index;
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
 	
-	gTUNNEL_PATH.pushSection(gCURVES[0]);
-	gTUNNEL_PATH.pushSection(gCURVES[rand()%8 + 1]);
-	gTUNNEL_PATH.pushSection(gCURVES[rand()%8 + 1]);
+	index = rand()%8 + 1;
+	gPREV_INDEX[1] = index;
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
+	
+	index = rand()%8 + 1;
+	while( index == gPREV_INDEX[1] ){
+		index = rand()%8 + 1;
+	}
+	gPREV_INDEX[2] = index;
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
 	
 	
 }

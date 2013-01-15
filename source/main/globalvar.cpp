@@ -28,12 +28,13 @@ Vector3D gPATH_NORMAL(0.0f,0.0f,1.0f);
 PathSection gCURVES[9];
 
 // referentes al vehiculo
-float gCAR_SPEED = 0.0f;
+// float gCAR_SPEED = 0.08f; // EL QUE TIENE QUE SER
+float gCAR_SPEED = 0.2f;
 Vector3D gCAR_POS(0.0f,-0.25f,0.8f);
-float gCAR_LATERAL_SPEED = 0.01f;
+float gCAR_LATERAL_SPEED = 0.025f;
 float gSEGMENT_PROGRESS = 0.0f;
 
-bool gPREV_INDEX_ZERO = false;
+int gPREV_INDEX[3];
 
 //modelview
 GLfloat gMODEL_VIEW_MATRIX[16] = { 	1.0f, 0.0f, 0.0f, 0.0f,

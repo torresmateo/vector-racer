@@ -5,8 +5,16 @@ class BlueSphere {
 	
 	public:
 		BlueSphere(){
-			radius = 0.04f;
+			radius = 0.035f;
 			shift = customRand(-ROAD_LIMIT+radius, ROAD_LIMIT-radius, 3);
+		}
+		
+		BlueSphere(float otherShift, float otherRadius){
+			radius = 0.035f;
+			shift = customRand(-ROAD_LIMIT+radius, ROAD_LIMIT-radius, 3);
+			while( fabs(shift-otherShift) < radius+otherRadius ){
+				shift = customRand(-ROAD_LIMIT+radius, ROAD_LIMIT-radius, 3);
+			}
 		}
 		
 		void draw();

@@ -6,7 +6,8 @@ void processInput() {
 	
 		if( gKEY.Q ){
 			gCAR_POS.setX( gCAR_POS.getX()+gCAR_LATERAL_SPEED);
-			gFLOAT_DEBUG -= 0.005;
+			if(gCAR_POS.getX() > ROAD_LIMIT-CAR_WIDTH/2.0)
+				gCAR_POS.setX(ROAD_LIMIT-CAR_WIDTH/2.0);
 		}
 		
 		if( gKEY.W ){
@@ -15,7 +16,8 @@ void processInput() {
 		
 		if( gKEY.E ){
 			gCAR_POS.setX( gCAR_POS.getX()-gCAR_LATERAL_SPEED);
-			gFLOAT_DEBUG += 0.005;
+			if(gCAR_POS.getX() < -ROAD_LIMIT+CAR_WIDTH/2.0)
+				gCAR_POS.setX(-ROAD_LIMIT+CAR_WIDTH/2.0);
 		}
 		
 		if( gKEY.A ){
@@ -46,7 +48,7 @@ void processInput() {
 		
 		
 		if( gKEY.Z ){
-			gCAR_SPEED = 0.03f;
+			gCAR_SPEED = 0.35f;
 			gFLOAT_DEBUGy += 0.005;
 		}
 		if( gKEY.C ){
@@ -67,11 +69,10 @@ void colisionHandler(){
 	
 	if(CurentIndex >= currentSection.getNumberOfSegments()){
 		CurentIndex = CurentIndex - (currentSection.getNumberOfSegments());
-		// currentSection = gTUNNEL_PATH.getNextSection();
-		return;
+		currentSection = gTUNNEL_PATH.getNextSection();
 	}
 	
-	gDEBUG = " -";
+	// gDEBUG += " -";
 	
 	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
 		gDEBUG += " blanco";
