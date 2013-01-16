@@ -11,8 +11,11 @@ class Obstacle {
 	float radius;
 	float height;
 	GLUquadric *quadric;
+	bool triggered;
+	
 	public:
 		Obstacle(){
+			triggered = false;
 			int randomInt = (int)customRand(0,99,0);
 			if( randomInt < 60 ){
 				type = PYRAMID;
@@ -30,8 +33,6 @@ class Obstacle {
 				// gluQuadricDrawStyle(quadric, GLU_FILL);
 				// gluQuadricOrientation(quadric, GLU_INSIDE);
 			}
-			
-			
 			shift = customRand(-ROAD_LIMIT+radius, ROAD_LIMIT-radius, 3);
 		}
 		
@@ -42,6 +43,7 @@ class Obstacle {
 		
 		void draw();
 		bool isCollision();
+		void trigger();
 		
 		float getShift();
 		float getRadius();

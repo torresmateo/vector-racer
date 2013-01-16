@@ -1,20 +1,17 @@
 
 void timerCB(int millisec) {
-	glutTimerFunc(millisec, timerCB, millisec);
-	
-	// cout << gSEGMENT_PROGRESS/(-2.0) << endl;
-	// cout << gSEGMENT_PROGRESS;
-	// if( gSEGMENT_PROGRESS/(-2.0) < 0.12 )
-		// cout << "******************************************";
-	// if( gSEGMENT_PROGRESS<-1 )
-		// cout << "--- WHATS?? ---------------";
-	// cout << endl;
+	glutTimerFunc(millisec, timerCB, millisec);DEBUG(gCAR_SPEED);
 	glutPostRedisplay();
 }
 
 void increaseSpeed(int millisec){
 	glutTimerFunc(millisec, increaseSpeed, millisec);
-	gCAR_SPEED *= 1.1; DEBUG(gCAR_SPEED);
+	gCAR_SPEED *= 1.1;
+}
+
+void scorePP(int millisec){
+	glutTimerFunc(millisec, scorePP, millisec);
+	gSCORE += 0.1;
 }
 
 objLoader obj;
@@ -83,6 +80,7 @@ int main(int argc, char **argv) {
 	// glutIdleFunc(display);
 	glutTimerFunc(30,timerCB,30);
 	glutTimerFunc(10000,increaseSpeed,10000);
+	glutTimerFunc(100,scorePP,100);
 	
 	glutIgnoreKeyRepeat(1);
 	// keyboard register callbacks

@@ -1,6 +1,8 @@
 
 extern Vector3D gCAR_POS;
 extern float gSEGMENT_PROGRESS;
+extern int gCAR_HEALTH;
+
 #include "whiteSphere.hpp"
 
 void WhiteSphere::draw() {
@@ -19,6 +21,14 @@ bool WhiteSphere::isCollision(){
 			return true;
 	}
 	return false;
+}
+
+void WhiteSphere::trigger(){
+	if( triggered )
+		return;
+	if(gCAR_HEALTH<3)
+		gCAR_HEALTH++;
+	triggered = true;
 }
 
 float WhiteSphere::getShift(){ return shift; }
