@@ -32,6 +32,9 @@ float gCAR_SPEED = 0.2f;
 Vector3D gCAR_POS(0.0f,-0.25f,0.8f);
 float gCAR_LAST_X = 0.0f;
 float gCAR_LATERAL_SPEED = 0.025f;
+float gCAR_TILT = 0.0f;
+float gCAR_ROTATION = 0.0f;
+float gCURRENT_CAR_ROTATION = 0.0f;
 
 // game
 int gCAR_HEALTH = 3;

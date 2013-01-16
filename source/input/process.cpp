@@ -2,9 +2,19 @@
 
 
 void processInput() {
+	
+	if( !gKEY.Q and !gKEY.E and gCAR_TILT ){
+		if( 0 < gCAR_TILT )
+			gCAR_TILT -= TILT_SPEED;
+		if( gCAR_TILT < 0 )
+			gCAR_TILT += TILT_SPEED;
+	}
+	
 	if( gKEY.PRESSED ){
 	
 		if( gKEY.Q ){
+			if( fabs(gCAR_TILT-TILT_SPEED) < 45 )
+				gCAR_TILT -= TILT_SPEED;
 			gCAR_POS.setX( gCAR_POS.getX()+gCAR_LATERAL_SPEED);
 			if(gCAR_POS.getX() > ROAD_LIMIT-CAR_WIDTH/2.0)
 				gCAR_POS.setX(ROAD_LIMIT-CAR_WIDTH/2.0);
@@ -15,6 +25,8 @@ void processInput() {
 		}
 		
 		if( gKEY.E ){
+			if( fabs(gCAR_TILT+TILT_SPEED) < 45 )
+				gCAR_TILT += TILT_SPEED;
 			gCAR_POS.setX( gCAR_POS.getX()-gCAR_LATERAL_SPEED);
 			if(gCAR_POS.getX() < -ROAD_LIMIT+CAR_WIDTH/2.0)
 				gCAR_POS.setX(-ROAD_LIMIT+CAR_WIDTH/2.0);
@@ -72,17 +84,6 @@ void collisionHandler(){
 		currentSection = gTUNNEL_PATH.getNextSection();
 	}
 	
-	// gDEBUG += " -";
-	
-	// if(currentSection.thereIsWhiteSphere(CurentIndex))
-		// if(){
-			// cout << gSEGMENT_PROGRESS/(-2.0);
-			// if( gSEGMENT_PROGRESS/(-2.0)-CAR_LENGTH < 0.12 )
-				// cout << "******************************************";
-			// if( gSEGMENT_PROGRESS<-1 )
-				// cout << "--- WHATS?? ---"<<endl;
-			// cout << endl;
-		// }
 	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
 		currentSection.getWhiteSphere(CurentIndex)->trigger();
 	}

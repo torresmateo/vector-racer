@@ -6,7 +6,8 @@ void timerCB(int millisec) {
 
 void increaseSpeed(int millisec){
 	glutTimerFunc(millisec, increaseSpeed, millisec);
-	gCAR_SPEED *= 1.1;
+	if( gCAR_SPEED*1.1 <= 1 )
+		gCAR_SPEED *= 1.1;
 }
 
 void scorePP(int millisec){

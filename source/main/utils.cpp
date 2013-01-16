@@ -129,11 +129,6 @@ void loadPath(){
 	
 	float torusOrientation = 0.0f;
 	
-	// PathSection seccion(torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
-	// PathSection seccion2(torusSection(0.5f, 100.0f,ringsDownCase, sectionAngleDownCase, 90.0f));
-	// PathSection seccion3(torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
-	// PathSection seccion4(torusSection(0.5f, 80.0f,rings, sectionAngle, 90.0f));
-	
 	PathSection auxPath(15);
 	auxPath.setRadius(0.5f);
 	Vector3D auxPositionEnd(0.0f,0.0f,0.5f);

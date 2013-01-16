@@ -152,19 +152,13 @@ void drawSolidCylinder(GLUquadric* quad, GLdouble base, GLdouble top, GLdouble h
 
 void drawSolidPyramid( float r, float h){
 	glBegin(GL_TRIANGLE_STRIP);{
-	
 		glVertex3f(    r, 0.0f,   -r );
 		glVertex3f( 0.0f,    h, 0.0f );
 		glVertex3f(   -r, 0.0f,   -r );
-		
 		glVertex3f(  -r , 0.0f,    r );
-		
 		glVertex3f(    r, 0.0f,   -r );
-		
 		glVertex3f(    r, 0.0f,    r );
-		
 		glVertex3f( 0.0f,    h, 0.0f );
-		
 		glVertex3f(  -r , 0.0f,    r );
 	}glEnd();
 }
@@ -188,20 +182,54 @@ void drawCartesianAxis(){
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 0.0f, 10.0f);
 		glEnd();
-		//glutSolidTorus  ( 0.01f, 1.51f, 60, 60 );
-	
-		
-		
 	glPopMatrix();
 }
 
 
 void drawCar(){
+	glColor3f(RED);
+	glBegin(GL_QUAD_STRIP);{
+		glVertex3f( CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
+		glVertex3f(-CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
+		glVertex3f( CAR_WIDTH/2.0,-CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
+		glVertex3f(-CAR_WIDTH/2.0,-CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
+		
+		glVertex3f( CAR_WIDTH/2.0,-CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
+		glVertex3f(-CAR_WIDTH/2.0,-CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
+		glVertex3f( CAR_WIDTH/2.0, CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
+		glVertex3f(-CAR_WIDTH/2.0, CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
+		
+		glVertex3f( CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
+		glVertex3f(-CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
+	}glEnd();
+}
+
+void drawPositionedCar(){
+	
+	gCAR_ROTATION = 90-RADIANS_TO_DEGREES(acos(gTUNNEL_PATH.getCurrentSection().getPositionEnd().getX()/0.05));
+	
+	if( fabs(gCAR_ROTATION-gCURRENT_CAR_ROTATION) >= 0.3 ){
+		if( gCAR_ROTATION > gCURRENT_CAR_ROTATION ){
+			gCURRENT_CAR_ROTATION += 0.3;
+		}else if(gCAR_ROTATION < gCURRENT_CAR_ROTATION){
+			gCURRENT_CAR_ROTATION -= 0.3;
+		}
+	}
+	
+	glPushMatrix();{
+		glTranslatef( gCAR_POS.getX(), gCAR_POS.getY(), gCAR_POS.getZ()+CAR_LENGTH/2.0 );
+			glRotatef( 
+				gCURRENT_CAR_ROTATION, 
+				0.0f,1.0f,0.0f 
+			);
+		glRotatef( gCAR_TILT, 0.0f,0.0f,1.0f );
+		drawCar();
+	}glPopMatrix();
+}
+
+void drawCarCollisionArea(){
+	
 	glColor3f(WHITE);
-	// glPushMatrix(); {
-		// glTranslatef(GET_TRIPLET(gCAR_POS));
-		// glutWireCone(CAR_WIDTH/2.0,CAR_LENGTH,10,2);
-	// }glPopMatrix();
 	
 	glPushMatrix();{
 		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_WIDTH/2.0);
@@ -331,7 +359,6 @@ void drawScene() {
 				GET_TRIPLET(rotateAxis)
 			); 	
 			glTranslatef(GET_TRIPLET((translation * -1)));
-			//DEBUG((gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()));
 		}	
 		
 		//se transforma el Model View gradualmente para el segmento actual
