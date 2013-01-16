@@ -69,8 +69,8 @@ void display(void) {
 	// pinta el escenario
 	drawScene();
 	
-	drawCar();
-	
+	// drawCarCollisionArea();
+	drawPositionedCar();
 	
 	//	==============================
 	//		impresion en pantalla
