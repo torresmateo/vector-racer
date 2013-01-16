@@ -295,7 +295,8 @@ void drawScene() {
 	}glPopMatrix();
 	
 	glPushMatrix();{
-	
+		gSEGMENT_PROGRESS -= gCAR_SPEED;
+		gCAR_LAST_X = gCAR_POS.getX();
 		if(gSEGMENT_PROGRESS <= -1.0f){//se termina la transformación del Model View para el segmento actual
 			
 			if(gTUNNEL_PATH.getCurrentUnusedSegments() > 1)						//queda algún segmento para consumir?
@@ -334,7 +335,6 @@ void drawScene() {
 		}	
 		
 		//se transforma el Model View gradualmente para el segmento actual
-		gSEGMENT_PROGRESS -= gCAR_SPEED;
 		
 		translation = translation * gSEGMENT_PROGRESS;
 		

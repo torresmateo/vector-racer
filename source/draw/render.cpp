@@ -52,7 +52,7 @@ void display(void) {
 	// Maneja input
 	processInput();
 	
-	colisionHandler();
+	collisionHandler();
 	
 	// Calculo del frame rate
 	calculateFPS();

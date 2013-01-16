@@ -1,8 +1,20 @@
 
 void timerCB(int millisec) {
 	glutTimerFunc(millisec, timerCB, millisec);
-	gCAR_SPEED += 0.0001; DEBUG(gCAR_SPEED);
+	
+	// cout << gSEGMENT_PROGRESS/(-2.0) << endl;
+	// cout << gSEGMENT_PROGRESS;
+	// if( gSEGMENT_PROGRESS/(-2.0) < 0.12 )
+		// cout << "******************************************";
+	// if( gSEGMENT_PROGRESS<-1 )
+		// cout << "--- WHATS?? ---------------";
+	// cout << endl;
 	glutPostRedisplay();
+}
+
+void increaseSpeed(int millisec){
+	glutTimerFunc(millisec, increaseSpeed, millisec);
+	gCAR_SPEED *= 1.1; DEBUG(gCAR_SPEED);
 }
 
 objLoader obj;
@@ -70,6 +82,7 @@ int main(int argc, char **argv) {
 	glutReshapeFunc(changeSize);
 	// glutIdleFunc(display);
 	glutTimerFunc(30,timerCB,30);
+	glutTimerFunc(10000,increaseSpeed,10000);
 	
 	glutIgnoreKeyRepeat(1);
 	// keyboard register callbacks
