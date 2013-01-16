@@ -3,6 +3,8 @@ extern Vector3D gCAR_POS;
 extern float gSEGMENT_PROGRESS;
 extern float gCAR_SPEED;
 extern float gCAR_LAST_X;
+extern int gCAR_HEALTH;
+
 #include "obstacle.hpp"
 
 void Obstacle::draw() {
@@ -40,6 +42,14 @@ bool Obstacle::isCollision(){
 			return true;
 	}
 	return false;
+}
+
+void Obstacle::trigger(){
+	if(triggered)
+		return;
+	if(gCAR_HEALTH)
+		gCAR_HEALTH--;
+	triggered = true;
 }
 
 float Obstacle::getShift(){ return shift; }

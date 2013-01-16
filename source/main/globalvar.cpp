@@ -32,6 +32,11 @@ float gCAR_SPEED = 0.2f;
 Vector3D gCAR_POS(0.0f,-0.25f,0.8f);
 float gCAR_LAST_X = 0.0f;
 float gCAR_LATERAL_SPEED = 0.025f;
+
+// game
+int gCAR_HEALTH = 3;
+float gSCORE = 0;
+
 float gSEGMENT_PROGRESS = 0.0f;
 
 int gPREV_INDEX[3];

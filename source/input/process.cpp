@@ -84,15 +84,15 @@ void collisionHandler(){
 			// cout << endl;
 		// }
 	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
-		gDEBUG += " blanco";
+		currentSection.getWhiteSphere(CurentIndex)->trigger();
 	}
 	
 	if(currentSection.thereIsBlueSphere(CurentIndex) and currentSection.getBlueSphere(CurentIndex)->isCollision()){
-		gDEBUG += " azul";
+		currentSection.getBlueSphere(CurentIndex)->trigger();
 	}
 	
 	if(currentSection.thereIsObstacle(CurentIndex) and currentSection.getObstacle(CurentIndex)->isCollision()){
-		gDEBUG += " obstaculo";
+		currentSection.getObstacle(CurentIndex)->trigger();
 	}
 }
 

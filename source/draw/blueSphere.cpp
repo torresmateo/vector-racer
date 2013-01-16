@@ -21,6 +21,13 @@ bool BlueSphere::isCollision(){
 	return false;
 }
 
+void BlueSphere::trigger(){
+	if( triggered )
+		return;
+	gCAR_SPEED /= 1.1;
+	triggered = true;
+}
+
 float BlueSphere::getShift(){ return shift; }
 float BlueSphere::getRadius(){ return radius; }
 
