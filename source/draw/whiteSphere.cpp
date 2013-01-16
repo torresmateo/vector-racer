@@ -12,17 +12,13 @@ void WhiteSphere::draw() {
 }
 
 bool WhiteSphere::isCollision(){
-	return (
-		gSEGMENT_PROGRESS/(-2.0)-CAR_LENGTH < this->radius*2
-		and
-		(
-			( gCAR_POS.getX()+CAR_WIDTH/2.0 > this->shift-this->radius and this->shift+this->radius > gCAR_POS.getX()+CAR_WIDTH/2.0 )
-			or
-			( gCAR_POS.getX()-CAR_WIDTH/2.0 > this->shift-this->radius and this->shift+this->radius > gCAR_POS.getX()-CAR_WIDTH/2.0 )
-			or
-			( gCAR_POS.getX()-CAR_WIDTH/2.0 < this->shift-this->radius and this->shift+this->radius < gCAR_POS.getX()+CAR_WIDTH/2.0 )
-		)
-	)?true:false;
+	if( fabs(gCAR_POS.getX()-this->shift) <= CAR_WIDTH/2.0 + this->radius ){
+		if( gSEGMENT_PROGRESS/(-2.0)-CAR_LENGTH < this->radius*2 )
+			return true;
+		if( gCAR_SPEED/2.0 >= CAR_LENGTH+(this->radius)*2 and fabs(gCAR_LAST_X-this->shift) <= CAR_WIDTH/2.0 + this->radius )
+			return true;
+	}
+	return false;
 }
 
 float WhiteSphere::getShift(){ return shift; }

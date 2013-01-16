@@ -48,7 +48,7 @@ void processInput() {
 		
 		
 		if( gKEY.Z ){
-			gCAR_SPEED = 0.35f;
+			gCAR_SPEED = 0.49f;
 			gFLOAT_DEBUGy += 0.005;
 		}
 		if( gKEY.C ){
@@ -63,7 +63,7 @@ void processInput() {
 	}
 }
 
-void colisionHandler(){
+void collisionHandler(){
 	int CurentIndex = gTUNNEL_PATH.getCurrentSegmentsIndex()+2;
 	PathSection currentSection(gTUNNEL_PATH.getCurrentSection());
 	
@@ -74,6 +74,15 @@ void colisionHandler(){
 	
 	// gDEBUG += " -";
 	
+	// if(currentSection.thereIsWhiteSphere(CurentIndex))
+		// if(){
+			// cout << gSEGMENT_PROGRESS/(-2.0);
+			// if( gSEGMENT_PROGRESS/(-2.0)-CAR_LENGTH < 0.12 )
+				// cout << "******************************************";
+			// if( gSEGMENT_PROGRESS<-1 )
+				// cout << "--- WHATS?? ---"<<endl;
+			// cout << endl;
+		// }
 	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
 		gDEBUG += " blanco";
 	}

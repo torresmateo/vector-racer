@@ -18,7 +18,7 @@ class Obstacle {
 				type = PYRAMID;
 				radius = 0.035f;
 				height = 0.12f;
-			}else if(randomInt < 60+25){
+			}else if( randomInt < 60+25 ){
 				type = CUBE;
 				radius = 0.06f;
 				height = radius*2.0;

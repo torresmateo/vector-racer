@@ -28,9 +28,9 @@ Vector3D gPATH_NORMAL(0.0f,0.0f,1.0f);
 PathSection gCURVES[9];
 
 // referentes al vehiculo
-// float gCAR_SPEED = 0.08f; // EL QUE TIENE QUE SER
 float gCAR_SPEED = 0.2f;
 Vector3D gCAR_POS(0.0f,-0.25f,0.8f);
+float gCAR_LAST_X = 0.0f;
 float gCAR_LATERAL_SPEED = 0.025f;
 float gSEGMENT_PROGRESS = 0.0f;
 
