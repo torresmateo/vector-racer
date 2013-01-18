@@ -6,11 +6,13 @@ extern int gCAR_HEALTH;
 #include "whiteSphere.hpp"
 
 void WhiteSphere::draw() {
-	glColor3f(WHITE);
-	glPushMatrix();{
-		glTranslatef(shift,radius-0.29f,radius);
-		glutSolidSphere(radius,8,8);
-	}glPopMatrix();
+	if( !triggered ){
+		glColor3f(WHITE);
+		glPushMatrix();{
+			glTranslatef(shift,radius-0.29f,radius);
+			glutSolidSphere(radius,8,8);
+		}glPopMatrix();
+	}
 }
 
 bool WhiteSphere::isCollision(){

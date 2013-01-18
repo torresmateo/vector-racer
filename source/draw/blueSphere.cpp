@@ -4,11 +4,13 @@ extern float gSEGMENT_PROGRESS;
 #include "blueSphere.hpp"
 
 void BlueSphere::draw() {
-	glColor3f(BLUE);
-	glPushMatrix();{
-		glTranslatef(shift,radius-0.29f,radius);
-		glutSolidSphere(radius,8,8);
-	}glPopMatrix();
+	if( !triggered ){
+		glColor3f(BLUE);
+		glPushMatrix();{
+			glTranslatef(shift,radius-0.29f,radius);
+			glutSolidSphere(radius,8,8);
+		}glPopMatrix();
+	}
 }
 
 bool BlueSphere::isCollision(){

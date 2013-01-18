@@ -38,7 +38,7 @@ float gCURRENT_CAR_ROTATION = 0.0f;
 
 // game
 int gCAR_HEALTH = 3;
-float gSCORE = 0;
+int gSCORE = 0;
 
 float gSEGMENT_PROGRESS = 0.0f;
 
