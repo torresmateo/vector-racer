@@ -12,7 +12,7 @@ void increaseSpeed(int millisec){
 
 void scorePP(int millisec){
 	glutTimerFunc(millisec, scorePP, millisec);
-	gSCORE += 0.1;
+	gSCORE ++;
 }
 
 objLoader obj;

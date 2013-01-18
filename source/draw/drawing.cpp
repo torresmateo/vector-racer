@@ -494,7 +494,7 @@ void restorePerspectiveProjection() {
 /************************************************************
 	
 *************************************************************/
-void renderBitmapStringProjection( double x, double y, double z, const char* text ) {
+void renderBitmapStringProjection( float x, float y, float z, const char* text ) {
 	setOrthographicProjection();
 
 	glPushMatrix();
@@ -509,10 +509,178 @@ void renderBitmapStringProjection( double x, double y, double z, const char* tex
 	restorePerspectiveProjection();
 }
 
+void renderBitmapStringProjection( float x, float y, float z, const char* text, void *font ) {
+	setOrthographicProjection();
 
+	glPushMatrix();
+	glLoadIdentity();
+	renderBitmapString(
+		x,y,z,
+		font,
+		text
+	);
+	glPopMatrix();
+
+	restorePerspectiveProjection();
+}
+
+string doubleToStr(double num);
+void printGameData(){
+	string stringToPrint;
+	int shift = 0;
+	int posX = gSCREEN.getW()-200;
+	int posY = gSCREEN.getH()-25;
+	
+	stringToPrint = "Health ";
+	int i;
+	for( i=0; i<gCAR_HEALTH; i++ )
+		stringToPrint += "[X]";
+	for( i=i; i<3; i++ )
+		stringToPrint += "[   ]";
+	
+	renderBitmapStringProjection( 
+		posX, posY-shift, 0,
+		stringToPrint.c_str()
+	);
+	
+	shift += 22;
+	
+	stringToPrint = "Score  " + intToStr((double)gSCORE);
+	renderBitmapStringProjection( 
+		posX, posY-shift, 0,
+		stringToPrint.c_str()
+	);
 	
 	
+	// /********************************************/
+	// shift += 60;
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
+		// GLUT_BITMAP_8_BY_13
+	// );
+	// stringToPrint = "Health: "; 
+	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
+	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
+		// GLUT_BITMAP_8_BY_13
+	// );
 	
+	// /********************************************/
+	// shift += 60;
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
+		// GLUT_BITMAP_9_BY_15
+	// );
+	// stringToPrint = "Health: "; 
+	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
+	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
+		// GLUT_BITMAP_9_BY_15
+	// );
+	
+	// /********************************************/
+	// shift += 60;
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
+		// GLUT_BITMAP_TIMES_ROMAN_10
+	// );
+	// stringToPrint = "Health: "; 
+	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
+	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
+		// GLUT_BITMAP_TIMES_ROMAN_10
+	// );
+	
+	// /********************************************/
+	// shift += 60;
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
+		// GLUT_BITMAP_TIMES_ROMAN_24
+	// );
+	// stringToPrint = "Health: "; 
+	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
+	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
+		// GLUT_BITMAP_TIMES_ROMAN_24
+	// );
+	
+	// /********************************************/
+	// shift += 60;
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
+		// GLUT_BITMAP_HELVETICA_10
+	// );
+	// stringToPrint = "Health: "; 
+	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
+	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
+		// GLUT_BITMAP_HELVETICA_10
+	// );
+	
+	// /********************************************/
+	// shift += 60;
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
+		// GLUT_BITMAP_HELVETICA_12
+	// );
+	// stringToPrint = "Health: "; 
+	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
+	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
+		// GLUT_BITMAP_HELVETICA_12
+	// );
+	
+	// /********************************************/
+	// shift += 60;
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
+		// GLUT_BITMAP_HELVETICA_18
+	// );
+	// stringToPrint = "Health: "; 
+	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
+	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
+	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
+		// GLUT_BITMAP_HELVETICA_18
+	// );
+	
+	
+}	
+
+
+/************************************************************
+	funcion para imprimir datos internos relevantes del programa
+*************************************************************/
+void printVariables(){
+	string stringToPrint;
+	int shift = 15;
+	
+	stringToPrint = "Frame Rate: " + intToStr((int)gFPS) + " fps";
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+	shift += 25;
+	
+	stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+	shift += 25;
+	
+	stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+	shift += 25;
+	
+	stringToPrint = "gMOUSE: " + gMOUSE.toString();
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+	shift += 25;
+	
+	stringToPrint = "gDEBUG: " + gDEBUG;
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+}
 	
 	
 	

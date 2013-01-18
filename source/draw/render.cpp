@@ -2,49 +2,6 @@
 
 
 /************************************************************
-	funcion para imprimir datos internos relevantes del programa
-*************************************************************/
-void printVariables(){
-	string stringToPrint;
-	int shift = 15;
-	
-	stringToPrint = "Frame Rate: " + intToStr((int)gFPS) + " fps";
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-	shift += 25;
-	
-	stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-	shift += 25;
-	
-	stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-	shift += 25;
-	
-	stringToPrint = "gMOUSE: " + gMOUSE.toString();
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-	shift += 25;
-	
-	stringToPrint = "gDEBUG: " + gDEBUG;
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-}
-
-
-/************************************************************
 	funcion principal de renderizado
 *************************************************************/
 void display(void) {
@@ -81,6 +38,9 @@ void display(void) {
 		glPushMatrix();
 		glLoadIdentity();
 		glColor3f(GREEN);
+		
+		// imprime datos del juego
+		printGameData();
 		
 		// imprime datos relevantes
 		printVariables();
