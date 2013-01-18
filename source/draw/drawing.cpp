@@ -284,24 +284,19 @@ void drawScene() {
 	
 	
 		
-	//glLightfv(GL_LIGHT0,GL_POSITION,pos);
-    
+	//dibujado del modelo
 	glPushMatrix();{
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_FILL);
 	
-	
 		float scaleFactor = 0.01f;
 		
-		//glTranslatef(0.0f,gFLOAT_DEBUGy,gFLOAT_DEBUG);
 		glTranslatef(0.0f,-0.05f,0.35f);
 		glEnable(GL_RESCALE_NORMAL);
 		
 		glScalef(scaleFactor,scaleFactor,scaleFactor);
 		
 		glRotatef(180.0f,0.0f,1.0f,0.0f);
-		
-		//glTranslatef(0.0,-30.0,-100.0);
 		
 		GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
 		GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -315,14 +310,17 @@ void drawScene() {
 		glEnable(GL_LIGHT0);
 		glDepthFunc(GL_LESS);	
 	
-		
-   
 		glCallList(cube);	//draw the 3D mesh
 		glDisable(GL_LIGHTING);
     
 	}glPopMatrix();
 	
+	
+	//dibujado del camino
 	glPushMatrix();{
+	
+		//calculo de la posicion del path en relacion al punto 0,0,0
+		
 		gSEGMENT_PROGRESS -= gCAR_SPEED;
 		gCAR_LAST_X = gCAR_POS.getX();
 		if(gSEGMENT_PROGRESS <= -1.0f){//se termina la transformación del Model View para el segmento actual
@@ -330,8 +328,7 @@ void drawScene() {
 			if(gTUNNEL_PATH.getCurrentUnusedSegments() > 1)						//queda algún segmento para consumir?
 				gTUNNEL_PATH.consumeSegment();									//consumimos un segmento
 			else{																//sino
-				gTUNNEL_PATH.nextSection();
-				//avanzamos a la siguiente sección (borrando el segmento actual)
+				gTUNNEL_PATH.nextSection();										//avanzamos a la siguiente sección (borrando el segmento actual)
 				
 				curveI = rand()%9;
 				while( curveI==gPREV_INDEX[0] or curveI==gPREV_INDEX[1] or curveI==gPREV_INDEX[2] ){
@@ -342,7 +339,7 @@ void drawScene() {
 				gPREV_INDEX[2] = curveI;
 				
 				gCURVES[curveI].resetItems();
-				gTUNNEL_PATH.pushSection(gCURVES[curveI]);		//volvemos a agregar el segmento actual a la cola
+				gTUNNEL_PATH.pushSection(gCURVES[curveI]);						//volvemos a agregar un segmento a la cola
 			}
 			gSEGMENT_PROGRESS = 1 + gSEGMENT_PROGRESS;
 		}
@@ -362,7 +359,6 @@ void drawScene() {
 		}	
 		
 		//se transforma el Model View gradualmente para el segmento actual
-		
 		translation = translation * gSEGMENT_PROGRESS;
 		
 		glRotatef(
@@ -376,6 +372,8 @@ void drawScene() {
 			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
 		}
 		
+		
+		//dibujo efectivo
 		glPushMatrix();{
 			for(int i = 0; i < gTUNNEL_PATH.getListSize(); i++){
 				customCylinder(gTUNNEL_PATH.getSectionAt(i));

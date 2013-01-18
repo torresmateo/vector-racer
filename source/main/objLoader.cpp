@@ -157,28 +157,9 @@ int objLoader::load(const char* filename){
 	num = glGenLists(1);
 	glNewList(num, GL_COMPILE);
 	int last = -1;//se inicializa en -1 para forzar a que se utilice el primer material, ya que el indice -1 no existe
-	// float diffuse[4];
-	// float ambient[4];
-	// float specular[4];
 	for(unsigned int i=0; i<faces.size(); i++)	{
 		
 		if(last != faces[i]->mat && isMaterial){
-			/*
-			diffuse[0] = materials[faces[i]->mat]->dif[0];
-			diffuse[1] = materials[faces[i]->mat]->dif[1];
-			diffuse[2] = materials[faces[i]->mat]->dif[2];
-			diffuse[3] = 1.0;
-			
-			ambient[0] = materials[faces[i]->mat]->amb[0];
-			ambient[1] = materials[faces[i]->mat]->amb[1];
-			ambient[2] = materials[faces[i]->mat]->amb[2];
-			ambient[3] = 1.0;
-			
-			specular[0] = materials[faces[i]->mat]->spec[0];
-			specular[1] = materials[faces[i]->mat]->spec[1];
-			specular[2] = materials[faces[i]->mat]->spec[2];
-			specular[3] = 1.0;
-			*/
 			float diffuse[]={materials[faces[i]->mat]->dif[0],materials[faces[i]->mat]->dif[1],materials[faces[i]->mat]->dif[2],1.0};
 			float ambient[]={materials[faces[i]->mat]->amb[0],materials[faces[i]->mat]->amb[1],materials[faces[i]->mat]->amb[2],1.0};
 			float specular[]={materials[faces[i]->mat]->spec[0],materials[faces[i]->mat]->spec[1],materials[faces[i]->mat]->spec[2],1.0};
@@ -296,8 +277,6 @@ unsigned int objLoader::loadTexture(const char * filename){
 	unsigned int num;
 	glGenTextures(1,&num);
 	Image* img = loadBMP(filename);
-	
-	//loadBMP
 	glBindTexture(GL_TEXTURE_2D,num);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

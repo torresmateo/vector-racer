@@ -22,59 +22,20 @@ int main(int argc, char **argv) {
 	// init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
-	//glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(550,150);
 	glutInitWindowSize(800,600);
 	glutCreateWindow("Underground Race");
 	
 
-
-
-
-
-	/*
-	  GLfloat light_ambient[] = { 0.75, 0.75, 0.75, 1.0 };
-    GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat light_position[] = { 0.0, 0.0, 1.0, 0.0 };
-
-    glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
-    glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-    glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv (GL_LIGHT0, GL_POSITION, light_position);
-    
-    glEnable (GL_LIGHTING);
-    glEnable (GL_LIGHT0);
-    glDepthFunc(GL_LESS);
-    glEnable(GL_DEPTH_TEST);
-	*/
-
-	// OpenGL init
-	//glShadeModel(GL_SMOOTH);
-	//glEnable(GL_CULL_FACE);
-	//glEnable(GL_DEPTH_TEST);
-	
 	glEnable(GL_DEPTH_TEST);
 	
-	//system("pwd");
-	
-	
-	
+	//Fer: esto dejo por el momento porque me es super util descomentar una linea y comentar la otra para cambiar el objeto del modelo, el resto de los comentarios ya borre
 	cube=obj.load("cardassiangalor.obj");	//load the test.obj file
 	//cube=obj.load("beetle.obj");	//load the test.obj file
 	//scube=obj.load("test.obj");	//load the test.obj file
 	
 	loadPath();
 	
-
-
-
-
-
-
-
-
-
 	// register callbacks
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
@@ -94,8 +55,6 @@ int main(int argc, char **argv) {
 	glutMouseFunc(mouseClick);
 	glutMotionFunc(mouseActiveMove);
 	
-	
-
 	// enter GLUT event processing cycle
 	glutMainLoop();
 	
