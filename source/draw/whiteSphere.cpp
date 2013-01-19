@@ -28,9 +28,13 @@ bool WhiteSphere::isCollision(){
 void WhiteSphere::trigger(){
 	if( triggered )
 		return;
-	if(gCAR_HEALTH<3)
-		gCAR_HEALTH++;
-	triggered = true;
+	
+	if( !gCAR_GHOST ){
+		if(gCAR_HEALTH<3)
+			gCAR_HEALTH++;
+		
+		triggered = true;
+	}
 }
 
 float WhiteSphere::getShift(){ return shift; }

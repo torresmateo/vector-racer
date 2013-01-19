@@ -18,8 +18,8 @@
 #define CAR_LENGTH (0.2f)
 #define CAR_WIDTH (0.06f)
 #define TILT_SPEED (15.0f)
-
-
+#define ESC (27)
+#define SPACE (32)
 
 
 

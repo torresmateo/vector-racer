@@ -1,4 +1,162 @@
 
+void displayMainMenu() {
+	stringstream ss;
+	
+	// preparacion para impresion en pantalla
+	setOrthographicProjection();
+		glPushMatrix();
+		glLoadIdentity();
+		glColor3f(GREEN);
+		
+		
+		ss << "Play!! ";
+		ss << "[SPACE]";
+		renderBitmapStringProjection( 
+			gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
+			ss.str().c_str()
+		);
+
+		ss.str("");
+		ss << "[ESC] exit";
+		renderBitmapStringProjection( 
+			20, 20, 0,
+			ss.str().c_str()
+		);
+		
+		ss.str("");
+		ss << "ranking";
+		renderBitmapStringProjection( 
+			gSCREEN.getW()/2.0, gSCREEN.getH()*0.7, 0,
+			ss.str().c_str()
+		);
+		
+		printVariables();
+		// fin de impresion en pantalla
+		glPopMatrix();
+	restorePerspectiveProjection();
+}
+
+void diplayInstructions(){
+	stringstream ss;
+	
+	// preparacion para impresion en pantalla
+	setOrthographicProjection();
+		glPushMatrix();
+		glLoadIdentity();
+		glColor3f(GREEN);
+		
+		
+		ss << "Instrucciones";
+		renderBitmapStringProjection( 
+			gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
+			ss.str().c_str()
+		);
+		
+		ss.str("");
+		ss << "[SPACE] Start when ready";
+		renderBitmapStringProjection( 
+			gSCREEN.getW()*0.7, gSCREEN.getH()*0.7, 0,
+			ss.str().c_str()
+		);
+		
+		ss.str("");
+		ss << "[ESC] Back to main menu";
+		renderBitmapStringProjection( 
+			gSCREEN.getW()*0.7, gSCREEN.getH()*0.7-25, 0,
+			ss.str().c_str()
+		);
+		
+		printVariables();
+		// fin de impresion en pantalla
+		glPopMatrix();
+	restorePerspectiveProjection();
+}
+
+void displayGameOverScreen(){
+	stringstream ss;
+	
+	// preparacion para impresion en pantalla
+	setOrthographicProjection();
+		glPushMatrix();
+		glLoadIdentity();
+		glColor3f(GREEN);
+		
+		
+		ss << "GAME OVER";
+		renderBitmapStringProjection( 
+			gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
+			ss.str().c_str()
+		);
+		
+		ss.str("");
+		ss << "[SPACE] Back to main menu";
+		renderBitmapStringProjection( 
+			20, 20, 0,
+			ss.str().c_str()
+		);
+		
+		ss.str("");
+		ss << "[ESC] Exit";
+		renderBitmapStringProjection( 
+			20, 40, 0,
+			ss.str().c_str()
+		);
+		
+		printVariables();
+		// fin de impresion en pantalla
+		glPopMatrix();
+	restorePerspectiveProjection();
+}
+
+void displayInGame() {
+	
+	switch( gIN_GAME_STATE ){	
+		
+		case INSTRUCTIONS:{
+			diplayInstructions();
+		} break;
+		
+		case PLAYING:{
+			
+			// Set the camera
+			updateCameraLookAt();
+			
+			// pinta el escenario
+			drawScene();
+			
+			// drawCarCollisionArea();
+			drawPositionedCar();
+			
+			//	==============================
+			//		impresion en pantalla
+			//	==============================
+			
+			// preparacion para impresion en pantalla
+			setOrthographicProjection();
+				glPushMatrix();
+				glLoadIdentity();
+				glColor3f(GREEN);
+				
+				// imprime datos del juego
+				printGameData();
+				
+				// imprime datos relevantes
+				printVariables();
+				
+				// fin de impresion en pantalla
+				glPopMatrix();
+			restorePerspectiveProjection();
+			
+			collisionHandler();
+			
+		} break;
+		
+		case GAME_OVER:{
+			displayGameOverScreen();
+		} break;
+	}
+	
+}
 
 
 /************************************************************
@@ -9,8 +167,6 @@ void display(void) {
 	// Maneja input
 	processInput();
 	
-	collisionHandler();
-	
 	// Calculo del frame rate
 	calculateFPS();
 	
@@ -20,34 +176,26 @@ void display(void) {
 	// Reset transformations
 	glLoadIdentity();
 	
-	// Set the camera
-	updateCameraLookAt();
-	
-	// pinta el escenario
-	drawScene();
-	
-	// drawCarCollisionArea();
-	drawPositionedCar();
-	
-	//	==============================
-	//		impresion en pantalla
-	//	==============================
-	
-	// preparacion para impresion en pantalla
-	setOrthographicProjection();
-		glPushMatrix();
-		glLoadIdentity();
-		glColor3f(GREEN);
+	switch( gGENERAL_STATE ){
+		case MAIN_MENU:{
+			displayMainMenu();
+		} break;
 		
-		// imprime datos del juego
-		printGameData();
+		case GAME_INIT:{
+			gameInitialization();
+			displayInGame();
+			gGENERAL_STATE = IN_GAME;
+			gIN_GAME_STATE = INSTRUCTIONS;
+		} break;
 		
-		// imprime datos relevantes
-		printVariables();
+		case IN_GAME:{
+			displayInGame();
+		} break;
 		
-		// fin de impresion en pantalla
-		glPopMatrix();
-	restorePerspectiveProjection();
+		case EXIT:{
+			exit(0);
+		} break;
+	}
 	
 	// Cambio de buffer
 	glutSwapBuffers();

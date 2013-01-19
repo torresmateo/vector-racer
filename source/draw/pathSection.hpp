@@ -112,6 +112,7 @@ class PathSection {
 		
 		//utils
 		void resetItems();
+		void resetItems(int segmentsLeftOut);
 		bool thereIsObstacle(int i);
 		bool thereIsBlueSphere(int i);
 		bool thereIsWhiteSphere(int i);

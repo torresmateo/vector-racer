@@ -4,6 +4,7 @@ extern float gSEGMENT_PROGRESS;
 extern float gCAR_SPEED;
 extern float gCAR_LAST_X;
 extern int gCAR_HEALTH;
+extern int gCAR_GHOST;
 
 #include "obstacle.hpp"
 
@@ -47,8 +48,15 @@ bool Obstacle::isCollision(){
 void Obstacle::trigger(){
 	if(triggered)
 		return;
-	if(gCAR_HEALTH)
-		gCAR_HEALTH--;
+	
+	if( !gCAR_GHOST ){
+		if( gCAR_HEALTH )
+			gCAR_HEALTH--;
+			
+		if( gCAR_HEALTH )
+			carGhostHandler(0);
+	}
+		
 	triggered = true;
 }
 

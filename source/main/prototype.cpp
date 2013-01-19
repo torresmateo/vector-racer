@@ -34,6 +34,7 @@ void changeSize(int newWidth, int newHigh);
 
 float customRand( float limitDown, float limitUp, int decimal);
 
+void carGhostHandler(int millisec);
 
 
 

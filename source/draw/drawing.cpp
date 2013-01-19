@@ -216,15 +216,17 @@ void drawPositionedCar(){
 		}
 	}
 	
-	glPushMatrix();{
-		glTranslatef( gCAR_POS.getX(), gCAR_POS.getY(), gCAR_POS.getZ()+CAR_LENGTH/2.0 );
-			glRotatef( 
-				gCURRENT_CAR_ROTATION, 
-				0.0f,1.0f,0.0f 
-			);
-		glRotatef( gCAR_TILT, 0.0f,0.0f,1.0f );
-		drawCar();
-	}glPopMatrix();
+	if( gCAR_GHOST%2 == 0 ){
+		glPushMatrix();{
+			glTranslatef( gCAR_POS.getX(), gCAR_POS.getY(), gCAR_POS.getZ()+CAR_LENGTH/2.0 );
+				glRotatef( 
+					gCURRENT_CAR_ROTATION, 
+					0.0f,1.0f,0.0f 
+				);
+			glRotatef( gCAR_TILT, 0.0f,0.0f,1.0f );
+			drawCar();
+		}glPopMatrix();
+	}
 }
 
 void drawCarCollisionArea(){
@@ -279,11 +281,6 @@ void drawScene() {
 	int curveI;
 	drawCartesianAxis();
 	
-	
-	
-	
-	
-		
 	//dibujado del modelo
 	glPushMatrix();{
 		glPolygonMode(GL_FRONT, GL_FILL);
@@ -384,39 +381,6 @@ void drawScene() {
 	
 }
 
-/************************************************************
-	dibuja un munheco de nieve
-*************************************************************/
-void drawSnowMan() {
-
-	// glScalef(scale, scale, scale);
-	glColor3f(1.0f, 1.0f, 1.0f);
-
-	// Draw Body
-	glTranslatef(0.0f ,0.75f, 0.0f);
-	glutSolidSphere(0.75f,20,20);
-
-	// Draw Head
-	glTranslatef(0.0f, 0.95f, 0.0f);
-	glutSolidSphere(0.25f,20,20);
-
-	// Draw Eyes
-	glPushMatrix();
-	glColor3f(0.0f,0.0f,0.0f);
-	glTranslatef(0.05f, 0.10f, 0.18f);
-	glutSolidSphere(0.05f,10,10);
-	glTranslatef(-0.1f, 0.0f, 0.0f);
-	glutSolidSphere(0.05f,10,10);
-	glPopMatrix();
-
-	// Draw Nose
-	glColor3f(1.0f, 0.5f, 0.5f);
-	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
-	glutSolidCone(0.08f,0.5f,10,2);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-
-}
 
 
 /************************************************************
@@ -522,118 +486,32 @@ void renderBitmapStringProjection( float x, float y, float z, const char* text, 
 	restorePerspectiveProjection();
 }
 
-string doubleToStr(double num);
+
 void printGameData(){
-	string stringToPrint;
+	stringstream ss;
 	int shift = 0;
 	int posX = gSCREEN.getW()-200;
 	int posY = gSCREEN.getH()-25;
 	
-	stringToPrint = "Health ";
+	ss << "Health ";
 	int i;
 	for( i=0; i<gCAR_HEALTH; i++ )
-		stringToPrint += "[X]";
+		ss << "[X]";
 	for( i=i; i<3; i++ )
-		stringToPrint += "[   ]";
+		ss << "[   ]";
 	
 	renderBitmapStringProjection( 
 		posX, posY-shift, 0,
-		stringToPrint.c_str()
+		ss.str().c_str()
 	);
-	
+	ss.str("");
 	shift += 22;
 	
-	stringToPrint = "Score  " + intToStr((double)gSCORE);
+	ss << "Score  " << gSCORE;
 	renderBitmapStringProjection( 
 		posX, posY-shift, 0,
-		stringToPrint.c_str()
+		ss.str().c_str()
 	);
-	
-	
-	// /********************************************/
-	// shift += 60;
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
-		// GLUT_BITMAP_8_BY_13
-	// );
-	// stringToPrint = "Health: "; 
-	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
-	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
-		// GLUT_BITMAP_8_BY_13
-	// );
-	
-	// /********************************************/
-	// shift += 60;
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
-		// GLUT_BITMAP_9_BY_15
-	// );
-	// stringToPrint = "Health: "; 
-	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
-	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
-		// GLUT_BITMAP_9_BY_15
-	// );
-	
-	// /********************************************/
-	// shift += 60;
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
-		// GLUT_BITMAP_TIMES_ROMAN_10
-	// );
-	// stringToPrint = "Health: "; 
-	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
-	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
-		// GLUT_BITMAP_TIMES_ROMAN_10
-	// );
-	
-	// /********************************************/
-	// shift += 60;
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
-		// GLUT_BITMAP_TIMES_ROMAN_24
-	// );
-	// stringToPrint = "Health: "; 
-	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
-	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
-		// GLUT_BITMAP_TIMES_ROMAN_24
-	// );
-	
-	// /********************************************/
-	// shift += 60;
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
-		// GLUT_BITMAP_HELVETICA_10
-	// );
-	// stringToPrint = "Health: "; 
-	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
-	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
-		// GLUT_BITMAP_HELVETICA_10
-	// );
-	
-	// /********************************************/
-	// shift += 60;
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
-		// GLUT_BITMAP_HELVETICA_12
-	// );
-	// stringToPrint = "Health: "; 
-	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
-	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
-		// GLUT_BITMAP_HELVETICA_12
-	// );
-	
-	// /********************************************/
-	// shift += 60;
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-shift, 0,	intToStr((double)gSCORE).c_str(),
-		// GLUT_BITMAP_HELVETICA_18
-	// );
-	// stringToPrint = "Health: "; 
-	// for( i=0; i<gCAR_HEALTH; i++ ) stringToPrint += "[X]";
-	// for( i=i; i<3; i++ ) stringToPrint += "[_]";
-	// renderBitmapStringProjection( gSCREEN.getW()-200, gSCREEN.getH()-25-20-shift, 0, stringToPrint.c_str(),
-		// GLUT_BITMAP_HELVETICA_18
-	// );
-	
 	
 }	
 
@@ -652,26 +530,26 @@ void printVariables(){
 	);
 	shift += 25;
 	
-	stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-	shift += 25;
+	// stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
+	// renderBitmapStringProjection( 
+		// 15, gSCREEN.getH()-shift, 0,
+		// stringToPrint.c_str()
+	// );
+	// shift += 25;
 	
-	stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-	shift += 25;
+	// stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
+	// renderBitmapStringProjection( 
+		// 15, gSCREEN.getH()-shift, 0,
+		// stringToPrint.c_str()
+	// );
+	// shift += 25;
 	
-	stringToPrint = "gMOUSE: " + gMOUSE.toString();
-	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
-		stringToPrint.c_str()
-	);
-	shift += 25;
+	// stringToPrint = "gMOUSE: " + gMOUSE.toString();
+	// renderBitmapStringProjection( 
+		// 15, gSCREEN.getH()-shift, 0,
+		// stringToPrint.c_str()
+	// );
+	// shift += 25;
 	
 	stringToPrint = "gDEBUG: " + gDEBUG;
 	renderBitmapStringProjection( 
