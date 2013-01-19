@@ -26,8 +26,11 @@ bool BlueSphere::isCollision(){
 void BlueSphere::trigger(){
 	if( triggered )
 		return;
-	gCAR_SPEED /= 1.1;
-	triggered = true;
+	
+	if( !gCAR_GHOST ){
+		gCAR_SPEED /= 1.1;
+		triggered = true;
+	}
 }
 
 float BlueSphere::getShift(){ return shift; }

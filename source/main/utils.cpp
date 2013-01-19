@@ -144,21 +144,10 @@ void loadPath(){
 			gCURVES[i] = torusSection(0.5f, outerRadius, rings, sectionAngle, torusOrientation);
 		torusOrientation += 45;
 	}
-	int index = 0;
-	gPREV_INDEX[0] = index;
-	gTUNNEL_PATH.pushSection(gCURVES[index]);
 	
-	index = rand()%8 + 1;
-	gPREV_INDEX[1] = index;
-	gTUNNEL_PATH.pushSection(gCURVES[index]);
-	
-	index = rand()%8 + 1;
-	while( index == gPREV_INDEX[1] ){
-		index = rand()%8 + 1;
-	}
-	gPREV_INDEX[2] = index;
-	gTUNNEL_PATH.pushSection(gCURVES[index]);
-	
+	gTUNNEL_PATH.pushSection(gCURVES[0]);
+	gTUNNEL_PATH.pushSection(gCURVES[0]);
+	gTUNNEL_PATH.pushSection(gCURVES[0]);
 	
 }
 
@@ -172,8 +161,60 @@ float customRand( float limitDown, float limitUp, int decimal) {
 }
 
 
+void collisionHandler(){
+	int CurentIndex = gTUNNEL_PATH.getCurrentSegmentsIndex()+2;
+	PathSection currentSection(gTUNNEL_PATH.getCurrentSection());
+	
+	if(CurentIndex >= currentSection.getNumberOfSegments()){
+		CurentIndex = CurentIndex - (currentSection.getNumberOfSegments());
+		currentSection = gTUNNEL_PATH.getNextSection();
+	}
+	
+	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
+		currentSection.getWhiteSphere(CurentIndex)->trigger();
+	}
+	
+	if(currentSection.thereIsBlueSphere(CurentIndex) and currentSection.getBlueSphere(CurentIndex)->isCollision()){
+		currentSection.getBlueSphere(CurentIndex)->trigger();
+	}
+	
+	if(currentSection.thereIsObstacle(CurentIndex) and currentSection.getObstacle(CurentIndex)->isCollision()){
+		currentSection.getObstacle(CurentIndex)->trigger();
+		if( !gCAR_HEALTH )
+			gIN_GAME_STATE = GAME_OVER;
+	}
+}
 
 
+void gameInitialization(){
+	int index = 0;
+	
+	gTUNNEL_PATH.nextSection();	
+	gPREV_INDEX[0] = index;
+	gCURVES[index].resetItems(15);
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
+	
+	gTUNNEL_PATH.nextSection();	
+	index = rand()%8 + 1;
+	gPREV_INDEX[1] = index;
+	gCURVES[index].resetItems();
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
+	
+	gTUNNEL_PATH.nextSection();	
+	index = rand()%8 + 1;
+	while( index == gPREV_INDEX[1] )
+		index = rand()%8 + 1;
+	gPREV_INDEX[2] = index;
+	gCURVES[index].resetItems();
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
+	
+	gSCORE = 0;
+	gCAR_POS.setX(0);
+	gCAR_HEALTH = 3;
+	gCAR_SPEED = 0.2;
+	gCAR_TILT = 0;
+	gCAR_LAST_X = 0;
+}
 
 
 

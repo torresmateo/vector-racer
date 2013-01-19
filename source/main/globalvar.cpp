@@ -38,6 +38,7 @@ float gCURRENT_CAR_ROTATION = 0.0f;
 
 // game
 int gCAR_HEALTH = 3;
+int gCAR_GHOST = 0;
 int gSCORE = 0;
 
 float gSEGMENT_PROGRESS = 0.0f;
@@ -65,24 +66,24 @@ double gFPS;
 char gFPS_STRING[50];
 
 
+Keyboard gKEYBOARD;
 
-// estructura para control de teclas presionadas
-struct keysPressed {
-	bool Q; //cambiar posicion del auto (izquierda)
-	bool W; //avanzar en profundidad camara
-	bool E; //cambiar posicion del auto (derecha)
-	bool A; //movimiento lateral camara (izq)
-	bool S; //retroceder en profuncidad camara
-	bool D; //movimiento lateral de camara (derecha)
-    bool Z; //modifica la curva de forma vertical hacia arriba
-    bool C; //modifica la curva de forma vertical hacia abajo
-	bool ESC; //salir
-	// contador de teclas presionadas.
-	// puede usarse como booleano para 
-	// saber si alguna tecla esta presionada.
-	int PRESSED;
-} gKEY = {false,false,false,false,false,false,false,0};
+enum generalState { 
+	MAIN_MENU,
+	GAME_INIT,
+	IN_GAME,
+	EXIT
+};
 
+generalState gGENERAL_STATE = MAIN_MENU;
+
+enum inGameState { 
+	INSTRUCTIONS,
+	PLAYING,
+	GAME_OVER
+};
+
+inGameState gIN_GAME_STATE = INSTRUCTIONS;
 
 // variable para impresion de debug
 string gDEBUG;

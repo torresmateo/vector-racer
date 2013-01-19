@@ -121,6 +121,10 @@ void PathSection::resetItems(){
 	this->createItems();
 }
 
+void PathSection::resetItems( int segmentsLeftOut ){
+	this->deleteItems();
+	this->createItems(segmentsLeftOut);
+}
 
 
 

@@ -1,6 +1,6 @@
 
-void timerCB(int millisec) {
-	glutTimerFunc(millisec, timerCB, millisec);DEBUG(gCAR_SPEED);
+void FPSLock(int millisec) {
+	glutTimerFunc(millisec, FPSLock, millisec);gDEBUG = gKEYBOARD.toString();
 	glutPostRedisplay();
 }
 
@@ -15,9 +15,23 @@ void scorePP(int millisec){
 	gSCORE ++;
 }
 
+void carGhostHandler(int millisec){
+	if(!millisec){
+		gCAR_GHOST = 11;
+		glutTimerFunc(150, carGhostHandler, 150);
+	}else{
+		gCAR_GHOST--;
+		if(gCAR_GHOST)
+			glutTimerFunc(millisec, carGhostHandler, millisec);
+	}
+	
+}
+
 objLoader obj;
 int main(int argc, char **argv) {
 	srand ( time(NULL) );
+	loadPath();
+	
 	
 	// init GLUT and create window
 	glutInit(&argc, argv);
@@ -34,13 +48,11 @@ int main(int argc, char **argv) {
 	//cube=obj.load("beetle.obj");	//load the test.obj file
 	//scube=obj.load("test.obj");	//load the test.obj file
 	
-	loadPath();
-	
 	// register callbacks
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
 	// glutIdleFunc(display);
-	glutTimerFunc(30,timerCB,30);
+	glutTimerFunc(30,FPSLock,30);
 	glutTimerFunc(10000,increaseSpeed,10000);
 	glutTimerFunc(100,scorePP,100);
 	
