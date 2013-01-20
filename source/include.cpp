@@ -23,6 +23,7 @@
 #include <cstdio>
 #include <vector>
 #include <set>
+#include <map>
 using namespace std;
 
 // includes propios de la aplicacion
@@ -43,6 +44,7 @@ using namespace std;
 #include "main/utils.cpp"
 
 #include "input/keyboarHandlers.cpp"
+#include "input/ranking.cpp"
 #include "input/mouse.cpp"
 #include "input/process.cpp"
 
