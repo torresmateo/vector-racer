@@ -181,7 +181,7 @@ void collisionHandler(){
 	if(currentSection.thereIsObstacle(CurentIndex) and currentSection.getObstacle(CurentIndex)->isCollision()){
 		currentSection.getObstacle(CurentIndex)->trigger();
 		if( !gCAR_HEALTH )
-			gIN_GAME_STATE = GAME_OVER;
+			gIN_GAME_STATE = GAME_OVER_INIT;
 	}
 }
 

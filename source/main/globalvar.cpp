@@ -80,6 +80,7 @@ generalState gGENERAL_STATE = MAIN_MENU;
 enum inGameState { 
 	INSTRUCTIONS,
 	PLAYING,
+	GAME_OVER_INIT,
 	GAME_OVER
 };
 

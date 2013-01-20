@@ -23,13 +23,6 @@ void displayMainMenu() {
 			ss.str().c_str()
 		);
 		
-		ss.str("");
-		ss << "ranking";
-		renderBitmapStringProjection( 
-			gSCREEN.getW()/2.0, gSCREEN.getH()*0.7, 0,
-			ss.str().c_str()
-		);
-		
 		printVariables();
 		// fin de impresion en pantalla
 		glPopMatrix();
@@ -73,6 +66,13 @@ void diplayInstructions(){
 }
 
 void displayGameOverScreen(){
+	
+	// Set the camera
+	updateCameraLookAt();
+	
+	// pinta el escenario
+	drawScene();
+			
 	stringstream ss;
 	
 	// preparacion para impresion en pantalla
@@ -80,7 +80,6 @@ void displayGameOverScreen(){
 		glPushMatrix();
 		glLoadIdentity();
 		glColor3f(GREEN);
-		
 		
 		ss << "GAME OVER";
 		renderBitmapStringProjection( 
@@ -108,6 +107,39 @@ void displayGameOverScreen(){
 	restorePerspectiveProjection();
 }
 
+void playing(){
+	// Set the camera
+	updateCameraLookAt();
+	
+	// pinta el escenario
+	drawScene();
+	
+	// drawCarCollisionArea();
+	drawPositionedCar();
+	
+	//	==============================
+	//		impresion en pantalla
+	//	==============================
+	
+	// preparacion para impresion en pantalla
+	setOrthographicProjection();
+		glPushMatrix();
+		glLoadIdentity();
+		glColor3f(GREEN);
+		
+		// imprime datos del juego
+		printGameData();
+		
+		// imprime datos relevantes
+		printVariables();
+		
+		// fin de impresion en pantalla
+		glPopMatrix();
+	restorePerspectiveProjection();
+	
+	collisionHandler();
+}
+
 void displayInGame() {
 	
 	switch( gIN_GAME_STATE ){	
@@ -117,38 +149,12 @@ void displayInGame() {
 		} break;
 		
 		case PLAYING:{
-			
-			// Set the camera
-			updateCameraLookAt();
-			
-			// pinta el escenario
-			drawScene();
-			
-			// drawCarCollisionArea();
-			drawPositionedCar();
-			
-			//	==============================
-			//		impresion en pantalla
-			//	==============================
-			
-			// preparacion para impresion en pantalla
-			setOrthographicProjection();
-				glPushMatrix();
-				glLoadIdentity();
-				glColor3f(GREEN);
-				
-				// imprime datos del juego
-				printGameData();
-				
-				// imprime datos relevantes
-				printVariables();
-				
-				// fin de impresion en pantalla
-				glPopMatrix();
-			restorePerspectiveProjection();
-			
-			collisionHandler();
-			
+			playing();
+		} break;
+		
+		case GAME_OVER_INIT:{
+			displayGameOverScreen();
+			gIN_GAME_STATE = GAME_OVER;
 		} break;
 		
 		case GAME_OVER:{

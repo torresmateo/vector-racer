@@ -62,6 +62,7 @@ void processInput() {
 	
 	if( gKEYBOARD.asciiKeyPressed('r') ){
 		gCAM_POS.setXYZ(0,0,0);
+		gCAM_DIR.setXYZ(0,0,1);
 	}
 	
 	// ===== end miscelaneas =======
@@ -118,7 +119,7 @@ void processInput() {
 					
 					if( gKEYBOARD.asciiKeyPressed(ESC) ){
 						gKEYBOARD.removeAsciiKey(ESC);
-						gIN_GAME_STATE = GAME_OVER;
+						gIN_GAME_STATE = GAME_OVER_INIT;
 					}
 					
 				}break;
@@ -136,6 +137,8 @@ void processInput() {
 						gGENERAL_STATE = EXIT;
 					}
 				}break;
+				
+				case GAME_OVER_INIT:{}break;
 			}
 		}break;
 		
