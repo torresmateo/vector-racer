@@ -146,7 +146,7 @@ void playing(){
 	// pinta el escenario
 	drawScene();
 	
-	// drawCarCollisionArea();
+	//drawCarCollisionArea();
 	drawPositionedCar();
 	
 	//	==============================

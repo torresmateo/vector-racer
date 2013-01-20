@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 	glEnable(GL_DEPTH_TEST);
 	
 	//Fer: esto dejo por el momento porque me es super util descomentar una linea y comentar la otra para cambiar el objeto del modelo, el resto de los comentarios ya borre
-	cube=obj.load("cardassiangalor.obj");	//load the test.obj file
+	cube=obj.load("fighter.obj");	//load the test.obj file
 	//cube=obj.load("beetle.obj");	//load the test.obj file
 	//scube=obj.load("test.obj");	//load the test.obj file
 	

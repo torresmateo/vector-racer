@@ -187,21 +187,41 @@ void drawCartesianAxis(){
 
 
 void drawCar(){
-	glColor3f(RED);
-	glBegin(GL_QUAD_STRIP);{
-		glVertex3f( CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
-		glVertex3f(-CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
-		glVertex3f( CAR_WIDTH/2.0,-CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
-		glVertex3f(-CAR_WIDTH/2.0,-CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
+
+
+	
+
+	glPushMatrix();{
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_FILL);
+	
+		float scaleFactor = 0.00017f;
 		
-		glVertex3f( CAR_WIDTH/2.0,-CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
-		glVertex3f(-CAR_WIDTH/2.0,-CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
-		glVertex3f( CAR_WIDTH/2.0, CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
-		glVertex3f(-CAR_WIDTH/2.0, CAR_WIDTH/3.0,-CAR_LENGTH/2.0 );
+		//glTranslatef(0.0f,-0.25f,0.90f);
+		glEnable(GL_RESCALE_NORMAL);
 		
-		glVertex3f( CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
-		glVertex3f(-CAR_WIDTH/2.0, CAR_WIDTH/3.0, CAR_LENGTH/2.0 );
-	}glEnd();
+		glScalef(scaleFactor,scaleFactor,scaleFactor);
+		
+		//glRotatef(180.0f,0.0f,1.0f,0.0f);
+		
+		GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
+		GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat light_position[] = { 0.0, -10.0, -1.0, -0.5 };
+		glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
+		glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+		glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
+		glLightfv (GL_LIGHT0, GL_POSITION, light_position);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glDepthFunc(GL_LESS);	
+	
+		glCallList(cube);	//draw the 3D mesh
+		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT0);
+		glDisable(GL_RESCALE_NORMAL);
+    
+	}glPopMatrix();
 }
 
 void drawPositionedCar(){
@@ -280,38 +300,6 @@ void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	int curveI;
 	drawCartesianAxis();
-	
-	//dibujado del modelo
-	glPushMatrix();{
-		glPolygonMode(GL_FRONT, GL_FILL);
-		glPolygonMode(GL_BACK, GL_FILL);
-	
-		float scaleFactor = 0.01f;
-		
-		glTranslatef(0.0f,-0.05f,0.35f);
-		glEnable(GL_RESCALE_NORMAL);
-		
-		glScalef(scaleFactor,scaleFactor,scaleFactor);
-		
-		glRotatef(180.0f,0.0f,1.0f,0.0f);
-		
-		GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
-		GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-		GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-		GLfloat light_position[] = { 0.0, -10.0, -1.0, -0.5 };
-		glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
-		glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-		glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
-		glLightfv (GL_LIGHT0, GL_POSITION, light_position);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
-		glDepthFunc(GL_LESS);	
-	
-		glCallList(cube);	//draw the 3D mesh
-		glDisable(GL_LIGHTING);
-    
-	}glPopMatrix();
-	
 	
 	//dibujado del camino
 	glPushMatrix();{
