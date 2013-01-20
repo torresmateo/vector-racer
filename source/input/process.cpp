@@ -75,9 +75,10 @@ void processInput() {
 			if( gKEYBOARD.asciiKeyPressed(ESC) ){
 				gGENERAL_STATE = EXIT;
 			}
-			if( gKEYBOARD.asciiKeyPressed(SPACE)){
-				gKEYBOARD.removeAsciiKey(SPACE);
-				gGENERAL_STATE = GAME_INIT;
+			if( gKEYBOARD.asciiKeyPressed(ENTER)){
+				gKEYBOARD.removeAsciiKey(ENTER);
+				gGENERAL_STATE = IN_GAME;
+				gIN_GAME_STATE = INSTRUCTIONS;
 			}
 		}break;
 		
@@ -88,9 +89,9 @@ void processInput() {
 				//==================================
 				// seccion de instrucciones
 				case INSTRUCTIONS:{
-					if( gKEYBOARD.asciiKeyPressed(SPACE) ){
-						gKEYBOARD.removeAsciiKey(SPACE);
-						gIN_GAME_STATE = PLAYING;
+					if( gKEYBOARD.asciiKeyPressed(ENTER) ){
+						gKEYBOARD.removeAsciiKey(ENTER);
+						gIN_GAME_STATE = GAME_INIT;
 					}
 					if( gKEYBOARD.asciiKeyPressed(ESC) ){
 						gKEYBOARD.removeAsciiKey(ESC);
@@ -127,23 +128,35 @@ void processInput() {
 				//==================================
 				// controles del estado game over
 				case GAME_OVER:{
-					if( gKEYBOARD.asciiKeyPressed(SPACE) ){
-						gKEYBOARD.removeAsciiKey(SPACE);
-						gGENERAL_STATE = MAIN_MENU;
-						gIN_GAME_STATE = INSTRUCTIONS;
+					if( gKEYBOARD.asciiKeyPressed(ENTER) ){
+						gKEYBOARD.removeAsciiKey(ENTER);
+						gIN_GAME_STATE = GAME_OVER_END;
 					}
 					if( gKEYBOARD.asciiKeyPressed(ESC) ){
 						gKEYBOARD.removeAsciiKey(ESC);
 						gGENERAL_STATE = EXIT;
 					}
+					if( gSCORE_STATE != NONE ){
+						if( gKEYBOARD.asciiKeyPressed(BACKSPACE) ){
+							gKEYBOARD.removeAsciiKey(BACKSPACE);
+							if (gPLAYER_NAME.size () > 0)
+								gPLAYER_NAME.resize(gPLAYER_NAME.size()-1);
+						}
+						if( gKEYBOARD.asciiKeyPressed() ){
+							unsigned char key = gKEYBOARD.getNextAsciiKey();
+							if( isprint(key) )
+								gPLAYER_NAME += key;
+						}
+					}
 				}break;
 				
+				case GAME_INIT:{}break;
 				case GAME_OVER_INIT:{}break;
+				case GAME_OVER_END:{} break;
 			}
 		}break;
 		
 		// en los casos siguientes no se realiza control de teclas presionadas
-		case GAME_INIT:{}break;
 		case EXIT:{}break;
 		
 	}

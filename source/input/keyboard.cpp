@@ -88,7 +88,17 @@ set<int> Keyboard::getSpecialKeyPresses(){
 }
 
 
+unsigned char Keyboard::getNextAsciiKey(){
+	unsigned char key = *(asciiKeys.begin());
+	this->removeAsciiKey(key);
+	return key;
+}
 
+int Keyboard::getNextSpecialKey(){
+	int key = *(specialKeys.begin());
+	this->removeSpecialKey(key);
+	return key;
+}
 
 
 

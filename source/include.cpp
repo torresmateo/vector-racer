@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <ctype.h>
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -39,12 +40,12 @@ using namespace std;
 #include "draw/pathSection.cpp"
 #include "draw/path.cpp"
 #include "input/keyboard.cpp"
+#include "input/ranking.cpp"
 #include "main/globalvar.cpp"
 
 #include "main/utils.cpp"
 
 #include "input/keyboarHandlers.cpp"
-#include "input/ranking.cpp"
 #include "input/mouse.cpp"
 #include "input/process.cpp"
 
