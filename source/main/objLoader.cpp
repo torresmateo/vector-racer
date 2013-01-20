@@ -143,7 +143,7 @@ int objLoader::load(const char* filename){
 		}else if(coord[i]->c_str()[0] == 'v' && coord[i]->c_str()[1] == 't'){//coordenadas de textura (archivo .obj)
 			float u,v;
 			sscanf(coord[i]->c_str(),"vt %f %f",&u,&v);
-			textureCoordinate.push_back(new textCoord(u,1-v)); // 1-v a causa de la convención utilizada por OpenGL
+			textureCoordinate.push_back(new textCoord(u,v)); // 1-v a causa de la convención utilizada por OpenGL
 			isTexture = true;//consideramos que tiene textura
 		}
 	}
@@ -231,6 +231,7 @@ int objLoader::load(const char* filename){
 			glEnd();
 		}
 	}
+	glDisable(GL_TEXTURE_2D);
 	glEndList();
 	clean();
 	lists.push_back(num);
@@ -280,7 +281,7 @@ unsigned int objLoader::loadTexture(const char * filename){
 	glBindTexture(GL_TEXTURE_2D,num);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img->width, img->height, 0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, img->pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img->width, img->height, 0, GL_RGB, GL_UNSIGNED_BYTE, img->pixels);
 	glTexEnvi(GL_TEXTURE_2D, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	delete img;
 	texture.push_back(num);
