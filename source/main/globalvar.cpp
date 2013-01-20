@@ -65,12 +65,12 @@ long gTIMEBASE = 0;
 double gFPS;
 char gFPS_STRING[50];
 
+Ranking gRANKING;
 
 Keyboard gKEYBOARD;
 
 enum generalState { 
 	MAIN_MENU,
-	GAME_INIT,
 	IN_GAME,
 	EXIT
 };
@@ -79,12 +79,25 @@ generalState gGENERAL_STATE = MAIN_MENU;
 
 enum inGameState { 
 	INSTRUCTIONS,
+	GAME_INIT,
 	PLAYING,
 	GAME_OVER_INIT,
-	GAME_OVER
+	GAME_OVER,
+	GAME_OVER_END
 };
 
 inGameState gIN_GAME_STATE = INSTRUCTIONS;
+
+enum scoreState {
+	NONE,
+	TOP_10,
+	TOP
+};
+
+scoreState gSCORE_STATE = NONE;
+string gPLAYER_NAME("");
+
+
 
 // variable para impresion de debug
 string gDEBUG;

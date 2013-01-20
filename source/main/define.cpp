@@ -20,6 +20,8 @@
 #define TILT_SPEED (15.0f)
 #define ESC (27)
 #define SPACE (32)
+#define ENTER (13)
+#define BACKSPACE (8)
 
 
 

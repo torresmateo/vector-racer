@@ -11,8 +11,10 @@ void increaseSpeed(int millisec){
 }
 
 void scorePP(int millisec){
-	glutTimerFunc(millisec, scorePP, millisec);
+	if(gIN_GAME_STATE!=PLAYING)
+		return;
 	gSCORE ++;
+	glutTimerFunc(millisec, scorePP, millisec);
 }
 
 void carGhostHandler(int millisec){
@@ -54,7 +56,6 @@ int main(int argc, char **argv) {
 	// glutIdleFunc(display);
 	glutTimerFunc(30,FPSLock,30);
 	glutTimerFunc(10000,increaseSpeed,10000);
-	glutTimerFunc(100,scorePP,100);
 	
 	glutIgnoreKeyRepeat(1);
 	// keyboard register callbacks

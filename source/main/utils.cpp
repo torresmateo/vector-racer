@@ -214,6 +214,9 @@ void gameInitialization(){
 	gCAR_SPEED = 0.2;
 	gCAR_TILT = 0;
 	gCAR_LAST_X = 0;
+	gSCORE_STATE = NONE;
+	gPLAYER_NAME = "";
+	glutTimerFunc(100,scorePP,100);
 }
 
 

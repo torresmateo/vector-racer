@@ -36,6 +36,8 @@ float customRand( float limitDown, float limitUp, int decimal);
 
 void carGhostHandler(int millisec);
 
+void scorePP(int millisec);
+
 
 
 

@@ -9,8 +9,8 @@ void displayMainMenu() {
 		glColor3f(GREEN);
 		
 		
-		ss << "Play!! ";
-		ss << "[SPACE]";
+		ss << "[ENTER] ";
+		ss << "Play!!";
 		renderBitmapStringProjection( 
 			gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
 			ss.str().c_str()
@@ -23,10 +23,12 @@ void displayMainMenu() {
 			ss.str().c_str()
 		);
 		
-		printVariables();
 		// fin de impresion en pantalla
 		glPopMatrix();
 	restorePerspectiveProjection();
+	
+	printVariables();
+	gRANKING.draw();
 }
 
 void diplayInstructions(){
@@ -46,7 +48,7 @@ void diplayInstructions(){
 		);
 		
 		ss.str("");
-		ss << "[SPACE] Start when ready";
+		ss << "[ENTER] Start when ready";
 		renderBitmapStringProjection( 
 			gSCREEN.getW()*0.7, gSCREEN.getH()*0.7, 0,
 			ss.str().c_str()
@@ -88,7 +90,37 @@ void displayGameOverScreen(){
 		);
 		
 		ss.str("");
-		ss << "[SPACE] Back to main menu";
+		ss << "Score: " << gSCORE;
+		renderBitmapStringProjection( 
+			20, 20+40, 0,
+			ss.str().c_str()
+		);
+		
+		if( gSCORE_STATE == TOP ){
+			ss.str("");
+			ss << " New Highest Score!! Enter your name.";
+			renderBitmapStringProjection( 
+				20, 20+60, 0,
+				ss.str().c_str()
+			);
+		}else if( gSCORE_STATE == TOP_10 ){
+			ss.str("");
+			ss << " Top 10 score!! Enter your name.";
+			renderBitmapStringProjection( 
+				20, 20+60, 0,
+				ss.str().c_str()
+			);
+		}
+		
+		if( gSCORE_STATE != NONE ){
+			renderBitmapStringProjection( 
+				20, 20+80, 0,
+				(string("NAME: ")+gPLAYER_NAME).c_str()
+			);
+		}
+		
+		ss.str("");
+		ss << "[ENTER] Back to main menu";
 		renderBitmapStringProjection( 
 			20, 20, 0,
 			ss.str().c_str()
@@ -148,17 +180,40 @@ void displayInGame() {
 			diplayInstructions();
 		} break;
 		
+		case GAME_INIT:{
+			diplayInstructions();
+			gIN_GAME_STATE = PLAYING;
+			gameInitialization();
+		} break;
+		
 		case PLAYING:{
 			playing();
 		} break;
 		
 		case GAME_OVER_INIT:{
 			displayGameOverScreen();
+			gRANKING.retrieveData();
+			if(gRANKING.isHighestScore(gSCORE)){
+				gSCORE_STATE = TOP;
+			}else if(gRANKING.isTop10(gSCORE)){
+				gSCORE_STATE = TOP_10;
+			}else{
+				gSCORE_STATE = NONE;
+			}
 			gIN_GAME_STATE = GAME_OVER;
 		} break;
 		
 		case GAME_OVER:{
 			displayGameOverScreen();
+		} break;
+		
+		case GAME_OVER_END:{
+			if( gPLAYER_NAME != "" ){
+				gRANKING.insert(gPLAYER_NAME,gSCORE);
+				gRANKING.setData();
+			}
+			gGENERAL_STATE = MAIN_MENU;
+			gIN_GAME_STATE = INSTRUCTIONS;
 		} break;
 	}
 	
@@ -185,13 +240,6 @@ void display(void) {
 	switch( gGENERAL_STATE ){
 		case MAIN_MENU:{
 			displayMainMenu();
-		} break;
-		
-		case GAME_INIT:{
-			gameInitialization();
-			displayInGame();
-			gGENERAL_STATE = IN_GAME;
-			gIN_GAME_STATE = INSTRUCTIONS;
 		} break;
 		
 		case IN_GAME:{
