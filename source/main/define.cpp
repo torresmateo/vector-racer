@@ -16,7 +16,7 @@
 #define ROAD_LIMIT (0.4f)
 #define ROAD_SHIFT_DOWN (0.29f)
 #define CAR_LENGTH (0.2f)
-#define CAR_WIDTH (0.06f)
+#define CAR_WIDTH (0.07f)
 #define TILT_SPEED (15.0f)
 #define ESC (27)
 #define SPACE (32)
