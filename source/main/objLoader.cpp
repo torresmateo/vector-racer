@@ -5,7 +5,7 @@ int objLoader::load(const char* filename){
 	std::ifstream in(filename);	//abrimos el archivo del modelo
 	if(!in.is_open())	//if not opened, exit with -1
 	{
-		std::cout << "No se pudo abrir el archivo de modelo" << filename << std::endl;
+		std::cout << "No se pudo abrir el archivo de modelo " << filename << std::endl;
 		return -1;
 	}
 	char buf[256];//buffer de lectura

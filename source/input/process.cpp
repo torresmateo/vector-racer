@@ -95,7 +95,7 @@ void processInput() {
 					}
 					if( gKEYBOARD.asciiKeyPressed(ESC) ){
 						gKEYBOARD.removeAsciiKey(ESC);
-						gGENERAL_STATE = MAIN_MENU;
+						gGENERAL_STATE = EXIT;
 					}
 				}break;
 				
