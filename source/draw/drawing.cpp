@@ -195,7 +195,7 @@ void drawCar(){
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_FILL);
 	
-		float scaleFactor = 0.00017f;
+		float scaleFactor = 0.00014f;
 		
 		//glTranslatef(0.0f,-0.25f,0.90f);
 		glEnable(GL_RESCALE_NORMAL);
