@@ -288,7 +288,18 @@ unsigned int objLoader::loadTexture(const char * filename){
 	return num;
 }
 
-
+unsigned int objLoader::loadSingleTexture(const char * filename){
+	unsigned int num;
+	glGenTextures(1,&num);
+	Image* img = loadBMP(filename);
+	glBindTexture(GL_TEXTURE_2D,num);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img->width, img->height, 0, GL_RGB, GL_UNSIGNED_BYTE, img->pixels);
+	glTexEnvi(GL_TEXTURE_2D, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	delete img;
+	return num;
+}
 
 
 

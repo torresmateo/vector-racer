@@ -1,7 +1,7 @@
 void customCylinder(PathSection section) {
 	
-    glPolygonMode(GL_BACK, GL_LINE);
-    glPolygonMode(GL_FRONT, GL_LINE);//GL_FILL
+    glPolygonMode(GL_BACK, GL_FILL);
+    glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
     
 	GLfloat x, y, z, theta;
 	Vector3D centerVector, a, b;
@@ -32,15 +32,25 @@ void customCylinder(PathSection section) {
 	);
 	
 	Vector3D aux;
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	
 	for(int j=0; j<numSegment; j++){
 		glColor3f(BLUE);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,gTUNNEL_TEXTURE);
+			
 		glBegin(GL_QUAD_STRIP);{
 			for (int i = -36; i <= 216; i+=18) {
+				
 				theta = i * PI/180;
 				x = radius * cos(theta);
 				y = radius * sin(theta);
 				z = 0;
-				
+				//cout << i/18.0 + 2 << endl;
+				glTexCoord2f(1.0/(i/18.0 + 2),0);
+				//glTexCoord2f(0,0);
 				glVertex3f(x, y, z);
 				
 				aux = Vector3D(x,y,z);
@@ -51,15 +61,28 @@ void customCylinder(PathSection section) {
 				aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
 				aux = translateVertex(aux,posCenterEnd);
 				
+			//	glTexCoord2f(1.0/(i/18.0 + 2),1);
+				//glTexCoord2f(1,1);
+				glTexCoord2f(1.0/(i/18.0 + 2),1);
+				//glTexCoord2f(0,0);
 				glVertex3f(GET_TRIPLET(aux));	
 			}
+		//}glEnd();
+		//glBegin(GL_QUADS);{
+			//glTexCoord2f(0,0);
+			//glVertex3f(x, y, z);
 			int i = -36;
 			theta = i * PI/180;
 			x = radius * cos(theta);
 			y = radius * sin(theta);
 			z = 0;
 			
+			glTexCoord2f(1,0);
 			glVertex3f(x, y, z);
+			
+			//glTexCoord2f(0,1);
+			//glVertex3f(GET_TRIPLET(aux));	
+			
 			
 			aux = Vector3D(x,y,z);
 			
@@ -69,11 +92,19 @@ void customCylinder(PathSection section) {
 			aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
 			aux = translateVertex(aux,posCenterEnd);
 			
+			glTexCoord2f(1,1);
 			glVertex3f(GET_TRIPLET(aux));	
 			
 		}glEnd();
 		
+		glDisable(GL_TEXTURE_2D);
+		
 		// Se pintan los objetos en la pista
+		
+		
+		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT0);
+
 		if(section.thereIsWhiteSphere(j))
 			section.getWhiteSphere(j)->draw();
 		
@@ -83,6 +114,9 @@ void customCylinder(PathSection section) {
 		if(section.thereIsObstacle(j))
 			section.getObstacle(j)->draw();
 		
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+	
 		
 		glTranslatef(GET_TRIPLET(posCenterEnd));
 		
@@ -93,6 +127,8 @@ void customCylinder(PathSection section) {
 			GET_TRIPLET(rotateAxis)
 		);
 	}
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
 }
 
 void customCylinderTransformations(PathSection section){
@@ -216,7 +252,7 @@ void drawCar(){
 		glEnable(GL_LIGHT0);
 		glDepthFunc(GL_LESS);	
 	
-		glCallList(cube);	//draw the 3D mesh
+		glCallList(gFIGHTER_MODEL);	//draw the 3D mesh
 		glDisable(GL_LIGHTING);
 		glDisable(GL_LIGHT0);
 		glDisable(GL_RESCALE_NORMAL);

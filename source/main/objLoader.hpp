@@ -95,6 +95,7 @@ class objLoader{
 		objLoader();
 		~objLoader();
 		
+		unsigned int loadSingleTexture(const char* fileName);
 		int load(const char* fileName);
 	
 };
