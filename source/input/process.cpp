@@ -29,44 +29,10 @@ void processInput() {
 	if( !gKEYBOARD.keyPressed() )
 		return;
 	
-	// ===== miscelaneas ===========
-	
-	if( gKEYBOARD.asciiKeyPressed('w') ){
-		gCAM_POS += gCAM_DIR*gCAM_TRASNLATE_SPEED;
+	if( gKEYBOARD.asciiKeyPressed('q') ){
+		gKEYBOARD.removeAsciiKey('q');
+		gDEBUG_MODE = !gDEBUG_MODE;
 	}
-	if( gKEYBOARD.asciiKeyPressed('a') ){
-		Vector3D auxCamDir(gCAM_DIR);
-		
-		double angleXZ = auxCamDir.getAngleXZ()-HALF_PI;
-		auxCamDir.setAngleXZ( HALF_PI );
-		auxCamDir.setAngleYZ( HALF_PI );
-		auxCamDir.setAngleXZ( angleXZ );
-		
-		gCAM_POS += auxCamDir*gCAM_TRASNLATE_SPEED;
-	}
-	
-	if( gKEYBOARD.asciiKeyPressed('s') ){
-		gCAM_POS -= gCAM_DIR*gCAM_TRASNLATE_SPEED;
-	}
-	
-	if( gKEYBOARD.asciiKeyPressed('d') ){
-		Vector3D auxCamDir(gCAM_DIR);
-		
-		double angleXZ = auxCamDir.getAngleXZ()+HALF_PI;
-		auxCamDir.setAngleXZ( HALF_PI );
-		auxCamDir.setAngleYZ( HALF_PI );
-		auxCamDir.setAngleXZ( angleXZ );
-		
-		gCAM_POS += auxCamDir*gCAM_TRASNLATE_SPEED;
-	}
-	
-	if( gKEYBOARD.asciiKeyPressed('r') ){
-		gCAM_POS.setXYZ(0,0,0);
-		gCAM_DIR.setXYZ(0,0,1);
-	}
-	
-	// ===== end miscelaneas =======
-	
 	
 	switch( gGENERAL_STATE ){
 		//==================================
@@ -102,6 +68,46 @@ void processInput() {
 				//==================================
 				// controles del juego en progreso
 				case PLAYING:{
+					if( gDEBUG_MODE ){
+						// ===== mover camara ===========
+						
+						if( gKEYBOARD.asciiKeyPressed('w') ){
+							gCAM_POS += gCAM_DIR*gCAM_TRASNLATE_SPEED;
+						}
+						if( gKEYBOARD.asciiKeyPressed('a') ){
+							Vector3D auxCamDir(gCAM_DIR);
+							
+							double angleXZ = auxCamDir.getAngleXZ()-HALF_PI;
+							auxCamDir.setAngleXZ( HALF_PI );
+							auxCamDir.setAngleYZ( HALF_PI );
+							auxCamDir.setAngleXZ( angleXZ );
+							
+							gCAM_POS += auxCamDir*gCAM_TRASNLATE_SPEED;
+						}
+						
+						if( gKEYBOARD.asciiKeyPressed('s') ){
+							gCAM_POS -= gCAM_DIR*gCAM_TRASNLATE_SPEED;
+						}
+						
+						if( gKEYBOARD.asciiKeyPressed('d') ){
+							Vector3D auxCamDir(gCAM_DIR);
+							
+							double angleXZ = auxCamDir.getAngleXZ()+HALF_PI;
+							auxCamDir.setAngleXZ( HALF_PI );
+							auxCamDir.setAngleYZ( HALF_PI );
+							auxCamDir.setAngleXZ( angleXZ );
+							
+							gCAM_POS += auxCamDir*gCAM_TRASNLATE_SPEED;
+						}
+						
+						if( gKEYBOARD.asciiKeyPressed('r') ){
+							gCAM_POS.setXYZ(0,0,0);
+							gCAM_DIR.setXYZ(0,0,1);
+						}
+						
+						// ===== end mover camara =======
+					}
+					
 					if( gKEYBOARD.specialKeyPressed(GLUT_KEY_LEFT) and !gKEYBOARD.specialKeyPressed(GLUT_KEY_RIGHT) ){
 						if( fabs(gCAR_TILT-TILT_SPEED) < 45 )
 							gCAR_TILT -= TILT_SPEED;

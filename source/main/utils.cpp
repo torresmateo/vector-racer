@@ -208,6 +208,8 @@ void gameInitialization(){
 	gCURVES[index].resetItems();
 	gTUNNEL_PATH.pushSection(gCURVES[index]);
 	
+	gCAM_POS.setXYZ(0.0f,0.0f,0.0f);
+	gCAM_DIR.setXYZ(0.0f,0.0f,1.0f);
 	gSCORE = 0;
 	gCAR_POS.setX(0);
 	gCAR_HEALTH = 3;

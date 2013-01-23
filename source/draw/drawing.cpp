@@ -458,7 +458,11 @@ void setOrthographicProjection() {
 
 	// set a 2D orthographic projection
 	gluOrtho2D(0, gSCREEN.getW(), gSCREEN.getH(), 0);
-
+	
+	// mover the origin from the bottom left corner
+	// to the upper left corner
+	glTranslatef(gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0);
+	
 	// switch back to modelview mode
 	glMatrixMode(GL_MODELVIEW);
 }
@@ -554,19 +558,19 @@ void printVariables(){
 	);
 	shift += 25;
 	
-	// stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
-	// renderBitmapStringProjection( 
-		// 15, gSCREEN.getH()-shift, 0,
-		// stringToPrint.c_str()
-	// );
-	// shift += 25;
+	stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+	shift += 25;
 	
-	// stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
-	// renderBitmapStringProjection( 
-		// 15, gSCREEN.getH()-shift, 0,
-		// stringToPrint.c_str()
-	// );
-	// shift += 25;
+	stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+	shift += 25;
 	
 	// stringToPrint = "gMOUSE: " + gMOUSE.toString();
 	// renderBitmapStringProjection( 

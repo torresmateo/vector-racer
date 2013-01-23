@@ -98,7 +98,7 @@ scoreState gSCORE_STATE = NONE;
 string gPLAYER_NAME("");
 
 
-
+bool gDEBUG_MODE = false;
 // variable para impresion de debug
 string gDEBUG;
 GLfloat gFLOAT_DEBUG = 0;

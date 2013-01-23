@@ -1,7 +1,7 @@
 void customCylinder(PathSection section) {
 	
-    glPolygonMode(GL_BACK, GL_LINE);
-    glPolygonMode(GL_FRONT, GL_LINE);
+    glPolygonMode(GL_BACK, GL_FILL);
+    glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
     
 	GLfloat x, y, z, theta;
 	Vector3D centerVector, a, b;
@@ -32,15 +32,25 @@ void customCylinder(PathSection section) {
 	);
 	
 	Vector3D aux;
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	
 	for(int j=0; j<numSegment; j++){
-		glColor3f(RED);
+		glColor3f(BLUE);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,gTUNNEL_TEXTURE);
+			
 		glBegin(GL_QUAD_STRIP);{
 			for (int i = -36; i <= 216; i+=18) {
+				
 				theta = i * PI/180;
 				x = radius * cos(theta);
 				y = radius * sin(theta);
 				z = 0;
-				
+				//cout << i/18.0 + 2 << endl;
+				glTexCoord2f(1.0/(i/18.0 + 2),0);
+				//glTexCoord2f(0,0);
 				glVertex3f(x, y, z);
 				
 				aux = Vector3D(x,y,z);
@@ -51,15 +61,28 @@ void customCylinder(PathSection section) {
 				aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
 				aux = translateVertex(aux,posCenterEnd);
 				
+			//	glTexCoord2f(1.0/(i/18.0 + 2),1);
+				//glTexCoord2f(1,1);
+				glTexCoord2f(1.0/(i/18.0 + 2),1);
+				//glTexCoord2f(0,0);
 				glVertex3f(GET_TRIPLET(aux));	
 			}
+		//}glEnd();
+		//glBegin(GL_QUADS);{
+			//glTexCoord2f(0,0);
+			//glVertex3f(x, y, z);
 			int i = -36;
 			theta = i * PI/180;
 			x = radius * cos(theta);
 			y = radius * sin(theta);
 			z = 0;
 			
+			glTexCoord2f(1,0);
 			glVertex3f(x, y, z);
+			
+			//glTexCoord2f(0,1);
+			//glVertex3f(GET_TRIPLET(aux));	
+			
 			
 			aux = Vector3D(x,y,z);
 			
@@ -69,13 +92,31 @@ void customCylinder(PathSection section) {
 			aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
 			aux = translateVertex(aux,posCenterEnd);
 			
+			glTexCoord2f(1,1);
 			glVertex3f(GET_TRIPLET(aux));	
 			
 		}glEnd();
 		
-		if(section.thereIsWhiteSphere(j)){
+		glDisable(GL_TEXTURE_2D);
+		
+		// Se pintan los objetos en la pista
+		
+		
+		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT0);
+
+		if(section.thereIsWhiteSphere(j))
 			section.getWhiteSphere(j)->draw();
-		}
+		
+		if(section.thereIsBlueSphere(j))
+			section.getBlueSphere(j)->draw();
+			
+		if(section.thereIsObstacle(j))
+			section.getObstacle(j)->draw();
+		
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+	
 		
 		glTranslatef(GET_TRIPLET(posCenterEnd));
 		
@@ -86,6 +127,8 @@ void customCylinder(PathSection section) {
 			GET_TRIPLET(rotateAxis)
 		);
 	}
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
 }
 
 void customCylinderTransformations(PathSection section){
@@ -133,6 +176,29 @@ void customCylinderTransformations(PathSection section){
 	}
 }
 
+void drawSolidCylinder(GLUquadric* quad, GLdouble base, GLdouble top, GLdouble height, GLint slices, GLint stacks){
+	gluCylinder(quad, base, top, height, slices, stacks);
+	glRotatef(180, 1,0,0);
+	gluDisk(quad, 0.0f, base, slices, 1);
+	glRotatef(180, 1,0,0);
+	glTranslatef(0.0f, 0.0f, height);
+	gluDisk(quad, 0.0f, top, slices, 1);
+	glTranslatef(0.0f, 0.0f, -height);
+}
+
+void drawSolidPyramid( float r, float h){
+	glBegin(GL_TRIANGLE_STRIP);{
+		glVertex3f(    r, 0.0f,   -r );
+		glVertex3f( 0.0f,    h, 0.0f );
+		glVertex3f(   -r, 0.0f,   -r );
+		glVertex3f(  -r , 0.0f,    r );
+		glVertex3f(    r, 0.0f,   -r );
+		glVertex3f(    r, 0.0f,    r );
+		glVertex3f( 0.0f,    h, 0.0f );
+		glVertex3f(  -r , 0.0f,    r );
+	}glEnd();
+}
+	
 void drawCartesianAxis(){
 	glPushMatrix(); 
     	glColor3f(RED);
@@ -152,20 +218,90 @@ void drawCartesianAxis(){
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 0.0f, 10.0f);
 		glEnd();
-		//glutSolidTorus  ( 0.01f, 1.51f, 60, 60 );
-	
-		
-		
 	glPopMatrix();
 }
 
 
 void drawCar(){
-	glColor3f(GREEN);
+
+
 	
-	glPushMatrix(); {
-		glTranslatef(GET_TRIPLET(gCAR_POS));
-		glutWireCone(0.03f,0.2f,10,2);
+
+	glPushMatrix();{
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_FILL);
+	
+		float scaleFactor = 0.00014f;
+		
+		//glTranslatef(0.0f,-0.25f,0.90f);
+		glEnable(GL_RESCALE_NORMAL);
+		
+		glScalef(scaleFactor,scaleFactor,scaleFactor);
+		
+		//glRotatef(180.0f,0.0f,1.0f,0.0f);
+		
+		GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
+		GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat light_position[] = { 0.0, -10.0, -1.0, -0.5 };
+		glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
+		glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+		glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
+		glLightfv (GL_LIGHT0, GL_POSITION, light_position);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glDepthFunc(GL_LESS);	
+	
+		glCallList(gFIGHTER_MODEL);	//draw the 3D mesh
+		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT0);
+		glDisable(GL_RESCALE_NORMAL);
+    
+	}glPopMatrix();
+}
+
+void drawPositionedCar(){
+	
+	gCAR_ROTATION = 90-RADIANS_TO_DEGREES(acos(gTUNNEL_PATH.getCurrentSection().getPositionEnd().getX()/0.05));
+	
+	if( fabs(gCAR_ROTATION-gCURRENT_CAR_ROTATION) >= 0.3 ){
+		if( gCAR_ROTATION > gCURRENT_CAR_ROTATION ){
+			gCURRENT_CAR_ROTATION += 0.3;
+		}else if(gCAR_ROTATION < gCURRENT_CAR_ROTATION){
+			gCURRENT_CAR_ROTATION -= 0.3;
+		}
+	}
+	
+	if( gCAR_GHOST%2 == 0 ){
+		glPushMatrix();{
+			glTranslatef( gCAR_POS.getX(), gCAR_POS.getY(), gCAR_POS.getZ()+CAR_LENGTH/2.0 );
+				glRotatef( 
+					gCURRENT_CAR_ROTATION, 
+					0.0f,1.0f,0.0f 
+				);
+			glRotatef( gCAR_TILT, 0.0f,0.0f,1.0f );
+			drawCar();
+		}glPopMatrix();
+	}
+}
+
+void drawCarCollisionArea(){
+	
+	glColor3f(WHITE);
+	
+	glPushMatrix();{
+		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_WIDTH/2.0);
+		glutSolidCube(CAR_WIDTH);
+	}glPopMatrix();
+	
+	glPushMatrix();{
+		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_LENGTH-CAR_WIDTH/2.0);
+		glutSolidCube(CAR_WIDTH);
+	}glPopMatrix();
+	
+	glPushMatrix();{
+		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_LENGTH/2.0);
+		glutSolidCube(CAR_WIDTH);
 	}glPopMatrix();
 }
 
@@ -196,69 +332,37 @@ void drawCircle(float radius, Vector3D axis, float centerOffset, Vector3D transl
 *************************************************************/
 
 void drawScene() {
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	int curveI;
 	drawCartesianAxis();
 	
-	
-	float pos[]={0,0,1.0,0.0f};
-    glLightfv(GL_LIGHT0,GL_POSITION,pos);
-	 GLfloat mat_ambient[] = { 0.7f, 0.7f, 0.7f, 1.0f };
- GLfloat mat_diffuse[] = { 0.1f, 0.5f, 0.8f, 1.0f };
- GLfloat mat_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
- GLfloat mat_shininess[] = { 100.0f };
-
-	
-	
-    
-	glPushMatrix();{
-		glPolygonMode(GL_FRONT, GL_FILL);
-		//glTranslatef(0.0f,1.5f,3.0f);
-	
-glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-	//glutSolidTeapot(12.0);
-	
-		float scaleFactor = 0.01f;
-		
-		glTranslatef(0.0f,-0.05f,0.35f);
-		
-		glScalef(scaleFactor,scaleFactor,scaleFactor);
-		
-		glRotatef(180.0f,0.0f,1.0f,0.0f);
-		
-		//glTranslatef(0.0,-30.0,-100.0);
-		
-	    
-		glCallList(cube);	//draw the 3D mesh
-	}glPopMatrix();
-	
+	//dibujado del camino
 	glPushMatrix();{
 	
+		//calculo de la posicion del path en relacion al punto 0,0,0
+		
+		gSEGMENT_PROGRESS -= gCAR_SPEED;
+		gCAR_LAST_X = gCAR_POS.getX();
 		if(gSEGMENT_PROGRESS <= -1.0f){//se termina la transformación del Model View para el segmento actual
 			
 			if(gTUNNEL_PATH.getCurrentUnusedSegments() > 1)						//queda algún segmento para consumir?
 				gTUNNEL_PATH.consumeSegment();									//consumimos un segmento
 			else{																//sino
-				gTUNNEL_PATH.nextSection();
-				//avanzamos a la siguiente sección (borrando el segmento actual)
+				gTUNNEL_PATH.nextSection();										//avanzamos a la siguiente sección (borrando el segmento actual)
 				
-				if(gPREV_INDEX_ZERO){ // verificacion para evitar dos caminos rectos (indice 0) consecutivos
-					curveI = rand()%8 + 1;
-				}else{
+				curveI = rand()%9;
+				while( curveI==gPREV_INDEX[0] or curveI==gPREV_INDEX[1] or curveI==gPREV_INDEX[2] ){
 					curveI = rand()%9;
 				}
+				gPREV_INDEX[0] = gPREV_INDEX[1];
+				gPREV_INDEX[1] = gPREV_INDEX[2];
+				gPREV_INDEX[2] = curveI;
 				
-				if( curveI == 0 )
-					gPREV_INDEX_ZERO = true;
-				else
-					gPREV_INDEX_ZERO = false;
-				
-				gTUNNEL_PATH.pushSection(gCURVES[curveI]);		//volvemos a agregar el segmento actual a la cola
+				gCURVES[curveI].resetItems();
+				gTUNNEL_PATH.pushSection(gCURVES[curveI]);						//volvemos a agregar un segmento a la cola
 			}
-			gSEGMENT_PROGRESS = 0.0f;
+			gSEGMENT_PROGRESS = 1 + gSEGMENT_PROGRESS;
 		}
 		
 		Vector3D translation = gTUNNEL_PATH.getCurrentSection().getPositionEnd();
@@ -273,14 +377,11 @@ glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 				GET_TRIPLET(rotateAxis)
 			); 	
 			glTranslatef(GET_TRIPLET((translation * -1)));
-			//DEBUG((gTUNNEL_PATH.getCurrentSection().getNumberOfSegments() - gTUNNEL_PATH.getCurrentUnusedSegments()));
 		}	
 		
 		//se transforma el Model View gradualmente para el segmento actual
-		gSEGMENT_PROGRESS -= gCAR_SPEED;
-		
 		translation = translation * gSEGMENT_PROGRESS;
-	
+		
 		glRotatef(
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag()))*gSEGMENT_PROGRESS,
 			GET_TRIPLET(rotateAxis)
@@ -292,6 +393,8 @@ glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 			customCylinderTransformations(gTUNNEL_PATH.getSectionAt(i));
 		}
 		
+		
+		//dibujo efectivo
 		glPushMatrix();{
 			for(int i = 0; i < gTUNNEL_PATH.getListSize(); i++){
 				customCylinder(gTUNNEL_PATH.getSectionAt(i));
@@ -300,42 +403,8 @@ glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 		
 	}glPopMatrix();
 	
-	drawCar();
 }
 
-/************************************************************
-	dibuja un munheco de nieve
-*************************************************************/
-void drawSnowMan() {
-
-	// glScalef(scale, scale, scale);
-	glColor3f(1.0f, 1.0f, 1.0f);
-
-	// Draw Body
-	glTranslatef(0.0f ,0.75f, 0.0f);
-	glutSolidSphere(0.75f,20,20);
-
-	// Draw Head
-	glTranslatef(0.0f, 0.95f, 0.0f);
-	glutSolidSphere(0.25f,20,20);
-
-	// Draw Eyes
-	glPushMatrix();
-	glColor3f(0.0f,0.0f,0.0f);
-	glTranslatef(0.05f, 0.10f, 0.18f);
-	glutSolidSphere(0.05f,10,10);
-	glTranslatef(-0.1f, 0.0f, 0.0f);
-	glutSolidSphere(0.05f,10,10);
-	glPopMatrix();
-
-	// Draw Nose
-	glColor3f(1.0f, 0.5f, 0.5f);
-	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
-	glutSolidCone(0.08f,0.5f,10,2);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-
-}
 
 
 /************************************************************
@@ -411,7 +480,7 @@ void restorePerspectiveProjection() {
 /************************************************************
 	
 *************************************************************/
-void renderBitmapStringProjection( double x, double y, double z, const char* text ) {
+void renderBitmapStringProjection( float x, float y, float z, const char* text ) {
 	setOrthographicProjection();
 
 	glPushMatrix();
@@ -426,10 +495,92 @@ void renderBitmapStringProjection( double x, double y, double z, const char* tex
 	restorePerspectiveProjection();
 }
 
+void renderBitmapStringProjection( float x, float y, float z, const char* text, void *font ) {
+	setOrthographicProjection();
 
+	glPushMatrix();
+	glLoadIdentity();
+	renderBitmapString(
+		x,y,z,
+		font,
+		text
+	);
+	glPopMatrix();
+
+	restorePerspectiveProjection();
+}
+
+
+void printGameData(){
+	stringstream ss;
+	int shift = 0;
+	int posX = gSCREEN.getW()-200;
+	int posY = gSCREEN.getH()-25;
 	
+	ss << "Health ";
+	int i;
+	for( i=0; i<gCAR_HEALTH; i++ )
+		ss << "[X]";
+	for( i=i; i<3; i++ )
+		ss << "[   ]";
 	
+	renderBitmapStringProjection( 
+		posX, posY-shift, 0,
+		ss.str().c_str()
+	);
+	ss.str("");
+	shift += 22;
 	
+	ss << "Score  " << gSCORE;
+	renderBitmapStringProjection( 
+		posX, posY-shift, 0,
+		ss.str().c_str()
+	);
+	
+}	
+
+
+/************************************************************
+	funcion para imprimir datos internos relevantes del programa
+*************************************************************/
+void printVariables(){
+	string stringToPrint;
+	int shift = 15;
+	
+	stringToPrint = "Frame Rate: " + intToStr((int)gFPS) + " fps";
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+	shift += 25;
+	
+	// stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
+	// renderBitmapStringProjection( 
+		// 15, gSCREEN.getH()-shift, 0,
+		// stringToPrint.c_str()
+	// );
+	// shift += 25;
+	
+	// stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
+	// renderBitmapStringProjection( 
+		// 15, gSCREEN.getH()-shift, 0,
+		// stringToPrint.c_str()
+	// );
+	// shift += 25;
+	
+	// stringToPrint = "gMOUSE: " + gMOUSE.toString();
+	// renderBitmapStringProjection( 
+		// 15, gSCREEN.getH()-shift, 0,
+		// stringToPrint.c_str()
+	// );
+	// shift += 25;
+	
+	stringToPrint = "gDEBUG: " + gDEBUG;
+	renderBitmapStringProjection( 
+		15, gSCREEN.getH()-shift, 0,
+		stringToPrint.c_str()
+	);
+}
 	
 	
 	
