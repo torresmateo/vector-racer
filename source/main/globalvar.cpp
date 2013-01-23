@@ -111,6 +111,9 @@ PathSection gCURRENT_PATH_SECTION;
 
 objLoader gOBJ_LOADER;
 unsigned int gTUNNEL_TEXTURE;
+unsigned int gMAIN_MENU_BG;
+unsigned int gINSTRUCTIONS_BG;
+unsigned int gGAME_OVER_BG;
 int gFIGHTER_MODEL;//RENOMBRAR esta es la variable que carga el modelo del archivo .obj
 
 
