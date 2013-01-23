@@ -29,7 +29,6 @@ void carGhostHandler(int millisec){
 	
 }
 
-objLoader obj;
 int main(int argc, char **argv) {
 	srand ( time(NULL) );
 	loadPath();
@@ -46,9 +45,12 @@ int main(int argc, char **argv) {
 	glEnable(GL_DEPTH_TEST);
 	
 	//Fer: esto dejo por el momento porque me es super util descomentar una linea y comentar la otra para cambiar el objeto del modelo, el resto de los comentarios ya borre
-	cube=obj.load("fighter.obj");	//load the test.obj file
+	gFIGHTER_MODEL=gOBJ_LOADER.load("fighter.obj");	//load the test.obj file
 	//cube=obj.load("beetle.obj");	//load the test.obj file
 	//scube=obj.load("test.obj");	//load the test.obj file
+	gTUNNEL_TEXTURE = gOBJ_LOADER.loadSingleTexture("tunnel.bmp");
+	
+	
 	
 	// register callbacks
 	glutDisplayFunc(display);
