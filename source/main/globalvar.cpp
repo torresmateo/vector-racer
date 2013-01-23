@@ -109,7 +109,9 @@ Path gTUNNEL_PATH;
 PathSection gCURRENT_PATH_SECTION;
 
 
-int cube;//RENOMBRAR esta es la variable que carga el modelo del archivo .obj
+objLoader gOBJ_LOADER;
+unsigned int gTUNNEL_TEXTURE;
+int gFIGHTER_MODEL;//RENOMBRAR esta es la variable que carga el modelo del archivo .obj
 
 
 

@@ -9,20 +9,47 @@ Vector3D gCAM_LOOK_AT(gCAM_POS+gCAM_DIR);
 // velocidad de giro de la camara
 double gCAM_ROTATE_SPEED = 0.01f;
 // velocidad de translado de la camara
-double gCAM_TRASNLATE_SPEED = 0.01f;
+double gCAM_TRASNLATE_SPEED = 0.02f;
 
 // Posicion del automovil
-Vector3D gCAR_POS( gCAM_POS + gCAM_DIR*1.0f );
-double gCAR_LATERAL_SHIFT = 0;
+// Vector3D gCAR_POS( gCAM_POS + gCAM_DIR*1.0f );
+// double gCAR_LATERAL_SHIFT = 0;
 
 // width and height of the window
 Vector2D gSCREEN; 
 
-
-
 // ultima posicion del mouse
 Vector2D gMOUSE(-1,-1); 
 
+Vector3D gPATH_POS(0.0f,0.0f,0.0f);
+Vector3D gPATH_NORMAL(0.0f,0.0f,1.0f);
+
+// Curvas predefinidas
+PathSection gCURVES[9];
+
+// referentes al vehiculo
+float gCAR_SPEED = 0.2f;
+Vector3D gCAR_POS(0.0f,-0.25f,0.8f);
+float gCAR_LAST_X = 0.0f;
+float gCAR_LATERAL_SPEED = 0.025f;
+float gCAR_TILT = 0.0f;
+float gCAR_ROTATION = 0.0f;
+float gCURRENT_CAR_ROTATION = 0.0f;
+
+// game
+int gCAR_HEALTH = 3;
+int gCAR_GHOST = 0;
+int gSCORE = 0;
+
+float gSEGMENT_PROGRESS = 0.0f;
+
+int gPREV_INDEX[3];
+
+//modelview
+GLfloat gMODEL_VIEW_MATRIX[16] = { 	1.0f, 0.0f, 0.0f, 0.0f,
+                						0.0f, 1.0f, 0.0f, 0.0f,
+                						0.0f, 0.0f, 1.0f, 0.0f,
+                						0.0f, 0.0f, 0.0f, 1.0f };
 
 
 
@@ -38,57 +65,53 @@ long gTIMEBASE = 0;
 double gFPS;
 char gFPS_STRING[50];
 
+Ranking gRANKING;
 
+Keyboard gKEYBOARD;
 
-// estructura para control de teclas presionadas
-struct keysPressed {
-	bool Q; //cambiar posicion del auto (izquierda)
-	bool W; //avanzar en profundidad camara
-	bool E; //cambiar posicion del auto (derecha)
-	bool A; //movimiento lateral camara (izq)
-	bool S; //retroceder en profuncidad camara
-	bool D; //movimiento lateral de camara (derecha)
-    bool Z; //shift vertical arriba (camara)
-    bool C; //shift vertical abajo (camara)
-	bool ESC; //salir
-	// contador de teclas presionadas.
-	// puede usarse como booleano para 
-	// saber si alguna tecla esta presionada.
-	int PRESSED;
-} gKEY = {false,false,false,false,false,false,false,0};
+enum generalState { 
+	MAIN_MENU,
+	IN_GAME,
+	EXIT
+};
+
+generalState gGENERAL_STATE = MAIN_MENU;
+
+enum inGameState { 
+	INSTRUCTIONS,
+	GAME_INIT,
+	PLAYING,
+	GAME_OVER_INIT,
+	GAME_OVER,
+	GAME_OVER_END
+};
+
+inGameState gIN_GAME_STATE = INSTRUCTIONS;
+
+enum scoreState {
+	NONE,
+	TOP_10,
+	TOP
+};
+
+scoreState gSCORE_STATE = NONE;
+string gPLAYER_NAME("");
 
 
 
 // variable para impresion de debug
 string gDEBUG;
 GLfloat gFLOAT_DEBUG = 0;
+GLfloat gFLOAT_DEBUGy = 0;
+GLfloat gFLOAT_DEBUGz = 0;
 
 Path gTUNNEL_PATH;
 PathSection gCURRENT_PATH_SECTION;
 
 
-
-
-//de Mateo BORRAR despues de las pruebas
-
-GLfloat rtri;   //Angle for the Triangle (NEW)
-GLfloat rquad;  //Rotation Angle for the Quad (new) 
-
-bool light;
-bool lp;
-bool fp;
-
-GLfloat xrot;
-GLfloat yrot;
-GLfloat xspeed;
-GLfloat yspeed;
-GLfloat z=-0.5f;
-
-GLfloat LightAmbient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
-GLfloat LightDiffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f }; 
-GLfloat LightPosition[]= { 0.0f, 0.0f, 2.0f, 1.0f };  
-GLuint  filter;                                 // Which Filter To Use
-GLuint  texture[3];                             // Storage for 3 textures
+objLoader gOBJ_LOADER;
+unsigned int gTUNNEL_TEXTURE;
+int gFIGHTER_MODEL;//RENOMBRAR esta es la variable que carga el modelo del archivo .obj
 
 
 
