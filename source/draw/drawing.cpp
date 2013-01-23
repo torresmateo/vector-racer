@@ -38,20 +38,25 @@ void customCylinder(PathSection section) {
 	
 	for(int j=0; j<numSegment; j++){
 		glColor3f(BLUE);
+		
+		
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D,gTUNNEL_TEXTURE);
 			
 		glBegin(GL_QUAD_STRIP);{
 			for (int i = -36; i <= 216; i+=18) {
 				
+				int a = (i/18.0 + 2);
+				
 				theta = i * PI/180;
 				x = radius * cos(theta);
 				y = radius * sin(theta);
 				z = 0;
-				//cout << i/18.0 + 2 << endl;
-				glTexCoord2f(1.0/(i/18.0 + 2),0);
+				glTexCoord2f(a>0?(1.0/14 * a):0,0);
 				//glTexCoord2f(0,0);
 				glVertex3f(x, y, z);
+				
+				//cout << "[" << x << "]" << "[" << y << "]"<< "[" << z << "]" << endl;
 				
 				aux = Vector3D(x,y,z);
 				
@@ -63,37 +68,41 @@ void customCylinder(PathSection section) {
 				
 			//	glTexCoord2f(1.0/(i/18.0 + 2),1);
 				//glTexCoord2f(1,1);
-				glTexCoord2f(1.0/(i/18.0 + 2),1);
+				glTexCoord2f(a>0?(1.0/14 * a):0,1);
 				//glTexCoord2f(0,0);
 				glVertex3f(GET_TRIPLET(aux));	
 			}
-		//}glEnd();
-		//glBegin(GL_QUADS);{
-			//glTexCoord2f(0,0);
-			//glVertex3f(x, y, z);
+		}glEnd();
+		glBegin(GL_QUAD_STRIP);{
+			glTexCoord2f(0,0);
+			glVertex3f(x, y, z);
+			//cout << "[" << x << "]" << "[" << y << "]"<< "[" << z << "]" << endl << endl;
 			int i = -36;
 			theta = i * PI/180;
 			x = radius * cos(theta);
 			y = radius * sin(theta);
 			z = 0;
 			
+			glTexCoord2f(0,1);
+			glVertex3f(GET_TRIPLET(aux));	
+
 			glTexCoord2f(1,0);
 			glVertex3f(x, y, z);
 			
-			//glTexCoord2f(0,1);
-			//glVertex3f(GET_TRIPLET(aux));	
 			
 			
-			aux = Vector3D(x,y,z);
+			Vector3D aux2 = Vector3D(x,y,z);
 			
 			Vector3D rotateAxis(0,0,1);
 			rotateAxis = Vector3D::crossMultiply(rotateAxis,normalEnd);
 			
-			aux = rotateVertex(aux,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
-			aux = translateVertex(aux,posCenterEnd);
+			aux2 = rotateVertex(aux2,rotateAxis,RADIANS_TO_DEGREES(asin(rotateAxis.getMag())));
+			aux2 = translateVertex(aux2,posCenterEnd);
+			
 			
 			glTexCoord2f(1,1);
-			glVertex3f(GET_TRIPLET(aux));	
+			glVertex3f(GET_TRIPLET(aux2));	
+			
 			
 		}glEnd();
 		
