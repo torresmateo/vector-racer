@@ -3,29 +3,29 @@ void displayMainMenu() {
 	stringstream ss;
 	
 	// preparacion para impresion en pantalla
-	setOrthographicProjection();
-		glPushMatrix();{
-			glLoadIdentity();
+	// setOrthographicProjection();
+		// glPushMatrix();{
+			// glLoadIdentity();
 			
-			glColor3f(GREEN);
+			// glColor3f(GREEN);
 			
-			ss << "[ENTER] ";
-			ss << "Play!!";
-			renderBitmapStringProjection( 
-				gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
-				ss.str().c_str()
-			);
+			// ss << "[ENTER] ";
+			// ss << "Play!!";
+			// renderBitmapStringProjection( 
+				// gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
+				// ss.str().c_str()
+			// );
 
-			ss.str("");
-			ss << "[ESC] exit";
-			renderBitmapStringProjection( 
-				20, 20, 0,
-				ss.str().c_str()
-			);
+			// ss.str("");
+			// ss << "[ESC] exit";
+			// renderBitmapStringProjection( 
+				// 20, 20, 0,
+				// ss.str().c_str()
+			// );
 			
-		// fin de impresion en pantalla
-		}glPopMatrix();
-	restorePerspectiveProjection();
+		////fin de impresion en pantalla
+		// }glPopMatrix();
+	// restorePerspectiveProjection();
 	
 	gRANKING.draw();
 	
@@ -33,12 +33,29 @@ void displayMainMenu() {
 		glPushMatrix();{
 			glLoadIdentity();
 			glColor3f(BLUE);
-			glBegin(GL_QUADS);{
-				glVertex3f( -BG_W/2, -BG_H/2, 0);
-				glVertex3f(  BG_W/2, -BG_H/2, 0);
-				glVertex3f(  BG_W/2,  BG_H/2, 0);
-				glVertex3f( -BG_W/2,  BG_H/2, 0);
-			}glEnd();
+			
+			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHT0);
+			glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D,gMAIN_MENU_BG);
+				glBegin(GL_QUADS);{
+				
+					glTexCoord2f(0,0);
+					glVertex3f( -BG_W/2,  BG_H/2, 0 );
+					
+					glTexCoord2f(0,1);
+					glVertex3f( -BG_W/2, -BG_H/2, 0 );
+					
+					glTexCoord2f(1,1);
+					glVertex3f(  BG_W/2, -BG_H/2, 0 );
+					
+					glTexCoord2f(1,0);
+					glVertex3f(  BG_W/2,  BG_H/2, 0 );
+					
+				}glEnd();
+			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_LIGHTING);
+			glDisable(GL_LIGHT0);
 		}glPopMatrix();
 	restorePerspectiveProjection();
 }
@@ -50,27 +67,27 @@ void diplayInstructions(){
 	setOrthographicProjection();
 		glPushMatrix();
 		glLoadIdentity();
-		glColor3f(GREEN);
+		// glColor3f(GREEN);
 		
-		ss << "Instrucciones";
-		renderBitmapStringProjection( 
-			gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
-			ss.str().c_str()
-		);
+		// ss << "Instrucciones";
+		// renderBitmapStringProjection( 
+			// gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
+			// ss.str().c_str()
+		// );
 		
-		ss.str("");
-		ss << "[ENTER] Start when ready";
-		renderBitmapStringProjection( 
-			gSCREEN.getW()*0.7, gSCREEN.getH()*0.7, 0,
-			ss.str().c_str()
-		);
+		// ss.str("");
+		// ss << "[ENTER] Start when ready";
+		// renderBitmapStringProjection( 
+			// gSCREEN.getW()*0.7, gSCREEN.getH()*0.7, 0,
+			// ss.str().c_str()
+		// );
 		
-		ss.str("");
-		ss << "[ESC] Back to main menu";
-		renderBitmapStringProjection( 
-			gSCREEN.getW()*0.7, gSCREEN.getH()*0.7-25, 0,
-			ss.str().c_str()
-		);
+		// ss.str("");
+		// ss << "[ESC] Back to main menu";
+		// renderBitmapStringProjection( 
+			// gSCREEN.getW()*0.7, gSCREEN.getH()*0.7-25, 0,
+			// ss.str().c_str()
+		// );
 		
 		// fin de impresion en pantalla
 		glPopMatrix();
@@ -78,12 +95,29 @@ void diplayInstructions(){
 		glPushMatrix();{
 			glLoadIdentity();
 			glColor3f(BLUE);
-			glBegin(GL_QUADS);{
-				glVertex3f( -BG_W/2, -BG_H/2, 0);
-				glVertex3f(  BG_W/2, -BG_H/2, 0);
-				glVertex3f(  BG_W/2,  BG_H/2, 0);
-				glVertex3f( -BG_W/2,  BG_H/2, 0);
-			}glEnd();
+			
+			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHT0);
+			glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D,gINSTRUCTIONS_BG);
+				glBegin(GL_QUADS);{
+				
+					glTexCoord2f(0,0);
+					glVertex3f( -BG_W/2,  BG_H/2, 0 );
+					
+					glTexCoord2f(0,1);
+					glVertex3f( -BG_W/2, -BG_H/2, 0 );
+					
+					glTexCoord2f(1,1);
+					glVertex3f(  BG_W/2, -BG_H/2, 0 );
+					
+					glTexCoord2f(1,0);
+					glVertex3f(  BG_W/2,  BG_H/2, 0 );
+					
+				}glEnd();
+			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_LIGHTING);
+			glDisable(GL_LIGHT0);
 		}glPopMatrix();
 		
 	restorePerspectiveProjection();
@@ -105,53 +139,60 @@ void displayGameOverScreen(){
 		glLoadIdentity();
 		glColor3f(GREEN);
 		
-		ss << "GAME OVER";
-		renderBitmapStringProjection( 
-			gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
-			ss.str().c_str()
-		);
+		// ss << "GAME OVER";
+		// renderBitmapStringProjection( 
+			// gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
+			// ss.str().c_str()
+		// );
 		
 		ss.str("");
 		ss << "Score: " << gSCORE;
 		renderBitmapStringProjection( 
-			20, 20+40, 0,
+			-42, -80, 0,
 			ss.str().c_str()
 		);
 		
-		if( gSCORE_STATE == TOP ){
+		if( gSCORE_STATE == TOP){
 			ss.str("");
-			ss << " New Highest Score!! Enter your name.";
+			ss << "NEW HIGHTEST SCORE !!!";
 			renderBitmapStringProjection( 
-				20, 20+60, 0,
+				-115, -115, 0,
 				ss.str().c_str()
 			);
-		}else if( gSCORE_STATE == TOP_10 ){
+		}else if( gSCORE_STATE == TOP_10){
 			ss.str("");
-			ss << " Top 10 score!! Enter your name.";
+			ss << " TOP 10 SCORE!!";
 			renderBitmapStringProjection( 
-				20, 20+60, 0,
+				-75, -115, 0,
 				ss.str().c_str()
 			);
+			
 		}
 		
-		if( gSCORE_STATE != NONE ){
+		if( gSCORE_STATE != NONE){
+			ss.str("");
+			ss << "Enter your name";
 			renderBitmapStringProjection( 
-				20, 20+80, 0,
-				(string("NAME: ")+gPLAYER_NAME).c_str()
+				-70, 40, 0,
+				ss.str().c_str()
+			);
+			renderBitmapStringProjection( 
+				-100, 70, 0,
+				(string("Player: ")+gPLAYER_NAME).c_str()
 			);
 		}
 		
 		ss.str("");
 		ss << "[ENTER] Back to main menu";
 		renderBitmapStringProjection( 
-			20, 20, 0,
+			-gSCREEN.getW()/2+20, -gSCREEN.getH()/2+30, 0,
 			ss.str().c_str()
 		);
 		
 		ss.str("");
 		ss << "[ESC] Exit";
 		renderBitmapStringProjection( 
-			20, 40, 0,
+			-gSCREEN.getW()/2+20, -gSCREEN.getH()/2+53, 0,
 			ss.str().c_str()
 		);
 		
@@ -161,12 +202,29 @@ void displayGameOverScreen(){
 		glPushMatrix();{
 			glLoadIdentity();
 			glColor3f(BLUE);
-			glBegin(GL_QUADS);{
-				glVertex3f( -175, -125-100, 0);
-				glVertex3f(  175, -125-100, 0);
-				glVertex3f(  175,  125-100, 0);
-				glVertex3f( -175,  125-100, 0);
-			}glEnd();
+			
+			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHT0);
+			glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D,gGAME_OVER_BG);
+				glBegin(GL_QUADS);{
+				
+					glTexCoord2f(0,0);
+					glVertex3f( -170,  130-30, 0);
+					
+					glTexCoord2f(0,1);
+					glVertex3f( -170, -130-30, 0);
+					
+					glTexCoord2f(1,1);
+					glVertex3f(  170, -130-30, 0);
+					
+					glTexCoord2f(1,0);
+					glVertex3f(  170,  130-30, 0);
+					
+				}glEnd();
+			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_LIGHTING);
+			glDisable(GL_LIGHT0);
 		}glPopMatrix();
 	restorePerspectiveProjection();
 }
@@ -178,7 +236,7 @@ void playing(){
 	// pinta el escenario
 	drawScene();
 	
-	//drawCarCollisionArea();
+	// drawCarCollisionArea();
 	drawPositionedCar();
 	
 	//	==============================

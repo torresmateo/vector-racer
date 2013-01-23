@@ -44,12 +44,11 @@ int main(int argc, char **argv) {
 
 	glEnable(GL_DEPTH_TEST);
 	
-	//Fer: esto dejo por el momento porque me es super util descomentar una linea y comentar la otra para cambiar el objeto del modelo, el resto de los comentarios ya borre
-	gFIGHTER_MODEL=gOBJ_LOADER.load("fighter.obj");	//load the test.obj file
-	//cube=obj.load("beetle.obj");	//load the test.obj file
-	//scube=obj.load("test.obj");	//load the test.obj file
+	gFIGHTER_MODEL=gOBJ_LOADER.load("fighter.obj");
 	gTUNNEL_TEXTURE = gOBJ_LOADER.loadSingleTexture("tunnel.bmp");
-	
+	gMAIN_MENU_BG = gOBJ_LOADER.loadSingleTexture("main-menu-background.bmp");
+	gINSTRUCTIONS_BG = gOBJ_LOADER.loadSingleTexture("instructions-background.bmp");
+	gGAME_OVER_BG = gOBJ_LOADER.loadSingleTexture("game-over-background.bmp");
 	
 	
 	// register callbacks

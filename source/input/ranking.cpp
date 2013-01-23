@@ -71,19 +71,19 @@ bool Ranking::isTop10( int score ){
 void Ranking::draw(){
 	stringstream ss;
 	int shifty = 0;
-	int shiftx = 120;
+	int shiftx = 250;
 	
 	// preparacion para impresion en pantalla
 	setOrthographicProjection();
 		glPushMatrix();
 			glLoadIdentity();
-			glColor3f(GREEN);
+			glColor3f(BLACK);
 			
-			ss << "Ranking";
-			renderBitmapStringProjection( 
-				0, 40+shifty, 0,
-				ss.str().c_str()
-			);
+			// ss << "Ranking";
+			// renderBitmapStringProjection( 
+				// 0, 40+shifty, 0,
+				// ss.str().c_str()
+			// );
 			
 			for (
 				set< pair<int,string> >::reverse_iterator rit=playersList.rbegin(); 
@@ -91,18 +91,18 @@ void Ranking::draw(){
 				++rit
 			){
 				ss.str("");
-				shifty += 20;
+				shifty += 23;
 				
 				ss << rit->second; 
 				renderBitmapStringProjection( 
-					0, 40+shifty, 0,
+					-140, -10+shifty, 0,
 					ss.str().c_str()
 				);
 				
 				ss.str("");
 				ss << rit->first; 
 				renderBitmapStringProjection( 
-					0+shiftx, 40+shifty, 0,
+					-140+shiftx, -10+shifty, 0,
 					ss.str().c_str()
 				);	
 			}

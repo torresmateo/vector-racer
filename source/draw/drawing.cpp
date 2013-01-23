@@ -518,10 +518,10 @@ void renderBitmapStringProjection( float x, float y, float z, const char* text, 
 void printGameData(){
 	stringstream ss;
 	int shift = 0;
-	int posX = gSCREEN.getW()-200;
-	int posY = gSCREEN.getH()-25;
+	int posX = gSCREEN.getW()/2-155;
+	int posY = gSCREEN.getH()/2-40;
 	
-	ss << "Health ";
+	ss << "Health: ";
 	int i;
 	for( i=0; i<gCAR_HEALTH; i++ )
 		ss << "[X]";
@@ -529,15 +529,22 @@ void printGameData(){
 		ss << "[   ]";
 	
 	renderBitmapStringProjection( 
-		posX, posY-shift, 0,
+		posX, posY+shift, 0,
 		ss.str().c_str()
 	);
 	ss.str("");
-	shift += 22;
+	shift += 23;
 	
-	ss << "Score  " << gSCORE;
+	ss << "Score:  " << gSCORE;
 	renderBitmapStringProjection( 
-		posX, posY-shift, 0,
+		posX, posY+shift, 0,
+		ss.str().c_str()
+	);
+	
+	ss.str("");
+	ss << "[ESC] Force Game Over";
+	renderBitmapStringProjection( 
+		-gSCREEN.getW()/2+20, -gSCREEN.getH()/2+30, 0,
 		ss.str().c_str()
 	);
 	
