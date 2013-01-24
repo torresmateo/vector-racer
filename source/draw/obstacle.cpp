@@ -8,6 +8,57 @@ extern int gCAR_GHOST;
 
 #include "obstacle.hpp"
 
+void drawTexturedCube( float edgeLength ){
+	edgeLength /= 2;
+	glPolygonMode(GL_BACK, GL_LINE);//GL_LINE
+	glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
+	
+	glBegin(GL_QUADS);
+        glVertex3f( +edgeLength, -edgeLength, +edgeLength);
+        glVertex3f( +edgeLength, +edgeLength, +edgeLength);
+        glVertex3f( -edgeLength, +edgeLength, +edgeLength);
+        glVertex3f( -edgeLength, -edgeLength, +edgeLength);
+    glEnd();
+	
+	glBegin(GL_QUADS);
+        glVertex3f( +edgeLength, -edgeLength, -edgeLength);
+        glVertex3f( +edgeLength, +edgeLength, -edgeLength);
+        glVertex3f( +edgeLength, +edgeLength, +edgeLength);
+        glVertex3f( +edgeLength, -edgeLength, +edgeLength);
+    glEnd();
+	
+	glBegin(GL_QUADS);
+        glVertex3f( -edgeLength, -edgeLength, -edgeLength);
+        glVertex3f( -edgeLength, +edgeLength, -edgeLength);
+        glVertex3f( +edgeLength, +edgeLength, -edgeLength);
+        glVertex3f( +edgeLength, -edgeLength, -edgeLength);
+    glEnd();
+	
+	glBegin(GL_QUADS);
+        glVertex3f( -edgeLength, -edgeLength, +edgeLength);
+        glVertex3f( -edgeLength, +edgeLength, +edgeLength);
+        glVertex3f( -edgeLength, +edgeLength, -edgeLength);
+        glVertex3f( -edgeLength, -edgeLength, -edgeLength);
+    glEnd();
+	
+	glBegin(GL_QUADS);
+        glVertex3f( -edgeLength, +edgeLength, -edgeLength );
+        glVertex3f( -edgeLength, +edgeLength, +edgeLength );
+        glVertex3f( +edgeLength, +edgeLength, +edgeLength );
+        glVertex3f( +edgeLength, +edgeLength, -edgeLength );
+    glEnd();
+	
+	glBegin(GL_QUADS);
+        glVertex3f( +edgeLength, -edgeLength, -edgeLength );
+        glVertex3f( +edgeLength, -edgeLength, +edgeLength );
+        glVertex3f( -edgeLength, -edgeLength, +edgeLength );
+        glVertex3f( -edgeLength, -edgeLength, -edgeLength );
+    glEnd();
+	
+	glPolygonMode(GL_BACK, GL_FILL);//GL_LINE
+	glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
+}
+
 void Obstacle::draw() {
 	switch(type){
 		case CYLINDER: {
@@ -22,14 +73,14 @@ void Obstacle::draw() {
 			glColor3f(GREEN);
 			glPushMatrix();{
 				glTranslatef(shift,radius-0.29f,radius);
-				glutSolidCube(height);
+				drawTexturedCube(height);
 			}glPopMatrix();
 		} break;
 		case PYRAMID: {
 			glColor3f(RED);
 			glPushMatrix();{
 				glTranslatef(shift,-0.29f,radius);
-				drawSolidPyramid(radius,height);
+				drawWirePyramid(radius,height);
 			}glPopMatrix();
 		} break;
 	}
@@ -50,10 +101,10 @@ void Obstacle::trigger(){
 		return;
 	
 	if( !gCAR_GHOST ){
-		if( gCAR_HEALTH )
+		if( gCAR_HEALTH > 0 )
 			gCAR_HEALTH--;
 			
-		if( gCAR_HEALTH )
+		if( gCAR_HEALTH > 0 )
 			carGhostHandler(0);
 	}
 		

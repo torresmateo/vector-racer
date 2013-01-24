@@ -12,7 +12,7 @@ void drawScene();
 
 void drawSnowMan();
 
-void drawSolidPyramid( float r, float h);
+void drawWirePyramid( float r, float h);
 
 void drawSolidCylinder(GLUquadric* quad, GLdouble base, GLdouble top, GLdouble height, GLint slices, GLint stacks);
 

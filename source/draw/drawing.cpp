@@ -1,7 +1,4 @@
 void customCylinder(PathSection section) {
-	
-    glPolygonMode(GL_BACK, GL_FILL);
-    glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
     
 	GLfloat x, y, z, theta;
 	Vector3D centerVector, a, b;
@@ -42,7 +39,10 @@ void customCylinder(PathSection section) {
 		
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D,gTUNNEL_TEXTURE);
-			
+		
+		glPolygonMode(GL_BACK, GL_LINE);//GL_LINE
+		glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
+		
 		glBegin(GL_QUAD_STRIP);{
 			for (int i = -36; i <= 216; i+=18) {
 				
@@ -105,7 +105,8 @@ void customCylinder(PathSection section) {
 			
 			
 		}glEnd();
-		
+		glPolygonMode(GL_BACK, GL_FILL);//GL_LINE
+		glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
 		glDisable(GL_TEXTURE_2D);
 		
 		// Se pintan los objetos en la pista
@@ -195,7 +196,9 @@ void drawSolidCylinder(GLUquadric* quad, GLdouble base, GLdouble top, GLdouble h
 	glTranslatef(0.0f, 0.0f, -height);
 }
 
-void drawSolidPyramid( float r, float h){
+void drawWirePyramid( float r, float h){
+	glPolygonMode(GL_BACK, GL_LINE);//GL_LINE
+    glPolygonMode(GL_FRONT, GL_LINE);//GL_FILL
 	glBegin(GL_TRIANGLE_STRIP);{
 		glVertex3f(    r, 0.0f,   -r );
 		glVertex3f( 0.0f,    h, 0.0f );
@@ -206,6 +209,8 @@ void drawSolidPyramid( float r, float h){
 		glVertex3f( 0.0f,    h, 0.0f );
 		glVertex3f(  -r , 0.0f,    r );
 	}glEnd();
+	glPolygonMode(GL_BACK, GL_FILL);//GL_LINE
+    glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
 }
 	
 void drawCartesianAxis(){
@@ -296,6 +301,9 @@ void drawPositionedCar(){
 
 void drawCarCollisionArea(){
 	
+	glPolygonMode(GL_BACK, GL_LINE);//GL_LINE
+    glPolygonMode(GL_FRONT, GL_LINE);//GL_FILL
+	
 	glColor3f(WHITE);
 	
 	glPushMatrix();{
@@ -312,6 +320,10 @@ void drawCarCollisionArea(){
 		glTranslatef(gCAR_POS.getX(),gCAR_POS.getY(),gCAR_POS.getZ()+CAR_LENGTH/2.0);
 		glutSolidCube(CAR_WIDTH);
 	}glPopMatrix();
+	
+	glPolygonMode(GL_BACK, GL_FILL);//GL_LINE
+    glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
+	
 }
 
 
@@ -344,8 +356,9 @@ void drawScene() {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	int curveI;
-	drawCartesianAxis();
-	
+	if( gDEBUG_MODE ){
+		drawCartesianAxis();
+	}
 	//dibujado del camino
 	glPushMatrix();{
 	
@@ -544,7 +557,7 @@ void printGameData(){
 	ss.str("");
 	shift += 23;
 	
-	ss << "Score:  " << gSCORE;
+	ss << "Score: " << gSCORE;
 	renderBitmapStringProjection( 
 		posX, posY+shift, 0,
 		ss.str().c_str()
@@ -569,21 +582,21 @@ void printVariables(){
 	
 	stringToPrint = "Frame Rate: " + intToStr((int)gFPS) + " fps";
 	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
+		-gSCREEN.getW()/2+15, gSCREEN.getH()/2-shift, 0,
 		stringToPrint.c_str()
 	);
 	shift += 25;
 	
 	stringToPrint = "gCAM_POS: " + gCAM_POS.toString();
 	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
+		-gSCREEN.getW()/2+15, gSCREEN.getH()/2-shift, 0,
 		stringToPrint.c_str()
 	);
 	shift += 25;
 	
 	stringToPrint = "gCAM_DIR: " + gCAM_DIR.toString();
 	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
+		-gSCREEN.getW()/2+15, gSCREEN.getH()/2-shift, 0,
 		stringToPrint.c_str()
 	);
 	shift += 25;
@@ -597,7 +610,7 @@ void printVariables(){
 	
 	stringToPrint = "gDEBUG: " + gDEBUG;
 	renderBitmapStringProjection( 
-		15, gSCREEN.getH()-shift, 0,
+		-gSCREEN.getW()/2+15, gSCREEN.getH()/2-shift, 0,
 		stringToPrint.c_str()
 	);
 }
