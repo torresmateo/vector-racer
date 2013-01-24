@@ -236,7 +236,10 @@ void playing(){
 	// pinta el escenario
 	drawScene();
 	
-	// drawCarCollisionArea();
+	if( gDEBUG_MODE ){
+		drawCarCollisionArea();
+	}
+	
 	drawPositionedCar();
 	
 	//	==============================

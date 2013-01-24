@@ -106,6 +106,14 @@ void processInput() {
 						}
 						
 						// ===== end mover camara =======
+						
+						if( gKEYBOARD.asciiKeyPressed('x') ){
+							gKEYBOARD.removeAsciiKey('x');
+							if(gCAR_SPEED > 0)
+								gCAR_SPEED = 0.0;
+							else
+								gCAR_SPEED = 0.2;
+						}
 					}
 					
 					if( gKEYBOARD.specialKeyPressed(GLUT_KEY_LEFT) and !gKEYBOARD.specialKeyPressed(GLUT_KEY_RIGHT) ){
@@ -129,13 +137,6 @@ void processInput() {
 						gIN_GAME_STATE = GAME_OVER_INIT;
 					}
 					
-					if( gKEYBOARD.asciiKeyPressed('x') ){
-						gKEYBOARD.removeAsciiKey('x');
-						if(gCAR_SPEED > 0)
-							gCAR_SPEED = 0.0;
-						else
-							gCAR_SPEED = 0.2;
-					}
 				}break;
 				
 				//==================================
