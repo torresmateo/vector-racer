@@ -108,6 +108,8 @@ GLfloat gFLOAT_DEBUGz = 0;
 Path gTUNNEL_PATH;
 PathSection gCURRENT_PATH_SECTION;
 
+ISound* gINGAME_MUSIC;
+ISound* gMENU_MUSIC;
 
 objLoader gOBJ_LOADER;
 int gCURRENT_TEXTURE_INDEX = 0; //index de la siguiente textura a pintar

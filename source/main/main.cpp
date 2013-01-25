@@ -33,6 +33,13 @@ int main(int argc, char **argv) {
 	srand ( time(NULL) );
 	loadPath();
 	
+	ISoundEngine* soundEngine = createIrrKlangDevice();
+	
+	gINGAME_MUSIC = soundEngine->play2D("../media/ingame.ogg", true, true, true);
+	gINGAME_MUSIC->setVolume(0.6);
+	
+	gMENU_MUSIC = soundEngine->play2D("../media/menu.ogg", true, true, true);
+	gMENU_MUSIC->setVolume(0.6);
 	
 	// init GLUT and create window
 	glutInit(&argc, argv);
@@ -84,9 +91,11 @@ int main(int argc, char **argv) {
 	glutMouseFunc(mouseClick);
 	glutMotionFunc(mouseActiveMove);
 	
+	gMENU_MUSIC->setIsPaused(false);
 	// enter GLUT event processing cycle
 	glutMainLoop();
 	
+	soundEngine->drop();
 	return 1;
 }
 
