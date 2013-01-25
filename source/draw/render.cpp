@@ -302,6 +302,9 @@ void displayInGame() {
 				gRANKING.insert(gPLAYER_NAME,gSCORE);
 				gRANKING.setData();
 			}
+			gINGAME_MUSIC->setIsPaused();
+			gMENU_MUSIC->setPlayPosition(0);
+			gMENU_MUSIC->setIsPaused(false);
 			gGENERAL_STATE = MAIN_MENU;
 			gIN_GAME_STATE = INSTRUCTIONS;
 		} break;

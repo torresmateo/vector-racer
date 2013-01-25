@@ -25,7 +25,10 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <irrKlang.h>
+
 using namespace std;
+using namespace irrklang;
 
 // includes propios de la aplicacion
 #include "main/define.cpp"
