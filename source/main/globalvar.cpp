@@ -128,6 +128,14 @@ unsigned int gGAME_OVER_BG;
 int gFIGHTER_MODEL;
 
 
+//variables de iluminacion de los obstaculos
+
+float gDIFFUSE[4]={1.0f,0.0f,0.0f,1.0f};
+float gAMBIENT[4]={1.0f,0.0f,0.0f,1.0f};
+float gSPECULAR[4]={1.0f,1.0f,0.0f,1.0f};
+float gSHININESS=1.0f;
+            
+
 
 
 

@@ -6,6 +6,10 @@ extern float gCAR_LAST_X;
 extern int gCAR_HEALTH;
 extern int gCAR_GHOST;
 extern unsigned int gCUBE_TEXTURE;
+extern float gDIFFUSE[4];
+extern float gAMBIENT[4];
+extern float gSPECULAR[4];
+extern float gSHININESS;
 
 #include "obstacle.hpp"
 
@@ -97,6 +101,13 @@ void drawTexturedCube( float edgeLength ){
 }
 
 void Obstacle::draw() {
+
+
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,gDIFFUSE);
+//	glMaterialfv(GL_FRONT,GL_AMBIENT,gAMBIENT);
+	glMaterialfv(GL_FRONT,GL_SPECULAR,gSPECULAR);
+	glMaterialf(GL_FRONT,GL_SHININESS,0.0);
+
 	switch(type){
 		case CYLINDER: {
 			glColor3f(YELLOW);
