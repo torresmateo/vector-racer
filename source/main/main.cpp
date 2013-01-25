@@ -58,7 +58,22 @@ int main(int argc, char **argv) {
 	glEnable(GL_DEPTH_TEST);
 	
 	gFIGHTER_MODEL=gOBJ_LOADER.load("fighter.obj");
-	gTUNNEL_TEXTURE = gOBJ_LOADER.loadSingleTexture("tunnel.bmp");
+	string filename; 
+	std::ostringstream itoa;
+	for(int i = 0 ; i < TEX_SEQ_QTY ; i++){
+		itoa << i;
+		filename.assign("tunnel");
+		filename.append(itoa.str());
+		filename.append(".bmp");
+		gTUNNEL_TEXTURE[i] = gOBJ_LOADER.loadSingleTexture(filename.c_str());
+		filename.assign("tunnelFloor");
+		filename.append(itoa.str());
+		filename.append(".bmp");
+		gTUNNEL_FLOOR_TEXTURE[i] = gOBJ_LOADER.loadSingleTexture(filename.c_str());
+		itoa.clear();
+		itoa.str("");
+	}
+	gCUBE_TEXTURE = gOBJ_LOADER.loadSingleTexture("cube.bmp");
 	gMAIN_MENU_BG = gOBJ_LOADER.loadSingleTexture("main-menu-background.bmp");
 	gINSTRUCTIONS_BG = gOBJ_LOADER.loadSingleTexture("instructions-background.bmp");
 	gGAME_OVER_BG = gOBJ_LOADER.loadSingleTexture("game-over-background.bmp");

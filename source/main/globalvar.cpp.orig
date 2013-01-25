@@ -98,7 +98,7 @@ scoreState gSCORE_STATE = NONE;
 string gPLAYER_NAME("");
 
 
-
+bool gDEBUG_MODE = false;
 // variable para impresion de debug
 string gDEBUG;
 GLfloat gFLOAT_DEBUG = 0;
@@ -108,9 +108,20 @@ GLfloat gFLOAT_DEBUGz = 0;
 Path gTUNNEL_PATH;
 PathSection gCURRENT_PATH_SECTION;
 
+ISound* gINGAME_MUSIC;
+ISound* gMENU_MUSIC;
+ISound* gNEXT_MENU_SOUND;
+ISound* gTOP_SOUND;
+ISound* gTOP10_SOUND;
+ISound* gNO_TOP10_SOUND;
+ISound* gEXTRA_HEALTH_SOUND;
+ISound* gDEBUG_SOUND;
 
 objLoader gOBJ_LOADER;
 unsigned int gTUNNEL_TEXTURE;
+unsigned int gMAIN_MENU_BG;
+unsigned int gINSTRUCTIONS_BG;
+unsigned int gGAME_OVER_BG;
 int gFIGHTER_MODEL;//RENOMBRAR esta es la variable que carga el modelo del archivo .obj
 
 

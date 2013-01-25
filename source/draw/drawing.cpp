@@ -38,7 +38,7 @@ void customCylinder(PathSection section) {
 		
 		
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D,gTUNNEL_TEXTURE);
+		glBindTexture(GL_TEXTURE_2D,gTUNNEL_TEXTURE[gCURRENT_TEXTURE_INDEX]);
 		
 		glPolygonMode(GL_BACK, GL_LINE);//GL_LINE
 		glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
@@ -73,6 +73,7 @@ void customCylinder(PathSection section) {
 				glVertex3f(GET_TRIPLET(aux));	
 			}
 		}glEnd();
+		glBindTexture(GL_TEXTURE_2D,gTUNNEL_FLOOR_TEXTURE[gCURRENT_TEXTURE_INDEX]);
 		glBegin(GL_QUAD_STRIP);{
 			glTexCoord2f(0,0);
 			glVertex3f(x, y, z);
@@ -136,6 +137,8 @@ void customCylinder(PathSection section) {
 			RADIANS_TO_DEGREES(asin(rotateAxis.getMag())),
 			GET_TRIPLET(rotateAxis)
 		);
+		gCURRENT_TEXTURE_INDEX = gCURRENT_TEXTURE_INDEX + 1>= TEX_SEQ_QTY? 0 : gCURRENT_TEXTURE_INDEX + 1;  
+		cout << gCURRENT_TEXTURE_INDEX << endl;
 	}
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);

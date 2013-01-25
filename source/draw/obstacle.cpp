@@ -5,6 +5,7 @@ extern float gCAR_SPEED;
 extern float gCAR_LAST_X;
 extern int gCAR_HEALTH;
 extern int gCAR_GHOST;
+extern unsigned int gCUBE_TEXTURE;
 
 #include "obstacle.hpp"
 
@@ -13,48 +14,84 @@ void drawTexturedCube( float edgeLength ){
 	glPolygonMode(GL_BACK, GL_LINE);//GL_LINE
 	glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
 	
-	glBegin(GL_QUADS);
-        glVertex3f( +edgeLength, -edgeLength, +edgeLength);
-        glVertex3f( +edgeLength, +edgeLength, +edgeLength);
-        glVertex3f( -edgeLength, +edgeLength, +edgeLength);
-        glVertex3f( -edgeLength, -edgeLength, +edgeLength);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D,gCUBE_TEXTURE);
+	
+	
+	
+	
+	glBegin(GL_QUADS);//cara con normal +z
+		glTexCoord2f(1,0);
+		glVertex3f( +edgeLength, -edgeLength, +edgeLength);
+		glTexCoord2f(1,1);
+		glVertex3f( +edgeLength, +edgeLength, +edgeLength);
+		glTexCoord2f(0,1);
+		glVertex3f( -edgeLength, +edgeLength, +edgeLength);
+		glTexCoord2f(0,0);
+		glVertex3f( -edgeLength, -edgeLength, +edgeLength);
     glEnd();
 	
-	glBegin(GL_QUADS);
-        glVertex3f( +edgeLength, -edgeLength, -edgeLength);
-        glVertex3f( +edgeLength, +edgeLength, -edgeLength);
-        glVertex3f( +edgeLength, +edgeLength, +edgeLength);
-        glVertex3f( +edgeLength, -edgeLength, +edgeLength);
+	glBegin(GL_QUADS);//cara con normal +x
+		glTexCoord2f(1,0);
+		glVertex3f( +edgeLength, -edgeLength, -edgeLength);
+		glTexCoord2f(1,1);
+		glVertex3f( +edgeLength, +edgeLength, -edgeLength);
+		glTexCoord2f(0,1);
+		glVertex3f( +edgeLength, +edgeLength, +edgeLength);
+		glTexCoord2f(0,0);
+		glVertex3f( +edgeLength, -edgeLength, +edgeLength);
     glEnd();
 	
-	glBegin(GL_QUADS);
-        glVertex3f( -edgeLength, -edgeLength, -edgeLength);
-        glVertex3f( -edgeLength, +edgeLength, -edgeLength);
-        glVertex3f( +edgeLength, +edgeLength, -edgeLength);
-        glVertex3f( +edgeLength, -edgeLength, -edgeLength);
+	glBegin(GL_QUADS);//cara con normal -z
+		glTexCoord2f(0,0);
+		glVertex3f( -edgeLength, -edgeLength, -edgeLength);
+		glTexCoord2f(0,1);
+		glVertex3f( -edgeLength, +edgeLength, -edgeLength);
+		glTexCoord2f(1,1);
+		glVertex3f( +edgeLength, +edgeLength, -edgeLength);
+		glTexCoord2f(1,0);
+		glVertex3f( +edgeLength, -edgeLength, -edgeLength);
     glEnd();
 	
-	glBegin(GL_QUADS);
-        glVertex3f( -edgeLength, -edgeLength, +edgeLength);
-        glVertex3f( -edgeLength, +edgeLength, +edgeLength);
-        glVertex3f( -edgeLength, +edgeLength, -edgeLength);
-        glVertex3f( -edgeLength, -edgeLength, -edgeLength);
+	glBegin(GL_QUADS);//cara con normal -x
+		glTexCoord2f(1,0);
+		glVertex3f( -edgeLength, -edgeLength, +edgeLength);
+		glTexCoord2f(1,1);
+		glVertex3f( -edgeLength, +edgeLength, +edgeLength);
+		glTexCoord2f(0,1);
+		glVertex3f( -edgeLength, +edgeLength, -edgeLength);
+		glTexCoord2f(0,0);
+		glVertex3f( -edgeLength, -edgeLength, -edgeLength);
     glEnd();
 	
-	glBegin(GL_QUADS);
-        glVertex3f( -edgeLength, +edgeLength, -edgeLength );
-        glVertex3f( -edgeLength, +edgeLength, +edgeLength );
-        glVertex3f( +edgeLength, +edgeLength, +edgeLength );
-        glVertex3f( +edgeLength, +edgeLength, -edgeLength );
+	glBegin(GL_QUADS);//cara con normal +y
+		glTexCoord2f(1,0);
+		glVertex3f( -edgeLength, +edgeLength, -edgeLength );
+		glTexCoord2f(1,1);
+		glVertex3f( -edgeLength, +edgeLength, +edgeLength );
+		glTexCoord2f(0,1);
+		glVertex3f( +edgeLength, +edgeLength, +edgeLength );
+		glTexCoord2f(0,0);
+		glVertex3f( +edgeLength, +edgeLength, -edgeLength );
     glEnd();
 	
-	glBegin(GL_QUADS);
-        glVertex3f( +edgeLength, -edgeLength, -edgeLength );
-        glVertex3f( +edgeLength, -edgeLength, +edgeLength );
-        glVertex3f( -edgeLength, -edgeLength, +edgeLength );
-        glVertex3f( -edgeLength, -edgeLength, -edgeLength );
+	glBegin(GL_QUADS);//cara con normal -y
+		glTexCoord2f(1,0);
+		glVertex3f( +edgeLength, -edgeLength, -edgeLength );
+		glTexCoord2f(1,1);
+		glVertex3f( +edgeLength, -edgeLength, +edgeLength );
+		glTexCoord2f(0,1);
+		glVertex3f( -edgeLength, -edgeLength, +edgeLength );
+		glTexCoord2f(0,0);
+		glVertex3f( -edgeLength, -edgeLength, -edgeLength );
     glEnd();
 	
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
+
 	glPolygonMode(GL_BACK, GL_FILL);//GL_LINE
 	glPolygonMode(GL_FRONT, GL_FILL);//GL_FILL
 }
