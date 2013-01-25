@@ -25,6 +25,7 @@
 #define SPACE (32)
 #define ENTER (13)
 #define BACKSPACE (8)
+#define TEX_SEQ_QTY (6)
 
 
 

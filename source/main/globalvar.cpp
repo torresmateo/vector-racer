@@ -118,11 +118,14 @@ ISound* gEXTRA_HEALTH_SOUND;
 ISound* gDEBUG_SOUND;
 
 objLoader gOBJ_LOADER;
-unsigned int gTUNNEL_TEXTURE;
+int gCURRENT_TEXTURE_INDEX = 0; //index de la siguiente textura a pintar
+unsigned int gTUNNEL_TEXTURE[TEX_SEQ_QTY];//la cantidad es igual al numero de texturas de la secuencia
+unsigned int gTUNNEL_FLOOR_TEXTURE[TEX_SEQ_QTY];//la cantidad es igual al numero de texturas de la secuencia
+unsigned int gCUBE_TEXTURE;
 unsigned int gMAIN_MENU_BG;
 unsigned int gINSTRUCTIONS_BG;
 unsigned int gGAME_OVER_BG;
-int gFIGHTER_MODEL;//RENOMBRAR esta es la variable que carga el modelo del archivo .obj
+int gFIGHTER_MODEL;
 
 
 
