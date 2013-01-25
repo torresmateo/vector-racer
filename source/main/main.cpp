@@ -36,9 +36,15 @@ int main(int argc, char **argv) {
 	ISoundEngine* soundEngine = createIrrKlangDevice();
 	
 	gINGAME_MUSIC = soundEngine->play2D("../media/ingame.ogg", true, true, true);
-	gINGAME_MUSIC->setVolume(0.6);
-	
 	gMENU_MUSIC = soundEngine->play2D("../media/menu.ogg", true, true, true);
+	// gNEXT_MENU_SOUND = soundEngine->play2D("../media/", false, true, true);
+	gTOP_SOUND = soundEngine->play2D("../media/excellent.mp3", false, true, true);
+	gTOP10_SOUND = soundEngine->play2D("../media/good.mp3", false, true, true);
+	// gNO_TOP10_SOUND = soundEngine->play2D("../media/.mp3", false, true, true);
+	gEXTRA_HEALTH_SOUND = soundEngine->play2D("../media/extra-health.mp3", false, true, true);
+	gDEBUG_SOUND = soundEngine->play2D("../media/done-hacked.mp3", false, true, true);
+	
+	gINGAME_MUSIC->setVolume(0.6);
 	gMENU_MUSIC->setVolume(0.6);
 	
 	// init GLUT and create window
