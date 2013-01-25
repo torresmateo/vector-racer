@@ -218,6 +218,10 @@ void gameInitialization(){
 	gCAR_LAST_X = 0;
 	gSCORE_STATE = NONE;
 	gPLAYER_NAME = "";
+	
+	gMENU_MUSIC->setIsPaused();
+	gINGAME_MUSIC->setPlayPosition(0);
+	gINGAME_MUSIC->setIsPaused(false);
 	glutTimerFunc(100,scorePP,100);
 }
 
