@@ -58,11 +58,6 @@ int main(int argc, char **argv) {
 	glEnable(GL_DEPTH_TEST);
 	
 	
-	//Inicialización de Luces
-
-	
-	
-	
 	gFIGHTER_MODEL=gOBJ_LOADER.load("fighter.obj");
 	string filename; 
 	std::ostringstream itoa;
@@ -83,8 +78,7 @@ int main(int argc, char **argv) {
 	gMAIN_MENU_BG = gOBJ_LOADER.loadSingleTexture("main-menu-background.bmp");
 	gINSTRUCTIONS_BG = gOBJ_LOADER.loadSingleTexture("instructions-background.bmp");
 	gGAME_OVER_BG = gOBJ_LOADER.loadSingleTexture("game-over-background.bmp");
-	
-	
+
 	// register callbacks
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
