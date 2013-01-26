@@ -32,6 +32,9 @@ void processInput() {
 	if( gKEYBOARD.asciiKeyPressed('q') ){
 		gKEYBOARD.removeAsciiKey('q');
 		gDEBUG_MODE = !gDEBUG_MODE;
+		if( gDEBUG_MODE ){
+			gSOUND_ENGINE->play2D("../media/done-hacked.ogg");
+		}
 	}
 	
 	switch( gGENERAL_STATE ){

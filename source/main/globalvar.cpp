@@ -108,14 +108,12 @@ GLfloat gFLOAT_DEBUGz = 0;
 Path gTUNNEL_PATH;
 PathSection gCURRENT_PATH_SECTION;
 
-ISound* gINGAME_MUSIC;
-ISound* gMENU_MUSIC;
-ISound* gNEXT_MENU_SOUND;
-ISound* gTOP_SOUND;
-ISound* gTOP10_SOUND;
-ISound* gNO_TOP10_SOUND;
-ISound* gEXTRA_HEALTH_SOUND;
-ISound* gDEBUG_SOUND;
+ISoundEngine* gSOUND_ENGINE = NULL;
+ISound* gINGAME_MUSIC = NULL;
+ISound* gMENU_MUSIC = NULL;
+ISound* gGAMEOVER_SOUND = NULL;
+
+bool gCONGRATS_DONE = false;
 
 objLoader gOBJ_LOADER;
 int gCURRENT_TEXTURE_INDEX = 0; //index de la siguiente textura a pintar

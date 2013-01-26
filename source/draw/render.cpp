@@ -128,6 +128,12 @@ void diplayInstructions(){
 
 void displayGameOverScreen(){
 	
+	if( gGAMEOVER_SOUND and gGAMEOVER_SOUND->isFinished() ){
+		gGAMEOVER_SOUND->drop();
+		gGAMEOVER_SOUND = NULL;
+	}
+	
+	
 	// Set the camera
 	updateCameraLookAt();
 	
@@ -162,6 +168,10 @@ void displayGameOverScreen(){
 				-115, -115, 0,
 				ss.str().c_str()
 			);
+			if( !gGAMEOVER_SOUND and !gCONGRATS_DONE ){
+				gSOUND_ENGINE->play2D("../media/excellent.ogg");
+				gCONGRATS_DONE = true;
+			}
 		}else if( gSCORE_STATE == TOP_10){
 			ss.str("");
 			ss << " TOP 10 SCORE!!";
@@ -169,7 +179,10 @@ void displayGameOverScreen(){
 				-75, -115, 0,
 				ss.str().c_str()
 			);
-			
+			if( !gGAMEOVER_SOUND and !gCONGRATS_DONE ){
+				gSOUND_ENGINE->play2D("../media/good.ogg");
+				gCONGRATS_DONE = true;
+			}
 		}
 		
 		if( gSCORE_STATE != NONE){
@@ -229,6 +242,7 @@ void displayGameOverScreen(){
 			glDisable(GL_LIGHTING);
 			glDisable(GL_LIGHT0);
 		}glPopMatrix();
+		
 	restorePerspectiveProjection();
 }
 
@@ -294,6 +308,7 @@ void displayInGame() {
 				gSCORE_STATE = NONE;
 			}
 			gIN_GAME_STATE = GAME_OVER;
+			gGAMEOVER_SOUND = gSOUND_ENGINE->play2D("../media/gameover.ogg", false, false, true);
 		} break;
 		
 		case GAME_OVER:{

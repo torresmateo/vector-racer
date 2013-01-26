@@ -189,8 +189,6 @@ void collisionHandler(){
 void gameInitialization(){
 	int index = 0;
 	
-	
-	
 	gTUNNEL_PATH.nextSection();	
 	gPREV_INDEX[0] = index;
 	gCURVES[index].resetItems(15);
@@ -220,6 +218,7 @@ void gameInitialization(){
 	gCAR_LAST_X = 0;
 	gSCORE_STATE = NONE;
 	gPLAYER_NAME = "";
+	gCONGRATS_DONE = false;
 	
 	gMENU_MUSIC->setIsPaused();
 	gINGAME_MUSIC->setPlayPosition(0);
