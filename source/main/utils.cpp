@@ -186,6 +186,17 @@ void collisionHandler(){
 }
 
 
+void resetMaterials(){
+	float diffuse[]={0.2, 0.2, 0.2, 1.0};
+	float ambient[]={0.8, 0.8, 0.8, 1.0};
+	float specular[]={0.0, 0.0, 0.0, 1.0};
+
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,diffuse);
+	glMaterialfv(GL_FRONT,GL_AMBIENT,ambient);
+	glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+	glMaterialf(GL_FRONT,GL_SHININESS,0);
+}
+
 void gameInitialization(){
 	int index = 0;
 	
