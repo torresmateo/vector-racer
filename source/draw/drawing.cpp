@@ -608,7 +608,7 @@ void printGameData(){
 	);
 	
 	ss.str("");
-	ss << "[ESC] Force Game Over";
+	ss << "[ESC] RAGE QUIT";
 	renderBitmapStringProjection( 
 		-gSCREEN.getW()/2+20, -gSCREEN.getH()/2+30, 0,
 		ss.str().c_str()

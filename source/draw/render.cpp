@@ -163,7 +163,7 @@ void displayGameOverScreen(){
 		
 		if( gSCORE_STATE == TOP){
 			ss.str("");
-			ss << "NEW HIGHTEST SCORE !!!";
+			ss << "NEW CHAMPION !!!";
 			renderBitmapStringProjection( 
 				-115, -115, 0,
 				ss.str().c_str()
@@ -267,7 +267,7 @@ void playing(){
 	setOrthographicProjection();
 		glPushMatrix();
 		glLoadIdentity();
-		glColor3f(GREEN);
+		glColor3f(CYAN);
 		
 		// imprime datos del juego
 		printGameData();
