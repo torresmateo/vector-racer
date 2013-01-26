@@ -111,17 +111,60 @@ void customCylinder(PathSection section) {
 		glDisable(GL_TEXTURE_2D);
 		
 		// Se pintan los objetos en la pista
-		
-		
 		glDisable(GL_LIGHTING);
 		glDisable(GL_LIGHT0);
-
-		if(section.thereIsWhiteSphere(j))
-			section.getWhiteSphere(j)->draw();
 		
-		if(section.thereIsBlueSphere(j))
-			section.getBlueSphere(j)->draw();
+		
+		if(section.thereIsWhiteSphere(j)){
+			glEnable(GL_LIGHTING);
+			/*
+			GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
+			GLfloat light_diffuse[] = { 1.0, 1.0, 0.0, 1.0 };
+			GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+			GLfloat light_position[] = { 0.0, -10.0, -1.0, -0.5 };
+			glLightfv (GL_LIGHT1, GL_AMBIENT, light_ambient);
+			glLightfv (GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+			glLightfv (GL_LIGHT1, GL_SPECULAR, light_specular);
+			glLightfv (GL_LIGHT1, GL_POSITION, light_position);
+			*/
 			
+			
+			
+			GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
+			GLfloat light_diffuse[] = { 0.0, 1.0, 1.0, 1.0 };
+			GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+			GLfloat light_position[] = { 0.0, -10.0, -1.0, 0.0 };
+			glLightfv (GL_LIGHT3, GL_AMBIENT, light_ambient);
+			glLightfv (GL_LIGHT3, GL_DIFFUSE, light_diffuse);
+			glLightfv (GL_LIGHT3, GL_SPECULAR, light_specular);
+			glLightfv (GL_LIGHT3, GL_POSITION, light_position);
+		
+			
+			glEnable(GL_LIGHT3);
+			section.getWhiteSphere(j)->draw();
+			glDisable(GL_LIGHT3);
+			
+			glDisable(GL_LIGHTING);
+
+		}
+		
+		if(section.thereIsBlueSphere(j)){
+			glEnable(GL_LIGHTING);
+		
+			GLfloat light_ambient[] = { 0.0, 0.0, 1.75, 1.0 };
+			GLfloat light_diffuse[] = { 0.0, 1.0, 1.0, 1.0 };
+			GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+			GLfloat light_position[] = { 0.0, -10.0, -1.0, 0.0 };
+			glLightfv (GL_LIGHT2, GL_AMBIENT, light_ambient);
+			glLightfv (GL_LIGHT2, GL_DIFFUSE, light_diffuse);
+			glLightfv (GL_LIGHT2, GL_SPECULAR, light_specular);
+			glLightfv (GL_LIGHT2, GL_POSITION, light_position);
+			
+			glEnable(GL_LIGHT2);
+			section.getBlueSphere(j)->draw();
+			glDisable(GL_LIGHT2);
+			glDisable(GL_LIGHTING);
+		}	
 		if(section.thereIsObstacle(j))
 			section.getObstacle(j)->draw();
 		
@@ -565,7 +608,7 @@ void printGameData(){
 	);
 	
 	ss.str("");
-	ss << "[ESC] Force Game Over";
+	ss << "[ESC] RAGE QUIT";
 	renderBitmapStringProjection( 
 		-gSCREEN.getW()/2+20, -gSCREEN.getH()/2+30, 0,
 		ss.str().c_str()
