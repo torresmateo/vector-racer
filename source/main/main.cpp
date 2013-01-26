@@ -48,14 +48,7 @@ int main(int argc, char **argv) {
 	glutInitWindowSize(800,600);
 	glutCreateWindow("Underground Race");
 	
-
 	glEnable(GL_DEPTH_TEST);
-	
-	
-	//Inicialización de Luces
-
-	
-	
 	
 	gFIGHTER_MODEL=gOBJ_LOADER.load("fighter.obj");
 	string filename; 
@@ -77,7 +70,7 @@ int main(int argc, char **argv) {
 	gMAIN_MENU_BG = gOBJ_LOADER.loadSingleTexture("main-menu-background.bmp");
 	gINSTRUCTIONS_BG = gOBJ_LOADER.loadSingleTexture("instructions-background.bmp");
 	gGAME_OVER_BG = gOBJ_LOADER.loadSingleTexture("game-over-background.bmp");
-	
+	drawCar();
 	
 	// register callbacks
 	glutDisplayFunc(display);
