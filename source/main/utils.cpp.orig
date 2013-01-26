@@ -129,12 +129,7 @@ void loadPath(){
 	
 	float torusOrientation = 0.0f;
 	
-	// PathSection seccion(torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
-	// PathSection seccion2(torusSection(0.5f, 100.0f,ringsDownCase, sectionAngleDownCase, 90.0f));
-	// PathSection seccion3(torusSection(0.5f, 40.0f,rings, sectionAngle, 270.0f));
-	// PathSection seccion4(torusSection(0.5f, 80.0f,rings, sectionAngle, 90.0f));
-	
-	PathSection auxPath;
+	PathSection auxPath(15);
 	auxPath.setRadius(0.5f);
 	Vector3D auxPositionEnd(0.0f,0.0f,0.5f);
 	auxPath.setPositionEnd(auxPositionEnd);
@@ -151,19 +146,97 @@ void loadPath(){
 	}
 	
 	gTUNNEL_PATH.pushSection(gCURVES[0]);
-	gTUNNEL_PATH.pushSection(gCURVES[rand()%8 + 1]);
-	gTUNNEL_PATH.pushSection(gCURVES[rand()%8 + 1]);
-	
+	gTUNNEL_PATH.pushSection(gCURVES[0]);
+	gTUNNEL_PATH.pushSection(gCURVES[0]);
 	
 }
 
 
 
+float customRand( float limitDown, float limitUp, int decimal) {
+	float e10decimal = pow(10,decimal);
+	int intLimitDown = limitDown * e10decimal;
+	int intLimitUp = limitUp * e10decimal;
+	return (rand()%(intLimitUp-intLimitDown+1) + intLimitDown)/e10decimal;
+}
 
 
+void collisionHandler(){
+	int CurentIndex = gTUNNEL_PATH.getCurrentSegmentsIndex()+2;
+	PathSection currentSection(gTUNNEL_PATH.getCurrentSection());
+	
+	if(CurentIndex >= currentSection.getNumberOfSegments()){
+		CurentIndex = CurentIndex - (currentSection.getNumberOfSegments());
+		currentSection = gTUNNEL_PATH.getNextSection();
+	}
+	
+	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
+		currentSection.getWhiteSphere(CurentIndex)->trigger();
+	}
+	
+	if(currentSection.thereIsBlueSphere(CurentIndex) and currentSection.getBlueSphere(CurentIndex)->isCollision()){
+		currentSection.getBlueSphere(CurentIndex)->trigger();
+	}
+	
+	if(currentSection.thereIsObstacle(CurentIndex) and currentSection.getObstacle(CurentIndex)->isCollision()){
+		currentSection.getObstacle(CurentIndex)->trigger();
+		if( !gCAR_HEALTH and !gDEBUG_MODE )
+			gIN_GAME_STATE = GAME_OVER_INIT;
+	}
+}
 
 
+void resetMaterials(){
+	float diffuse[]={0.2, 0.2, 0.2, 1.0};
+	float ambient[]={0.8, 0.8, 0.8, 1.0};
+	float specular[]={0.0, 0.0, 0.0, 1.0};
 
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,diffuse);
+	glMaterialfv(GL_FRONT,GL_AMBIENT,ambient);
+	glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+	glMaterialf(GL_FRONT,GL_SHININESS,0);
+}
+
+void gameInitialization(){
+	int index = 0;
+	
+	
+	
+	gTUNNEL_PATH.nextSection();	
+	gPREV_INDEX[0] = index;
+	gCURVES[index].resetItems(15);
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
+	
+	gTUNNEL_PATH.nextSection();	
+	index = rand()%8 + 1;
+	gPREV_INDEX[1] = index;
+	gCURVES[index].resetItems();
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
+	
+	gTUNNEL_PATH.nextSection();	
+	index = rand()%8 + 1;
+	while( index == gPREV_INDEX[1] )
+		index = rand()%8 + 1;
+	gPREV_INDEX[2] = index;
+	gCURVES[index].resetItems();
+	gTUNNEL_PATH.pushSection(gCURVES[index]);
+	
+	gCAM_POS.setXYZ(0.0f,0.0f,0.0f);
+	gCAM_DIR.setXYZ(0.0f,0.0f,1.0f);
+	gSCORE = 0;
+	gCAR_POS.setX(0);
+	gCAR_HEALTH = 3;
+	gCAR_SPEED = 0.2;
+	gCAR_TILT = 0;
+	gCAR_LAST_X = 0;
+	gSCORE_STATE = NONE;
+	gPLAYER_NAME = "";
+	
+	gMENU_MUSIC->setIsPaused();
+	gINGAME_MUSIC->setPlayPosition(0);
+	gINGAME_MUSIC->setIsPaused(false);
+	glutTimerFunc(100,scorePP,100);
+}
 
 
 
