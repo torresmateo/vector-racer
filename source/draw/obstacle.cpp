@@ -113,9 +113,30 @@ void Obstacle::draw() {
 		case CYLINDER: {
 			glColor3f(YELLOW);
 			glPushMatrix();{
+			
+			
+				glEnable(GL_LIGHTING);
+			
+				GLfloat light_ambient[] = { 1.75, 1.75, 0.0, 1.0 };
+				GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+				GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+				GLfloat light_position[] = { 0.0, -10.0, -1.0, -0.5 };
+				glLightfv (GL_LIGHT2, GL_AMBIENT, light_ambient);
+				glLightfv (GL_LIGHT2, GL_DIFFUSE, light_diffuse);
+				glLightfv (GL_LIGHT2, GL_SPECULAR, light_specular);
+				glLightfv (GL_LIGHT2, GL_POSITION, light_position);
+				
+				glEnable(GL_LIGHT2);
+			
+			
 				glTranslatef(shift,-0.29f,radius);
 				glRotatef(-90, 1,0,0);
 				drawSolidCylinder(quadric,radius,radius,height,8,1);
+
+				
+				glDisable(GL_LIGHT3);
+				glDisable(GL_LIGHTING);
+
 			}glPopMatrix();
 		} break;
 		case CUBE: {
