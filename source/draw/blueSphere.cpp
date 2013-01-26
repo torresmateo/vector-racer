@@ -28,6 +28,7 @@ void BlueSphere::trigger(){
 		return;
 	
 	if( !gCAR_GHOST ){
+		gSOUND_ENGINE->play2D("../media/blue-sphere.wav");
 		gCAR_SPEED /= 1.1;
 		triggered = true;
 	}

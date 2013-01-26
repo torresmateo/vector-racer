@@ -10,6 +10,7 @@ extern float gDIFFUSE[4];
 extern float gAMBIENT[4];
 extern float gSPECULAR[4];
 extern float gSHININESS;
+extern ISoundEngine* gSOUND_ENGINE;
 
 #include "obstacle.hpp"
 
@@ -149,11 +150,13 @@ void Obstacle::trigger(){
 		return;
 	
 	if( !gCAR_GHOST ){
-		if( gCAR_HEALTH > 0 )
+		if( gCAR_HEALTH > 0 ){
+			gSOUND_ENGINE->play2D("../media/impact.wav");
 			gCAR_HEALTH--;
+			if( gCAR_HEALTH > 0 )
+				carGhostHandler(0);
+		}
 			
-		if( gCAR_HEALTH > 0 )
-			carGhostHandler(0);
 	}
 		
 	triggered = true;
