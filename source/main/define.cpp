@@ -11,6 +11,7 @@
 #define ORANGE 	1.0f,0.5f,0.0f
 #define WHITE 	1.0f,1.0f,1.0f
 #define BLACK 	0.0f,0.0f,0.0f
+#define CYAN 	0.0f,1.0f,1.0f
 
 #define HALF_PI (1.570796326794897)
 #define PI (3.141592653589793)

@@ -70,14 +70,14 @@ bool Ranking::isTop10( int score ){
 
 void Ranking::draw(){
 	stringstream ss;
-	int shifty = 0;
-	int shiftx = 250;
+	int shifty = -40;
+	int shiftx = 258;
 	
 	// preparacion para impresion en pantalla
 	setOrthographicProjection();
 		glPushMatrix();
 			glLoadIdentity();
-			glColor3f(BLACK);
+			glColor3f(CYAN);
 			
 			// ss << "Ranking";
 			// renderBitmapStringProjection( 
