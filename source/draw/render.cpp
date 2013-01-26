@@ -120,7 +120,10 @@ void diplayInstructions(){
 			glDisable(GL_LIGHT0);
 		}glPopMatrix();
 		
+		
 	restorePerspectiveProjection();
+	
+	//TODO dibujar los obstaculos girando	
 }
 
 void displayGameOverScreen(){
@@ -137,7 +140,7 @@ void displayGameOverScreen(){
 	setOrthographicProjection();
 		glPushMatrix();
 		glLoadIdentity();
-		glColor3f(GREEN);
+		glColor3f(CYAN);
 		
 		// ss << "GAME OVER";
 		// renderBitmapStringProjection( 

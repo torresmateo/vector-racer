@@ -57,6 +57,12 @@ int main(int argc, char **argv) {
 
 	glEnable(GL_DEPTH_TEST);
 	
+	
+	//Inicialización de Luces
+
+	
+	
+	
 	gFIGHTER_MODEL=gOBJ_LOADER.load("fighter.obj");
 	string filename; 
 	std::ostringstream itoa;

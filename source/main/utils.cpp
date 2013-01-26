@@ -189,6 +189,8 @@ void collisionHandler(){
 void gameInitialization(){
 	int index = 0;
 	
+	
+	
 	gTUNNEL_PATH.nextSection();	
 	gPREV_INDEX[0] = index;
 	gCURVES[index].resetItems(15);

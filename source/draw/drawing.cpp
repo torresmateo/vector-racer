@@ -138,7 +138,7 @@ void customCylinder(PathSection section) {
 			GET_TRIPLET(rotateAxis)
 		);
 		gCURRENT_TEXTURE_INDEX = gCURRENT_TEXTURE_INDEX + 1>= TEX_SEQ_QTY? 0 : gCURRENT_TEXTURE_INDEX + 1;  
-		cout << gCURRENT_TEXTURE_INDEX << endl;
+		//cout << gCURRENT_TEXTURE_INDEX << endl;
 	}
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);
@@ -241,9 +241,6 @@ void drawCartesianAxis(){
 
 void drawCar(){
 
-
-	
-
 	glPushMatrix();{
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_FILL);
@@ -251,11 +248,6 @@ void drawCar(){
 		float scaleFactor = 0.00014f;
 		
 		//glTranslatef(0.0f,-0.25f,0.90f);
-		glEnable(GL_RESCALE_NORMAL);
-		
-		glScalef(scaleFactor,scaleFactor,scaleFactor);
-		
-		//glRotatef(180.0f,0.0f,1.0f,0.0f);
 		
 		GLfloat light_ambient[] = { 1.75, 1.75, 1.75, 1.0 };
 		GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -265,6 +257,12 @@ void drawCar(){
 		glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 		glLightfv (GL_LIGHT0, GL_SPECULAR, light_specular);
 		glLightfv (GL_LIGHT0, GL_POSITION, light_position);
+			
+		glEnable(GL_RESCALE_NORMAL);
+		
+		glScalef(scaleFactor,scaleFactor,scaleFactor);
+		
+		//glRotatef(180.0f,0.0f,1.0f,0.0f);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
 		glDepthFunc(GL_LESS);	

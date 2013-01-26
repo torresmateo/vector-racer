@@ -103,10 +103,10 @@ void drawTexturedCube( float edgeLength ){
 void Obstacle::draw() {
 
 
-	glMaterialfv(GL_FRONT,GL_DIFFUSE,gDIFFUSE);
+//	glMaterialfv(GL_FRONT,GL_DIFFUSE,gDIFFUSE);
 //	glMaterialfv(GL_FRONT,GL_AMBIENT,gAMBIENT);
-	glMaterialfv(GL_FRONT,GL_SPECULAR,gSPECULAR);
-	glMaterialf(GL_FRONT,GL_SHININESS,0.0);
+//	glMaterialfv(GL_FRONT,GL_SPECULAR,gSPECULAR);
+//	glMaterialf(GL_FRONT,GL_SHININESS,0.0);
 
 	switch(type){
 		case CYLINDER: {
