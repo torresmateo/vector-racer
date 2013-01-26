@@ -125,6 +125,10 @@ unsigned int gINSTRUCTIONS_BG;
 unsigned int gGAME_OVER_BG;
 int gFIGHTER_MODEL;
 
+//obstaculos globales para la pantalla de instrucciones
+
+// BlueSphere gBLUE_SPHERE = BlueSphere();
+
 
 //variables de iluminacion de los obstaculos
 

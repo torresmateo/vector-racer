@@ -71,6 +71,7 @@ void diplayInstructions(){
 		
 		// ss << "Instrucciones";
 		// renderBitmapStringProjection( 
+		//	
 			// gSCREEN.getW()/2.0, gSCREEN.getH()/2.0, 0,
 			// ss.str().c_str()
 		// );
@@ -95,7 +96,7 @@ void diplayInstructions(){
 		glPushMatrix();{
 			glLoadIdentity();
 			glColor3f(BLUE);
-			
+			glTranslatef(0.0f,0.0f,-0.9f);
 			glEnable(GL_LIGHTING);
 			glEnable(GL_LIGHT0);
 			glEnable(GL_TEXTURE_2D);
@@ -120,10 +121,9 @@ void diplayInstructions(){
 			glDisable(GL_LIGHT0);
 		}glPopMatrix();
 		
-		
-	restorePerspectiveProjection();
+	//glTranslatef(0.0f,0.0f,-0.2f);
 	
-	//TODO dibujar los obstaculos girando	
+	restorePerspectiveProjection();
 }
 
 void displayGameOverScreen(){
@@ -163,7 +163,7 @@ void displayGameOverScreen(){
 		
 		if( gSCORE_STATE == TOP){
 			ss.str("");
-			ss << "NEW HIGHTEST SCORE !!!";
+			ss << "NEW CHAMPION !!!";
 			renderBitmapStringProjection( 
 				-115, -115, 0,
 				ss.str().c_str()
@@ -267,7 +267,7 @@ void playing(){
 	setOrthographicProjection();
 		glPushMatrix();
 		glLoadIdentity();
-		glColor3f(GREEN);
+		glColor3f(CYAN);
 		
 		// imprime datos del juego
 		printGameData();

@@ -34,6 +34,8 @@ void processInput() {
 		gDEBUG_MODE = !gDEBUG_MODE;
 		if( gDEBUG_MODE ){
 			gSOUND_ENGINE->play2D("../media/done-hacked.ogg");
+		}else{
+			gCAR_SPEED = 0.2;
 		}
 	}
 	
