@@ -32,7 +32,7 @@ void WhiteSphere::trigger(){
 	if( !gCAR_GHOST ){
 		if(gCAR_HEALTH<3)
 			gCAR_HEALTH++;
-		
+		gSOUND_ENGINE->play2D("../media/white-sphere.wav");
 		triggered = true;
 	}
 }

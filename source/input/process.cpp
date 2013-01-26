@@ -47,6 +47,7 @@ void processInput() {
 			if( gKEYBOARD.asciiKeyPressed(ENTER)){
 				gKEYBOARD.removeAsciiKey(ENTER);
 				gGENERAL_STATE = IN_GAME;
+				gSOUND_ENGINE->play2D("../media/next-menu.wav");
 				gIN_GAME_STATE = INSTRUCTIONS;
 			}
 		}break;
@@ -60,6 +61,7 @@ void processInput() {
 				case INSTRUCTIONS:{
 					if( gKEYBOARD.asciiKeyPressed(ENTER) ){
 						gKEYBOARD.removeAsciiKey(ENTER);
+						gSOUND_ENGINE->play2D("../media/next-menu.wav");
 						gIN_GAME_STATE = GAME_INIT;
 					}
 					if( gKEYBOARD.asciiKeyPressed(ESC) ){
@@ -147,6 +149,7 @@ void processInput() {
 				case GAME_OVER:{
 					if( gKEYBOARD.asciiKeyPressed(ENTER) ){
 						gKEYBOARD.removeAsciiKey(ENTER);
+						gSOUND_ENGINE->play2D("../media/next-menu.wav");
 						gIN_GAME_STATE = GAME_OVER_END;
 					}
 					if( gKEYBOARD.asciiKeyPressed(ESC) ){
