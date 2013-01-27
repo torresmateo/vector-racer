@@ -13,6 +13,11 @@ void increaseSpeed(int millisec){
 void scorePP(int millisec){
 	if(gIN_GAME_STATE!=PLAYING)
 		return;
+	if(gDEBUG_MODE){
+		gSCORE = 0;
+		return;
+	}
+		
 	gSCORE ++;
 	glutTimerFunc(millisec, scorePP, millisec);
 }
