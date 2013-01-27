@@ -118,22 +118,36 @@ void Obstacle::draw() {
 				glEnable(GL_LIGHTING);
 			
 				GLfloat light_ambient[] = { 1.75, 1.75, 0.0, 1.0 };
-				GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-				GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-				GLfloat light_position[] = { 0.0, -10.0, -1.0, -0.5 };
-				glLightfv (GL_LIGHT2, GL_AMBIENT, light_ambient);
-				glLightfv (GL_LIGHT2, GL_DIFFUSE, light_diffuse);
-				glLightfv (GL_LIGHT2, GL_SPECULAR, light_specular);
-				glLightfv (GL_LIGHT2, GL_POSITION, light_position);
-				
-				glEnable(GL_LIGHT2);
+				GLfloat light_diffuse[] = { 1.0, 1.0, 0.0, 1.0 };
+				GLfloat light_specular[] = { 1.0, 1.0, 0.0, 1.0 };
+				GLfloat light_position[] = { -10.0, -10.0, 10.0, -10.5 };
 			
 			
 				glTranslatef(shift,-0.29f,radius);
 				glRotatef(-90, 1,0,0);
-				drawSolidCylinder(quadric,radius,radius,height,8,1);
+				
+				glLightfv (GL_LIGHT3, GL_AMBIENT, light_ambient);
+				glLightfv (GL_LIGHT3, GL_DIFFUSE, light_diffuse);
+				glLightfv (GL_LIGHT3, GL_SPECULAR, light_specular);
+				glLightfv (GL_LIGHT3, GL_POSITION, light_position);
+				
+				glEnable(GL_LIGHT3);
 
 				
+				float diffuse[4]={0.5f,0.55f,0.0f,1.0f};
+				float ambient[4]={0.3f,0.3f,0.0f,1.0f};
+				float specular[4]={0.0f,0.0f,0.0f,1.0f};
+				float shininess=0.5f;
+				
+				glMaterialfv(GL_FRONT,GL_DIFFUSE,diffuse);
+				glMaterialfv(GL_FRONT,GL_AMBIENT,ambient);
+				glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+				glMaterialf(GL_FRONT,GL_SHININESS,shininess);
+
+				
+				drawSolidCylinder(quadric,radius,radius,height,8,1);
+
+				resetMaterials();
 				glDisable(GL_LIGHT3);
 				glDisable(GL_LIGHTING);
 
