@@ -37,6 +37,7 @@ class Vector3D {
 			this->z = newZ;
 		}
 		
+        //rotar en el plano XZ
 		void rotateXZ( double deltaAngle ) {
 			double mag = this->getMagXZ();
 			double angle = this->getAngleXZ();
@@ -45,6 +46,7 @@ class Vector3D {
 			this->z = mag*sin( angle );
 		}
 		
+        //rotar en el plano YZ
 		void rotateYZ( double deltaAngle ) {
 			double mag = this->getMagYZ();
 			double angle = this->getAngleYZ();
@@ -53,19 +55,21 @@ class Vector3D {
 			this->z = mag*sin( angle );
 		}
 		
-		
+		//setear ángulo en el plano XZ
 		void setAngleXZ( double angle ) {
 			double mag = this->getMagXZ();
 			this->x = mag*cos( angle );
 			this->z = mag*sin( angle );
 		}
 		
+        //setear ángulo en el plano YZ
 		void setAngleYZ( double angle ) {
 			double mag = this->getMagYZ();
 			this->y = mag*cos( angle );
 			this->z = mag*sin( angle );
 		}
 		
+        //rotar en el plano que forman Y y la direccion actual de la camara
 		void rotateYH( double angle ) {
 			double saveAngleXZ = this->getAngleXZ();
 			this->setAngleXZ( HALF_PI );
@@ -148,17 +152,20 @@ class Vector3D {
 			return *this;
 		}
 		
+        //retorna el vector normalizado
 		Vector3D getNormalizedVector(){
 			float norm = sqrt(pow(this->x,2) + pow(this->y,2) + pow(this->z,2));
 			Vector3D resultVector(this->x/norm,this->y/norm,this->z/norm);
 			return resultVector;
 		}
 		
+        //normaliza el vector
 		Vector3D setNormalized(){
 			*this = this->getNormalizedVector();
 			return *this;
 		}
 		
+        //devuelve un vector unitario y perpendicular a sí mismo
 		Vector3D getUnitaryPerpendicularVector(){
 			float x0 = 0, y0 = 0, z0 = 0;			
 			x0 = 0;
@@ -169,6 +176,7 @@ class Vector3D {
 			return resultVector.getNormalizedVector();
 		}
 		
+        //multiplicación cruz entre vectores
 		static Vector3D crossMultiply(Vector3D u, Vector3D v){
 			float a = u.getY()*v.getZ() - u.getZ()*v.getY();
 			float b = u.getZ()*v.getX() - u.getX()*v.getZ();

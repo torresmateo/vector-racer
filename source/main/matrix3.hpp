@@ -1,3 +1,4 @@
+// Matrix3 es una clase de utilidad, que permite manejar una matriz de 3 * 3 con facilidad
 #ifndef MATRIX_3_H
 #define MATRIX_3_H
 
@@ -68,6 +69,8 @@ class Matrix3{
 		}
 		
 		//utils
+		
+		//multiplicacion escalar de matrices
 		static Matrix3 scalarMultiply(Matrix3 matrix, double scalar){
 			matrix.setRow1(matrix.getRow1()*scalar);		
 			matrix.setRow2(matrix.getRow2()*scalar);
