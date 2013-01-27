@@ -36,6 +36,8 @@ void processInput() {
 			gSOUND_ENGINE->play2D("../media/done-hacked.ogg");
 		}else{
 			if( gIN_GAME_STATE==PLAYING ){
+				gCAM_POS.setXYZ(0,0,0);
+				gCAM_DIR.setXYZ(0,0,1);
 				gCAR_SPEED = 0.2;
 				glutTimerFunc(100,scorePP,100);
 			}

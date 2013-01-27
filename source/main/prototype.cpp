@@ -38,6 +38,7 @@ void carGhostHandler(int millisec);
 
 void scorePP(int millisec);
 
+void resetMaterials();
 
 
 
