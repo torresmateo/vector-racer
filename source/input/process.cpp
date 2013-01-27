@@ -35,7 +35,10 @@ void processInput() {
 		if( gDEBUG_MODE ){
 			gSOUND_ENGINE->play2D("../media/done-hacked.ogg");
 		}else{
-			gCAR_SPEED = 0.2;
+			if( gIN_GAME_STATE==PLAYING ){
+				gCAR_SPEED = 0.2;
+				glutTimerFunc(100,scorePP,100);
+			}
 		}
 	}
 	
