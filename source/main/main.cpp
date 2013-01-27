@@ -1,27 +1,32 @@
 
+//limitador de FOS
 void FPSLock(int millisec) {
 	glutTimerFunc(millisec, FPSLock, millisec);gDEBUG = gKEYBOARD.toString();
 	glutPostRedisplay();
 }
 
+//aumenta la velocidad en un factor de 1.1
 void increaseSpeed(int millisec){
 	glutTimerFunc(millisec, increaseSpeed, millisec);
 	if( gCAR_SPEED*1.1 <= 1 )
 		gCAR_SPEED *= 1.1;
 }
 
+//sumador de puntos
 void scorePP(int millisec){
-	if(gIN_GAME_STATE!=PLAYING)
+	if(gIN_GAME_STATE!=PLAYING)//si no estamos en el juego, no necesitamos sumar puntos
 		return;
-	if(gDEBUG_MODE){
+	if(gDEBUG_MODE){// si estamos en modo debug se resetea el score para evitar trampas 
 		gSCORE = 0;
 		return;
 	}
 		
+	//si estamos en juego y fuera del modo debug, se suman puntos
 	gSCORE ++;
 	glutTimerFunc(millisec, scorePP, millisec);
 }
 
+//manejador del estado post colisión
 void carGhostHandler(int millisec){
 	if(!millisec){
 		gCAR_GHOST = 11;
