@@ -1,11 +1,15 @@
 #ifndef PATH_H
 #define PATH_H
 
+//Clase que permite el manejo en forma de cola de las secciones del túnel
 class Path {
-	
+	//lista de secciones
 	vector<PathSection> sectionList;
+    //sección actual
 	PathSection currentSection;
+    //indice actual del stack
 	unsigned int index;
+    //segmentos sin usar en la sección actual
 	int currentUnusedSegments;
 	public:
 	
@@ -59,8 +63,11 @@ class Path {
 			return sectionList.size();
 		}
 		//utils
+        
+        //agrega una sección al final del stack
 		void pushSection(PathSection section){
 			sectionList.push_back(section);
+            //si es el primer elemento, seteamos las variables internas acordemente
 			if(sectionList.size() == 1){
 				this->currentSection = sectionList[0];
 				this->currentUnusedSegments = sectionList[0].getNumberOfSegments();
@@ -68,18 +75,23 @@ class Path {
 			}
 		}
 		
+        //avanza a la siguiente sección del stack
 		void nextSection(){//circularidad
+            //eliminamos la sección inicial del stack
 			sectionList.erase(sectionList.begin());
+            //restamos el índice de la sección actual
 			index--;
 			if(index >= sectionList.size()){
 				index = 0;
 			}else{
 				index++;
 			}
+            //actualizamos las variables internas
 			currentSection = sectionList[index];
 			currentUnusedSegments = currentSection.getNumberOfSegments();
 		}
-		
+
+		//consumir un segmento de la sección actual
 		void consumeSegment(){
 			currentUnusedSegments--;
 		}
