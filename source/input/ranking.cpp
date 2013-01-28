@@ -1,7 +1,9 @@
 
 #include "ranking.hpp"
 
-
+// inserta un nuevo par <puntaje,jugador>
+// el set ordena los elementos automaticamente
+// el onceavo par (el que cae fuera del top10) se elimina
 void Ranking::insert( string playerName, int score ){
 	playersList.insert( std::pair<int,string>(score,playerName) );
 	for (
@@ -11,6 +13,7 @@ void Ranking::insert( string playerName, int score ){
 	){ playersList.erase(it); }
 }
 
+// extre los datos del archivo de ranking y los asigna a la propiedad "playersList" del objeto
 void Ranking::retrieveData(){
 	playersList.clear();
 	fstream rankingFile("ranking (do not modify).txt");
@@ -32,6 +35,7 @@ void Ranking::retrieveData(){
 	rankingFile.close();
 }
 
+// actualiza el archivo con los nuevos datos
 void Ranking::setData(){
 	fstream rankingFile("ranking (do not modify).txt",ios_base::in|ios_base::out|ios_base::trunc);
 	
@@ -44,10 +48,12 @@ void Ranking::setData(){
 	rankingFile.close();
 }
 
+// vacia la lista de puntajes
 void Ranking::clear(){
 	playersList.clear();
 }
 
+// se utiliza para saber si un puntaje dado es el mas alto con respecto a los puntajes actuales en el objeto
 bool Ranking::isHighestScore( int score ){
 	if( playersList.size() == 0 )
 		return true;
@@ -58,6 +64,7 @@ bool Ranking::isHighestScore( int score ){
 	return false;
 }
 
+// se utiliza para saber si un puntaje dado esta en el top 10 con respecto a los puntajes actuales en el objeto
 bool Ranking::isTop10( int score ){
 	if( playersList.size() < 10 )
 		return true;
@@ -68,6 +75,7 @@ bool Ranking::isTop10( int score ){
 	return false;
 }
 
+// dibuja los puntajes en pantalla
 void Ranking::draw(){
 	stringstream ss;
 	int shifty = -40;
@@ -78,12 +86,6 @@ void Ranking::draw(){
 		glPushMatrix();
 			glLoadIdentity();
 			glColor3f(CYAN);
-			
-			// ss << "Ranking";
-			// renderBitmapStringProjection( 
-				// 0, 40+shifty, 0,
-				// ss.str().c_str()
-			// );
 			
 			for (
 				set< pair<int,string> >::reverse_iterator rit=playersList.rbegin(); 
