@@ -1,4 +1,5 @@
 #include "pathSection.hpp"
+//implementación de la clase PathSection
 
 
 
@@ -30,39 +31,37 @@ Vector3D PathSection::getNormalEnd(){ return this->normalEnd; }
 
 //utils
 
+//retorna true si hay algún obstáculo en el segmento i
 bool PathSection::thereIsObstacle(int i) {
 	return obstacles[i]? true : false;
 }
 
+//retorna true si hay una esfera azúl en el segmento i
 bool PathSection::thereIsBlueSphere(int i) {
 	return blueSpheres[i]? true : false;
 }
 
+//retorna true si hay una esfera blanca en el segmento i
 bool PathSection::thereIsWhiteSphere(int i) {
 	return whiteSpheres[i]? true : false;
 }
 
+//retorna el obstáculo del segmento i
 Obstacle* PathSection::getObstacle(int i) {
 	return obstacles[i];
 }
 
+//retorna la esfera azúl del segmento i
 BlueSphere* PathSection::getBlueSphere(int i) {
 	return blueSpheres[i];
 }
 
+//retorna la esfera azúl del segmento i
 WhiteSphere* PathSection::getWhiteSphere(int i) {
 	return whiteSpheres[i];
 }
 
-
-Vector3D PathSection::getPointAtDegree(Vector3D axis, Vector3D orthogonal1, Vector3D orthogonal2, float degree){
-	float theta = degree*PI/180.0f;
-	GLfloat x = axis.getX() + radius*cos(theta)*orthogonal1.getX() + radius*sin(theta)*orthogonal2.getX();
-	GLfloat y = axis.getY() + radius*cos(theta)*orthogonal1.getY() + radius*sin(theta)*orthogonal2.getY();
-	GLfloat z = axis.getZ() + radius*cos(theta)*orthogonal1.getZ() + radius*sin(theta)*orthogonal2.getZ();
-	return Vector3D(x, y, z);
-}
-
+//borra los obstáculos y las esferas de la sección
 void PathSection::deleteItems(){
 	for(int i = 0; i<84; i++){
 		delete obstacles[i];
@@ -74,11 +73,14 @@ void PathSection::deleteItems(){
 	}
 }
 
+//genera obstáculos y esferas en la sección
 void PathSection::createItems(){
 	for(int i = 0; i<84; i++){
+        //agregamos los obstáculos
 		if(rand()%100 < 35)
 			obstacles[i] = new Obstacle;
 			
+        //agregamos las esferas azules
 		if(rand()%1000 < 3){
 			if( obstacles[i] )
 				blueSpheres[i] = new BlueSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
@@ -86,6 +88,7 @@ void PathSection::createItems(){
 				blueSpheres[i] = new BlueSphere();
 		}
 			
+        //agregamos las esferas blancas
 		if(rand()%100 < 2){
 			if( obstacles[i] )
 				whiteSpheres[i] = new WhiteSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
@@ -95,6 +98,7 @@ void PathSection::createItems(){
 	}
 }
 
+//genera obstáculos y esferas en la sección, ignorando los primeros "segmentsLeftOut" segmentos
 void PathSection::createItems( int segmentsLeftOut ){
 	for(int i = segmentsLeftOut; i<84; i++){
 		if(rand()%100 < 35)
@@ -116,11 +120,13 @@ void PathSection::createItems( int segmentsLeftOut ){
 	}
 }
 
+//regenera los obstáculos y esferas de la sección
 void PathSection::resetItems(){
 	this->deleteItems();
 	this->createItems();
 }
 
+//regenera los obstáculos y esferas de la sección, ignorando los primeros "segmentsLeftOut" segmentos
 void PathSection::resetItems( int segmentsLeftOut ){
 	this->deleteItems();
 	this->createItems(segmentsLeftOut);
