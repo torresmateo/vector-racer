@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 	//configuración inicial de la ventana utilizando GLUT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
-	glutInitWindowPosition(550,150);
+	glutInitWindowPosition(100,100);
 	glutInitWindowSize(800,600);
 	glutCreateWindow("Underground Race");
 	glEnable(GL_DEPTH_TEST);
