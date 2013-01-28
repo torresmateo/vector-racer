@@ -40,6 +40,7 @@ using namespace irrklang;
 #include "draw/obstacle.cpp"
 #include "draw/whiteSphere.cpp"
 #include "draw/blueSphere.cpp"
+#include "draw/fuchsiaSphere.cpp"
 #include "draw/pathSection.cpp"
 #include "draw/path.cpp"
 #include "input/keyboard.cpp"

@@ -26,7 +26,9 @@ class PathSection {
 	vector<BlueSphere*> blueSpheres;
     //vector de esferas blancas de la sección
 	vector<WhiteSphere*> whiteSpheres;
-	
+    //vector de esferas fucsias de la sección
+	vector<FuchsiaSphere*> fuchsiaSpheres;
+    
     //borrar obstáculos y esferas de la sección
 	void deleteItems();
     //generar obstáculos y esferas de la sección
@@ -53,6 +55,7 @@ class PathSection {
 				obstacles.push_back(NULL);
 				blueSpheres.push_back(NULL);
 				whiteSpheres.push_back(NULL);
+				fuchsiaSpheres.push_back(NULL);
 			}
 			
 			createItems();
@@ -73,6 +76,7 @@ class PathSection {
 				obstacles.push_back(NULL);
 				blueSpheres.push_back(NULL);
 				whiteSpheres.push_back(NULL);
+				fuchsiaSpheres.push_back(NULL);
 			}
 			
 			createItems( segmentsLeftOut );
@@ -93,6 +97,7 @@ class PathSection {
 				obstacles.push_back(NULL);
 				blueSpheres.push_back(NULL);
 				whiteSpheres.push_back(NULL);
+				fuchsiaSpheres.push_back(NULL);
 			}
 			
 			createItems();
@@ -131,11 +136,15 @@ class PathSection {
 		bool thereIsBlueSphere(int i);
         //retorna true si hay una esfera blanca en el segmento i
 		bool thereIsWhiteSphere(int i);
+        //retorna true si hay una esfera fucsia en el segmento i
+		bool thereIsFuchsiaSphere(int i);
         //retorna el obtáculo del segmento i
 		Obstacle* getObstacle(int i);
         //retorna la esfera azúl del segmento i
 		BlueSphere* getBlueSphere(int i);
         //retorna la esfera blanca del segmento i
 		WhiteSphere* getWhiteSphere(int i);
+        //retorna la esfera fucsia del segmento i
+		FuchsiaSphere* getFuchsiaSphere(int i);
 };
 #endif

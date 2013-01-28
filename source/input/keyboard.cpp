@@ -1,10 +1,12 @@
-
-
 #include "keyboard.hpp"
+//implementación de la clase Keyboard
 
+//retorna un string con las teclas oprimidas
 string Keyboard::toString(){
 	
 	stringstream ss;
+
+    //se agregan las teclas ASCII
 	ss << "{";
 	
 	for (set<unsigned char>::iterator it=asciiKeys.begin(); it!=asciiKeys.end(); ++it) {
@@ -12,6 +14,7 @@ string Keyboard::toString(){
 		ss << ",";
 	}
 	
+    //se agregan las teclas compuestas
 	ss << "} {";
 	
 	for (set<int>::iterator it=specialKeys.begin(); it!=specialKeys.end(); ++it) {
@@ -24,6 +27,7 @@ string Keyboard::toString(){
 	return ss.str();
 }
 
+//retorna un string con las teclas ASCII oprimidas
 string Keyboard::asciiToString(){
 	
 	stringstream ss;
