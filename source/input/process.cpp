@@ -1,13 +1,13 @@
 
 
-
+// funcion para controlar los efectos de la presion de teclas (o la no presion de estas)
 void processInput() {
 
 	/***********************************
 		Seccion con posibilidad de ninguna tecla presionada
 	************************************/
 	
-	// en caso de que la nave no se mueva lateralmente se contraresta la inclinacion
+	// en caso de que la nave no se mueva lateralmente se contraresta la inclinacion de la nave
 	if( 
 		(
 			( !gKEYBOARD.specialKeyPressed(GLUT_KEY_RIGHT) and !gKEYBOARD.specialKeyPressed(GLUT_KEY_LEFT) )
@@ -23,18 +23,20 @@ void processInput() {
 			gCAR_TILT += TILT_SPEED;
 	}
 	
-	/***********************************
-		Seccion de tecla(s) presionada(s)
-	***********************************/
+	/****************************************************
+		Seccion de tecla(s) necesariamente presionada(s)
+	****************************************************/
 	if( !gKEYBOARD.keyPressed() )
 		return;
 	
+	// activacion/desactivacion del modo debug
 	if( gKEYBOARD.asciiKeyPressed('q') ){
 		gKEYBOARD.removeAsciiKey('q');
 		gDEBUG_MODE = !gDEBUG_MODE;
 		if( gDEBUG_MODE ){
 			gSOUND_ENGINE->play2D("../media/done-hacked.ogg");
 		}else{
+			// al salir del modo debug (o cheat) se resetan las variables de juego, incluyendo la camara
 			if( gIN_GAME_STATE==PLAYING ){
 				gCAM_POS.setXYZ(0,0,0);
 				gCAM_DIR.setXYZ(0,0,1);
@@ -177,6 +179,7 @@ void processInput() {
 					}
 				}break;
 				
+				// casos sin control de teclado
 				case GAME_INIT:{}break;
 				case GAME_OVER_INIT:{}break;
 				case GAME_OVER_END:{} break;
