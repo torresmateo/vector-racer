@@ -23,7 +23,6 @@ class Path {
 			}
 		}
 		
-		//seters
 		//geters
 		PathSection getCurrentSection(){
 			return currentSection;
