@@ -53,14 +53,19 @@ class Obstacle {
 				gluDeleteQuadric(quadric);
 		}
 		
+		//dibuja los obstaculos
 		void draw();
+		//detección de colisiones
 		bool isCollision();
+		//disparador de eventos
 		void trigger();
 		
+		//getters
 		float getShift();
 		float getRadius();
 		float getHeight();
 		
+		//setters
 		void setShift( float newShift );
 		void setRadius( float newRadius );
 		void setHeight( float newHeight );

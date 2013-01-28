@@ -111,7 +111,7 @@ ISound* gINGAME_MUSIC = NULL;
 ISound* gMENU_MUSIC = NULL;
 ISound* gGAMEOVER_SOUND = NULL;
 
-
+//bandera para las "felicitaciones" en el game over
 bool gCONGRATS_DONE = false;
 
 //cargador de modelos obj
