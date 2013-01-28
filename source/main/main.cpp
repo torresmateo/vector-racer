@@ -36,7 +36,18 @@ void carGhostHandler(int millisec){
 		if(gCAR_GHOST)
 			glutTimerFunc(millisec, carGhostHandler, millisec);
 	}
-	
+}
+
+//manejador del estado ghost producto de la esfera fucsia
+void carGhostHandler10Sec(int millisec){
+	if(!millisec){
+		gCAR_GHOST = 101;
+		glutTimerFunc(100, carGhostHandler, 100);
+	}else{
+		gCAR_GHOST--;
+		if(gCAR_GHOST)
+			glutTimerFunc(millisec, carGhostHandler, millisec);
+	}
 }
 
 //función principal del programa
