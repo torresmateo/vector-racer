@@ -187,6 +187,35 @@ void customCylinder(PathSection section) {
 			glDisable(GL_LIGHTING);
 		}	
         
+        //si en esta sección tenemos una esfera fucsia en el segmento actual dibujamos
+        if(section.thereIsFuchsiaSphere(j)){
+            //la esfera fucsia tiene efectos de luz, por lo tanto habilitamos la iluminación
+            glEnable(GL_LIGHTING);
+
+            //configuramos otra fuente de luz especial para esta esfera
+            GLfloat light_ambient[] = {1.75, 0.0, 1.75, 1.0};
+            GLfloat light_diffuse[] = {0.0, 1.0, 1.0, 1.0};
+            GLfloat light_specular[] = {1.0,1.0,1.0,1.0};
+            GLfloat light_position[] = {0.0, -10.0, -1.0, 0.0};
+			glLightfv (GL_LIGHT4, GL_AMBIENT, light_ambient);
+			glLightfv (GL_LIGHT4, GL_DIFFUSE, light_diffuse);
+			glLightfv (GL_LIGHT4, GL_SPECULAR, light_specular);
+			glLightfv (GL_LIGHT4, GL_POSITION, light_position);
+			
+            //habilitamos la luz recien configurada
+			glEnable(GL_LIGHT4);
+
+            //dibujamos la esfera
+			section.getFuchsiaSphere(j)->draw();
+
+            //deshabilitamos la luz y la iluminación
+			glDisable(GL_LIGHT4);
+			glDisable(GL_LIGHTING);
+			
+
+
+        }
+
         //si tenemos en esta sección un obstáculo en el segmento actual, lo dibujamos
 		if(section.thereIsObstacle(j))
 			section.getObstacle(j)->draw();

@@ -46,6 +46,11 @@ bool PathSection::thereIsWhiteSphere(int i) {
 	return whiteSpheres[i]? true : false;
 }
 
+//retorna true si hay una esfera blanca en el segmento i
+bool PathSection::thereIsFuchsiaSphere(int i) {
+	return fuchsiaSpheres[i]? true : false;
+}
+
 //retorna el obstáculo del segmento i
 Obstacle* PathSection::getObstacle(int i) {
 	return obstacles[i];
@@ -56,9 +61,14 @@ BlueSphere* PathSection::getBlueSphere(int i) {
 	return blueSpheres[i];
 }
 
-//retorna la esfera azúl del segmento i
+//retorna la esfera blanca del segmento i
 WhiteSphere* PathSection::getWhiteSphere(int i) {
 	return whiteSpheres[i];
+}
+
+//retorna la esfera fucsia del segmento i
+FuchsiaSphere* PathSection::getFuchsiaSphere(int i) {
+	return fuchsiaSpheres[i];
 }
 
 //borra los obstáculos y las esferas de la sección
@@ -67,9 +77,11 @@ void PathSection::deleteItems(){
 		delete obstacles[i];
 		delete blueSpheres[i];
 		delete whiteSpheres[i];
+		delete fuchsiaSpheres[i];
 		obstacles[i] = NULL;
 		blueSpheres[i] = NULL;
 		whiteSpheres[i] = NULL;
+		fuchsiaSpheres[i] = NULL;
 	}
 }
 
@@ -86,6 +98,14 @@ void PathSection::createItems(){
 				blueSpheres[i] = new BlueSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
 			else
 				blueSpheres[i] = new BlueSphere();
+		}
+			
+        //agregamos las esferas fucsia
+		if(rand()%1000 < 1000){
+			if( obstacles[i] )
+				fuchsiaSpheres[i] = new FuchsiaSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
+			else
+				fuchsiaSpheres[i] = new FuchsiaSphere();
 		}
 			
         //agregamos las esferas blancas
@@ -109,6 +129,14 @@ void PathSection::createItems( int segmentsLeftOut ){
 				blueSpheres[i] = new BlueSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
 			else
 				blueSpheres[i] = new BlueSphere();
+		}
+			
+        //agregamos las esferas fucsia
+		if(rand()%1000 < 1000){
+			if( obstacles[i] )
+				fuchsiaSpheres[i] = new FuchsiaSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
+			else
+				fuchsiaSpheres[i] = new FuchsiaSphere();
 		}
 			
 		if(rand()%100 < 2){
