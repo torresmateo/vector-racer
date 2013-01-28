@@ -87,12 +87,18 @@ void Ranking::draw(){
 			glLoadIdentity();
 			glColor3f(CYAN);
 			
+			int i=1;
 			for (
 				set< pair<int,string> >::reverse_iterator rit=playersList.rbegin(); 
 				rit != playersList.rend(); 
 				++rit
 			){
 				ss.str("");
+				if(i<10)
+					ss << "  " <<i++ << ") ";
+				else
+					ss << i++ << ") ";
+					
 				shifty += 23;
 				
 				ss << rit->second; 
