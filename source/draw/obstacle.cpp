@@ -207,7 +207,7 @@ void Obstacle::trigger(){
 	if(triggered)
 		return;
     
-    //si estamos en el modo post colisión
+    //si no estamos en el modo "fantasma"
 	if( !gCAR_GHOST ){
         //si le queda vida a la nave
 		if( gCAR_HEALTH > 0 ){

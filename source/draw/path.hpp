@@ -11,8 +11,8 @@ class Path {
 	unsigned int index;
     //segmentos sin usar en la sección actual
 	int currentUnusedSegments;
-	public:
 	
+	public:
 		//constructors
 		
 		Path() {}
