@@ -188,17 +188,22 @@ void Obstacle::draw() {
 
 //detección de colisiones
 bool Obstacle::isCollision(){
+    //si coinciden las áreas horizontalmente
 	if( fabs(gCAR_POS.getX()-this->shift) <= CAR_WIDTH/2.0 + this->radius ){
+        //si coinciden la áreas en profundidad
 		if( gSEGMENT_PROGRESS/(-2.0)-CAR_LENGTH < this->radius*2 )
 			return true;
+        //si las áreas se traspasaron entre el muestreo anterior y el actual (corrección de discretización)
 		if( gCAR_SPEED/2.0 >= CAR_LENGTH+(this->radius)*2 and fabs(gCAR_LAST_X-this->shift) <= CAR_WIDTH/2.0 + this->radius )
 			return true;
 	}
+    //si no se dió alguno de los casos anteriores, no hubo colisión
 	return false;
 }
 
 //disparador de eventos
 void Obstacle::trigger(){
+    //si el evento del obstáculo ya fue disparado, ignoramos el evento
 	if(triggered)
 		return;
     
