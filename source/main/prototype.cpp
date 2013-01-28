@@ -49,6 +49,9 @@ float customRand( float limitDown, float limitUp, int decimal);
 //manejador del estado post colisión de la nave
 void carGhostHandler(int millisec);
 
+//manejador del estado ghost producto de la esfera fucsia
+void carGhostHandler10Sec(int millisec);
+
 //sumador de puntos
 void scorePP(int millisec);
 

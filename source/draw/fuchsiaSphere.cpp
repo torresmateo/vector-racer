@@ -41,7 +41,9 @@ void FuchsiaSphere::trigger(){
 	
     //si no estamos en el estado post colisión
 	if( !gCAR_GHOST ){
-        //TODO METELE ACA EL CODIGO VITEH
+		//reproducimos el sonido de colisión (reciclado de la esfera azúl)
+		gSOUND_ENGINE->play2D("../media/blue-sphere.wav");
+		carGhostHandler10Sec(0);
 		triggered = true;
 	}
 }

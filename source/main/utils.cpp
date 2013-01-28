@@ -187,6 +187,10 @@ void collisionHandler(){
 		currentSection = gTUNNEL_PATH.getNextSection();
 	}
 	
+	if(currentSection.thereIsFuchsiaSphere(CurentIndex) and currentSection.getFuchsiaSphere(CurentIndex)->isCollision()){
+		currentSection.getFuchsiaSphere(CurentIndex)->trigger();
+	}
+	
 	if(currentSection.thereIsWhiteSphere(CurentIndex) and currentSection.getWhiteSphere(CurentIndex)->isCollision()){
 		currentSection.getWhiteSphere(CurentIndex)->trigger();
 	}
