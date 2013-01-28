@@ -101,7 +101,7 @@ void PathSection::createItems(){
 		}
 			
         //agregamos las esferas fucsia
-		if(rand()%1000 < 1000){
+		if(rand()%1000 < 2){
 			if( obstacles[i] )
 				fuchsiaSpheres[i] = new FuchsiaSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
 			else
@@ -121,9 +121,11 @@ void PathSection::createItems(){
 //genera obstáculos y esferas en la sección, ignorando los primeros "segmentsLeftOut" segmentos
 void PathSection::createItems( int segmentsLeftOut ){
 	for(int i = segmentsLeftOut; i<84; i++){
+		//agregamos los obstáculos
 		if(rand()%100 < 35)
 			obstacles[i] = new Obstacle;
-			
+		
+		//agregamos las esferas azules
 		if(rand()%1000 < 3){
 			if( obstacles[i] )
 				blueSpheres[i] = new BlueSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
@@ -132,13 +134,14 @@ void PathSection::createItems( int segmentsLeftOut ){
 		}
 			
         //agregamos las esferas fucsia
-		if(rand()%1000 < 1000){
+		if(rand()%1000 < 2){
 			if( obstacles[i] )
 				fuchsiaSpheres[i] = new FuchsiaSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
 			else
 				fuchsiaSpheres[i] = new FuchsiaSphere();
 		}
-			
+		
+		//agregamos las esferas blancas
 		if(rand()%100 < 2){
 			if( obstacles[i] )
 				whiteSpheres[i] = new WhiteSphere(obstacles[i]->getShift(),obstacles[i]->getRadius());
