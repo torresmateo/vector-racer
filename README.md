@@ -1,20 +1,17 @@
-Underground Race
-================
+# Underground Race
 
 Es un juego en 3D creado utilizando OpenGL y GLUT para el manejo de la pantalla y render gráfico, 
-con irrKlang 1.4.0 para el audio. 
+con irrKlang 1.4.0 para el audio.
 
 El juego es parte de la cátedra "Informática 3" del segundo semestre del 2012 
 de la Universidad Católica "Nuestra Señora de la Asunción" que está ubicada en Asunción, Paraguay.
 Dicha Cátedra se encuentra a cargo del Ing. Sergio Aranda
 
-Instrucciones:
-==============
+## Instrucciones
 
 Ejecutar UndergroundRace.exe (Windows) o el ejecutable UndergroundRace (OS X)
 
-Reglas del Juego:
-=================
+## Reglas del Juego
 
 El jugador controla una nave, que puede mover de forma horizontal.
 El objetivo del juego es sobrevivir el mayor tiempo posible.
@@ -34,27 +31,22 @@ Además de los obstáculos, existen items que premian al jugador:
     - Edfera Fucsia: Invulnerabilidad por 10 segundos.
 
 
-Controles:
-==========
+## Controles
 
-Flecha Izquierda    - Mover la nave a la izquierda
-Flecha Derecha      - Mover la nave a la derecha
+    Flecha Izquierda    - Mover la nave a la izquierda
+    Flecha Derecha      - Mover la nave a la derecha
+    Q                   - Entrar a Modo Debug
+    -- Controles en Modo DEbug --
+    W                   - Mover la cámara hacia adelante (profundidad)
+    A                   - Mover la cámara lateralmente hacia la izquierda
+    S                   - Mover la cámara hacia atrás (profundidad)
+    D                   - Mover la cámara lateralmente hacia la derecha
+    X                   - Detener/Reiniciar la velocidad
+    R                   - Reset de los valores de posición y dirección de la cámara
 
-Q                   - Entrar a Modo Debug
-    Controles en Modo DEbug
-    -----------------------
-       
-    W                       - Mover la cámara hacia adelante (profundidad)
-    A                       - Mover la cámara lateralmente hacia la izquierda
-    S                       - Mover la cámara hacia atrás (profundidad)
-    D                       - Mover la cámara lateralmente hacia la derecha
-    X                       - Detener/Reiniciar la velocidad
-    R                       - Reset de los valores de posición y dirección de la cámara
+    Mouse Click y Drag  - Modificar la dirección de la cámara
 
-    Mouse Click y Drag      - Modificar la dirección de la cámara
-
-Detalles de la implementación:
-==============================
+## Detalles de la implementación
 
 El juego está implementado en C++, los detalles más importantes de la implementación son los siguientes:
 
@@ -74,8 +66,7 @@ diseñado por los alumnos.
 - Las transformaciones de dibujado utilizan la implementación de matemática vectorial hecha por los alumnos.
 
 
-Autores:
-========
+## Autores
 
-Fernando Minardi    <minardifer@gmail.com>
-Mateo Torres        <torresmateo@gmail.com>
+- [Fernando Minardi](https://github.com/fernandominardi "GitHub profile") \<minardifer@gmail.com\>
+- [Mateo Torres](https://github.com/torresmateo "GitHub profile") \<torresmateo@gmail.com\>
